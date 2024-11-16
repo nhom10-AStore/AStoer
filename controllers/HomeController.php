@@ -3,6 +3,6 @@
 class HomeController
 {
     public function index() {
-        echo "Xưởng thực hành dự án 1";
+    //    require_once './client/home-15.php';
     }
 }
