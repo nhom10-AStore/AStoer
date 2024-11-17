@@ -74,6 +74,15 @@ class DonHangController
             }
         }
     }
+    public function detailDonHang()
+    {
+        $don_hang_id = $_GET['id_don_hang'];
+        $donHang = $this->modelDonHang->getDetailData($don_hang_id);
+        $sanPhamDonHang = $this->modelDonHang->getListSpDonHang($don_hang_id);
+        $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
+        require_once './views/donhang/detailDonHang.php';
+    }
+
     public function destroy()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

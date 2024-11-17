@@ -362,6 +362,7 @@ class SanPhamController
 
         // Lấy danh sách bình luận
         $listBinhLuan = $this->modelBinhLuan->getAllBinhLuan($id);
+        $danhGias = $this->modelSanPham->getAllDanhGiaBySanPhamId($id);
 
         // Nếu sản phẩm tồn tại, hiển thị view
         if ($SanPham) {
@@ -369,6 +370,42 @@ class SanPhamController
         } else {
             header('location: ?act=san_phams');
             exit();
+        }
+    }
+    public function formPhanHoi()
+    {
+        // lay id 
+        $id = $_GET['danh_gia_id'];
+        // lay thong tin chi tiet danh muc
+        $danhGias = $this->modelSanPham->getDetaiDanhGia($id);
+        // var_dump($danhMucs);
+        // do du lieu ra form
+        require_once './views/sanpham/phanhoidanhgia.php';
+    }
+    public function updateDanhGia()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            # lay ra du lieu
+            $id = $_POST['id'];
+            $tra_loi = $_POST['tra_loi'];
+            // var_dump($trang_thai);
+            // validate
+            $errors = [];
+            if (empty($tra_loi)) {
+                $errors['tra_loi'] = 'Phản hồi đánh giá';
+            }
+            // them du lieu
+            if (empty($errors)) {
+                # neu k co loi thi them du lieu
+                // Them vao CSDL
+                $this->modelSanPham->updateDG($id, $tra_loi);
+                unset($_SESSION['errors']);
+                header('Location: ?act=chi_tiet_san_pham');
+                exit();
+            } else {
+                $_SESSION['errors'] = $errors;
+                header('Location: ?act=form-phanhoi');
+            }
         }
     }
 }

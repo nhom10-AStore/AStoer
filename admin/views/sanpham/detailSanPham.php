@@ -32,7 +32,7 @@
 
     #image-container img {
         display: inline-block;
-        
+
 
     }
 </style>
@@ -85,7 +85,7 @@
                                     </div><br> -->
                                     <div class="col-12 product-image-thumbs" style="padding: 30px 50px; ">
                                         <!-- Large Image Display -->
-                                        <div class="product-image-large mb-2" >
+                                        <div class="product-image-large mb-2">
                                             <img style=" padding: 10px; border:1px solid orangered;" id="largeImage" width="400px" height="400px" src="<?= BASE_URL . $listAnhSanPham[0]['link_hinh_anh'] ?>" alt="Large Product Image">
                                         </div>
                                         <!-- Thumbnails -->
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <br>
-                            <<div class="col-12">
+                            <div class="col-12">
                                 <h2>Bình luận</h2>
                                 <div class="comment-section">
                                     <table id="example1" class="table table-bordered table-striped">
@@ -143,43 +143,101 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <h2>Danh sách đánh giá</h2>
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Tên khách hàng</th>
+                                            <th>Đánh giá</th>
+                                            <th>Nội dung</th>
+                                            <th>Ngày đánh giá</th>
+                                            <th>Trả lời</th>
+                                            <th>Phản Hồi</th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- Kiểm tra nếu biến $danhGias có tồn tại và không rỗng -->
+
+                                    <?php foreach ($danhGias as $danhGia): ?>
+                                        <tr>
+
+                                            <td><?= $danhGia['ho_ten'] ?></td>
+                                            <td><?php
+
+                                                if ($danhGia['sao'] == 1) {
+                                                ?>
+                                                    <span>1 sao</span>
+
+                                                <?php
+                                                } else if ($danhGia['sao'] == 2) {
+                                                ?>
+                                                    <span>2 sao</span>
+                                                <?php
+                                                } else if ($danhGia['sao'] == 3) {
+                                                ?>
+
+                                                    <span>3 sao</span>
+                                                <?php
+                                                } else if ($danhGia['sao'] == 4) {
+                                                ?>
+
+                                                    <span>4 sao</span>
+                                                <?php
+                                                } else if ($danhGia['sao'] == 5) {
+                                                ?>
+
+                                                    <span>5 sao</span>
+                                                <?php
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?= $danhGia['noi_dung'] ?></td>
+                                            <td><?= $danhGia['ngaydg'] ?></td>
+                                            <td><?= $danhGia['tra_loi'] ?></td>
+
+                                            <td><a href="?act=form-phanhoi&danh_gia_id=<?= $danhGia['id'] ?>" class="link-success fs-15"><i class="ri-edit-2-line"></i></a></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                </table>
+                            </div>
+
                         </div>
-
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
+
                 </div>
-                <!-- /.card -->
-
-            </div>
-            <!-- END layout-wrapper -->
+                <!-- END layout-wrapper -->
 
 
 
-            <!--start back-to-top-->
-            <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
-                <i class="ri-arrow-up-line"></i>
-            </button>
-            <!--end back-to-top-->
+                <!--start back-to-top-->
+                <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+                    <i class="ri-arrow-up-line"></i>
+                </button>
+                <!--end back-to-top-->
 
-            <!--preloader-->
-            <div id="preloader">
-                <div id="status">
-                    <div class="spinner-border text-primary avatar-sm" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                <!--preloader-->
+                <div id="preloader">
+                    <div id="status">
+                        <div class="spinner-border text-primary avatar-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="customizer-setting d-none d-md-block">
-                <div class="btn-info rounded-pill shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
-                    <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
+                <div class="customizer-setting d-none d-md-block">
+                    <div class="btn-info rounded-pill shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
+                        <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
+                    </div>
                 </div>
-            </div>
 
-            <!-- JAVASCRIPT -->
-            <?php
-            require_once "views/layouts/libs_js.php";
-            ?>
+                <!-- JAVASCRIPT -->
+                <?php
+                require_once "views/layouts/libs_js.php";
+                ?>
 
 </body>
 

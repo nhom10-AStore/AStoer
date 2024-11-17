@@ -65,10 +65,10 @@
                                 <div class="card">
                                     <div class="card-header align-items-center d-flex">
                                         <h4 class="card-title mb-0 flex-grow-1">Danh sach san pham </h4>
-                                       
+
                                         <form class="pri-add-circle-line align-middle me-1">
-                                            <input type="text" id="search-options" placeholder="Tìm kiếm sản phẩm..."  onkeyup="searchProducts()" autocomplete="off" class="">
-                                            <span class="mdi mdi-magnify search-widget-icon btn btn-light" ></span>
+                                            <input type="text" id="search-options" placeholder="Tìm kiếm sản phẩm..." onkeyup="searchProducts()" autocomplete="off" class="">
+                                            <span class="mdi mdi-magnify search-widget-icon btn btn-light"></span>
                                             <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
                                         </form>
 
@@ -132,7 +132,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="hstack gap-3 flex-wrap">
-                                                                        <a href="?act=chi_tiet_san_pham&id_san_pham=<?= $sanPham['id'] ?>" class="link-success fs-15"><i class=" las la-exclamation-circle"></i></a>
+                                                                        <a href="?act=chi_tiet_san_pham&id_san_pham=<?= $sanPham['id'] ?>"><i class="ri-eye-line"></i></a>
                                                                         <a href="?act=form-sua-san-pham&id_san_pham=<?= $sanPham['id'] ?>" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                                         <form action="?act=xoa-san-pham&id_san_pham=<?= $sanPham['id'] ?>" method="POST" onsubmit="return confirm('ban co dong y xoa khong')">
                                                                             <input type="hidden" name="quan_tri_id" value="<?= $sanPham['id'] ?>">

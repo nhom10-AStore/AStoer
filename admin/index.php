@@ -4,7 +4,7 @@ session_start();
 require_once '../commons/env.php'; // Declare environment variables
 require_once '../commons/function.php'; // Helper functions
 $act = $_GET['act'] ?? '/';
-if($act !== 'login-admin' && $act!=='check-login-admin'&&$act!=='logout-admin') {
+if ($act !== 'login-admin' && $act !== 'check-login-admin' && $act !== 'logout-admin') {
     checkLoginAdmin(); // chặn quyền truy cập khi đã logout ra
 }
 // Require toàn bộ file Controllers
@@ -32,6 +32,7 @@ require_once 'models/DonHangs.php';
 require_once 'models/TrangThaiDonHang.php';
 require_once 'models/AdminTaiKhoan.php';
 require_once 'models/BinhLuan.php';
+require_once 'models/Dashboard.php';
 
 
 // Để bảo bảo tính chất chỉ gọi 1 hàm Controller để xử lý request thì mình sử dụng match
@@ -59,7 +60,7 @@ match ($act) {
     'form-sua-lien-he'      => (new AdminLienHeController())->edit(),
     'update-lien-he'        => (new AdminLienHeController())->update(),
     'xoa-lien-he'           => (new AdminLienHeController())->delete(),
-   
+
     // Quản lý Khuyến mãi
     'khuyen-mai'              => (new KhuyenMaiController())->index(),
     'form-them-khuyen-mai'     => (new KhuyenMaiController())->create(),
@@ -79,6 +80,8 @@ match ($act) {
     'form-sua-don-hang'         => (new DonHangController())->edit(),
     'sua-don-hang'              => (new DonHangController())->update(),
     'xoa-don-hang'              => (new DonHangController())->destroy(),
+    'chi-tiet-don-hang'         => (new DonHangController())->detailDonHang(),
+
     // Quản lý sản phẩm
     'san_phams'             => (new SanPhamController())->listSanPham(),
     'form-them-san-pham'    => (new SanPhamController())->formAddSanPham(),
@@ -110,14 +113,18 @@ match ($act) {
 
 
 
-    'reset-password'=> (new AdminTaiKhoanController())->resetPassword(),
+    'reset-password' => (new AdminTaiKhoanController())->resetPassword(),
 
-    'list-tai-khoan-khach-hang'=> (new AdminTaiKhoanController())->danhSachKhachHang(),
-    'form-sua-khach-hang'=> (new AdminTaiKhoanController())->formEditKhachHang(),
-    'sua-khach-hang'=> (new AdminTaiKhoanController())->postEditKhachHang(),
-    'chi-tiet-khach-hang'=> (new AdminTaiKhoanController())->detailKhachHang(),
+    'list-tai-khoan-khach-hang' => (new AdminTaiKhoanController())->danhSachKhachHang(),
+    'form-sua-khach-hang' => (new AdminTaiKhoanController())->formEditKhachHang(),
+    'sua-khach-hang' => (new AdminTaiKhoanController())->postEditKhachHang(),
+    'chi-tiet-khach-hang' => (new AdminTaiKhoanController())->detailKhachHang(),
 
-    'login-admin'=> (new AdminTaiKhoanController())->formLogin(),
-    'check-login-admin'=> (new AdminTaiKhoanController())->login(),
-    'logout-admin'=> (new AdminTaiKhoanController())->logout(),
+    'login-admin' => (new AdminTaiKhoanController())->formLogin(),
+    'check-login-admin' => (new AdminTaiKhoanController())->login(),
+    'logout-admin' => (new AdminTaiKhoanController())->logout(),
+    // đánh giá
+    'danh-gias'             => (new SanPhamController())->detailSanPham(),
+    'sua-danh-gia'          => (new SanPhamController())->updateDanhGia(),
+    'form-phanhoi'     => (new SanPhamController())->formPhanHoi(),
 };

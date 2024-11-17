@@ -73,7 +73,7 @@
                                     <div class="card-body">
                                         <div class="live-preview">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-nowrap align-middle mb-0" style="width: 1000px;">
+                                                <table class="table table-striped table-nowrap align-middle mb-0" style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">STT</th>
@@ -129,8 +129,8 @@
 
                                                                 <td>
                                                                     <div class="hstack gap-3 flex-wrap">
+                                                                        <a href="<?= '?act=chi-tiet-don-hang&id_don_hang=' . $donHang['id'] ?>" class="link-primary fs-15"><i class="ri-eye-line"></i></a>
 
-                                                                        <a href="?act=don-hangs&id=<?= $donHang['ma_don_hang'] ?>" class="link-success fs-15"><i class="bx bx-clipboard"></i></a>
                                                                         <?php if ($donHang['trang_thai_id'] == 7): ?>
                                                                             <form action="?act=xoa-don-hang" method="POST"
                                                                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa?')">

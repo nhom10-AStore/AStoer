@@ -50,11 +50,10 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Quản lý</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="?act=/">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDanhMuc" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDanhMuc">
                         <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Danh mục sản phẩm</span>
@@ -115,23 +114,23 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAdmin" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdmin">
-                        <i class="las la-user-circle"></i><span data-key="t-advance-ui">Quan li tai khoan</span>
+                        <i class="las la-user-circle"></i><span data-key="t-advance-ui">Quản lý tài khoản</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAdmin">
                         <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="?act=list_tai_khoan_quan_tri" class="nav-link" data-key="t-sweet-alerts">
-                                   Tai khoan quan tri
+                                    Tài khoản quản trị
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="<?= BASE_URL_ADMIN . '?act=list-tai-khoan-khach-hang' ?>" class="nav-link" data-key="t-sweet-alerts">
-                                    Tai khoan khach hang
+                                    Tài khoản khách nagf
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= BASE_URL_ADMIN . '?act=form-sua-thong-tin-ca-nhan-quan-tri' ?>" class="nav-link" data-key="t-sweet-alerts">
-                                    Tai khoan ca nhan
+                                <a href="<?= BASE_URL_ADMIN . '?act=form-sua-quan-tri' ?>" class="nav-link" data-key="t-sweet-alerts">
+                                    Thay đổi thông tin admin
                                 </a>
                             </li>
                         </ul>

@@ -64,7 +64,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
                                     <h5 class="text-primary">Welcome Back !</h5>
-                                    <?php if (isset($_SESSION['errors'])) { ?>
+                                    <?php if (isset($_SESSION['error'])) { ?>
                                         <div class="text-danger"><?= $_SESSION['error'] ?></div>
                                     <?php } else { ?>
                                         <div class="login-box-msg">Vui lòng đăng nhập để tiếp tục!</div>

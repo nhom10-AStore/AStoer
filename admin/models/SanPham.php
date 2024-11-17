@@ -247,4 +247,49 @@ class SanPham
             echo "lỗi " . $e->getMessage();
         }
     }
+    public function getAllDanhGiaBySanPhamId($san_pham_id)
+    {
+        try {
+            $sql = 'SELECT danh_gias.*, tai_khoans.ho_ten 
+                FROM danh_gias 
+                JOIN tai_khoans ON danh_gias.nguoi_dung_id = tai_khoans.id 
+                WHERE danh_gias.san_pham_id = :san_pham_id';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':san_pham_id', $san_pham_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Thất bại: " . $e->getMessage();
+        }
+    }
+    public function getDetaiDanhGia($id)
+    {
+        try {
+            //code...
+            $sql = 'SELECT *  FROM danh_gias WHERE id = :id';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return  $stmt->fetch();
+        } catch (PDOException $e) {
+            echo "Thất bại" . $e->getMessage();
+        }
+    }
+
+    public function updateDG($id, $tra_loi)
+    {
+        try {
+            //code...
+            $sql = 'UPDATE `danh_gias` SET tra_loi= :tra_loi WHERE id=:id';
+            $stmt = $this->conn->prepare($sql);
+            // Gan gtri vao cac tham so
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':tra_loi', $tra_loi);
+            $stmt->execute();
+            return  true;
+        } catch (PDOException $e) {
+            echo "Thất bại" . $e->getMessage();
+        }
+    }
 }

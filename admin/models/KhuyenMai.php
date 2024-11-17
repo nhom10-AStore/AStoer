@@ -22,8 +22,8 @@ class KhuyenMai
         }
     }
     // them du lieu vao csdl
-    
-    public function postData($ten_khuyen_mai,$ma_khuyen_mai,$gia_tri,$ngay_bat_dau,$ngay_ket_thuc,$mo_ta,$trang_thai)
+
+    public function postData($ten_khuyen_mai, $ma_khuyen_mai, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta, $trang_thai)
     {
         try {
             $sql = 'INSERT INTO `khuyen_mais` (ten_khuyen_mai,ma_khuyen_mai,gia_tri,ngay_bat_dau,ngay_ket_thuc,mo_ta,trang_thai) 
@@ -42,7 +42,7 @@ class KhuyenMai
             echo 'Error:' . $e->getMessage();
         }
     }
-    
+
     // xoa bai viet
     public function deleteData($id)
     {
@@ -56,7 +56,7 @@ class KhuyenMai
             echo 'Error:' . $e->getMessage();
         }
     }
-    
+
     // Hien thong tin sua
     public function getDetailData($id)
     {
@@ -70,14 +70,15 @@ class KhuyenMai
             echo 'Error:' . $e->getMessage();
         }
     }
-    
+
     // xu ly update
-    public function updateData($id, $ten_khuyen_mai, $ma_khuyen_mai, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta, $trang_thai) {
+    public function updateData($id, $ten_khuyen_mai, $ma_khuyen_mai, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta, $trang_thai)
+    {
         try {
             $sql = 'UPDATE khuyen_mais SET ten_khuyen_mai = :ten_khuyen_mai, ma_khuyen_mai = :ma_khuyen_mai, gia_tri = :gia_tri, 
                     ngay_bat_dau = :ngay_bat_dau, ngay_ket_thuc = :ngay_ket_thuc, mo_ta = :mo_ta, trang_thai = :trang_thai 
                     WHERE id = :id';
-                    
+
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':ten_khuyen_mai', $ten_khuyen_mai);
@@ -93,7 +94,34 @@ class KhuyenMai
             echo 'Error: ' . $e->getMessage();
         }
     }
-    
+    public function getListSpDonHang($id)
+    {
+        try {
+            $sql = 'SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham
+                    FROM chi_tiet_don_hangs 
+                    INNER JOIN san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id
+                    WHERE chi_tiet_don_hangs.don_hang_id = :id';
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "lỗi " . $e->getMessage();
+        }
+    }
+    public function getAllTrangThaiDonHang()
+    {
+        try {
+            $sql = 'SELECT * FROM trang_thai_don_hang';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+
 
 
     // huy ket noi csdl
@@ -102,5 +130,3 @@ class KhuyenMai
         $this->conn = null;
     }
 }
-
-
