@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2024 at 05:44 PM
+-- Generation Time: Nov 17, 2024 at 07:00 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -41,7 +41,8 @@ INSERT INTO `banners` (`id`, `ten_banner`, `trang_thai`) VALUES
 (13, 'uploads/sharktank2-1.png.webp', 1),
 (14, 'uploads/logo-5.png', 2),
 (15, 'uploads/tải xuống (1).jpg', 1),
-(16, 'uploads/logo-5.png', 2);
+(16, 'uploads/logo-5.png', 2),
+(17, 'uploads/Ảnh chụp màn hình 2024-11-17 004408.png', 2);
 
 -- --------------------------------------------------------
 
@@ -51,19 +52,84 @@ INSERT INTO `banners` (`id`, `ten_banner`, `trang_thai`) VALUES
 
 CREATE TABLE `binh_luans` (
   `id` int NOT NULL,
+  `nguoi_dung_id` int NOT NULL,
   `san_pham_id` int NOT NULL,
-  `tai_khoan_id` int NOT NULL,
   `noi_dung` text COLLATE utf8mb4_general_ci NOT NULL,
-  `ngay_dang` date NOT NULL,
-  `trang_thai` tinyint(1) NOT NULL
+  `ngay_dang` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `binh_luans`
 --
 
-INSERT INTO `binh_luans` (`id`, `san_pham_id`, `tai_khoan_id`, `noi_dung`, `ngay_dang`, `trang_thai`) VALUES
-(1, 137, 1, 'èewfewgew', '2024-11-12', 1);
+INSERT INTO `binh_luans` (`id`, `nguoi_dung_id`, `san_pham_id`, `noi_dung`, `ngay_dang`) VALUES
+(5, 7, 130, '32525456', '2024-11-14'),
+(6, 8, 132, 'asasffsagas', '2024-11-13'),
+(7, 1, 142, 'dggty', '2024-11-15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chi_tiet_don_hangs`
+--
+
+CREATE TABLE `chi_tiet_don_hangs` (
+  `id` int NOT NULL,
+  `don_hang_id` int NOT NULL,
+  `san_pham_id` int NOT NULL,
+  `so_luong` int NOT NULL,
+  `khuyen_mai_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `chi_tiet_don_hangs`
+--
+
+INSERT INTO `chi_tiet_don_hangs` (`id`, `don_hang_id`, `san_pham_id`, `so_luong`, `khuyen_mai_id`) VALUES
+(6, 4, 135, 4, 2),
+(7, 5, 133, 23, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chuc_vus`
+--
+
+CREATE TABLE `chuc_vus` (
+  `id` int NOT NULL,
+  `ten_chuc_vu` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chuc_vus`
+--
+
+INSERT INTO `chuc_vus` (`id`, `ten_chuc_vu`) VALUES
+(1, 'Quản trị viên'),
+(2, 'Khách hàng');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `danh_gias`
+--
+
+CREATE TABLE `danh_gias` (
+  `id` int NOT NULL,
+  `nguoi_dung_id` int NOT NULL,
+  `sao` int NOT NULL,
+  `noi_dung` text COLLATE utf8mb4_general_ci NOT NULL,
+  `ngaydg` date NOT NULL,
+  `tra_loi` text COLLATE utf8mb4_general_ci NOT NULL,
+  `san_pham_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `danh_gias`
+--
+
+INSERT INTO `danh_gias` (`id`, `nguoi_dung_id`, `sao`, `noi_dung`, `ngaydg`, `tra_loi`, `san_pham_id`) VALUES
+(130, 1, 4, 'ưertyuiu', '2024-11-05', 'abca', 130);
 
 -- --------------------------------------------------------
 
@@ -83,9 +149,8 @@ CREATE TABLE `danh_mucs` (
 
 INSERT INTO `danh_mucs` (`id`, `ten_danh_muc`, `trang_thai`) VALUES
 (1, 'Iphone', 1),
-(2, 'Mac', 0),
-(10, 'Phụ Kiện', 1),
-(12, 'Phụ Kiện', 2);
+(2, 'Mac', 1),
+(10, 'Phụ Kiện', 1);
 
 -- --------------------------------------------------------
 
@@ -95,11 +160,10 @@ INSERT INTO `danh_mucs` (`id`, `ten_danh_muc`, `trang_thai`) VALUES
 
 CREATE TABLE `don_hangs` (
   `id` int NOT NULL,
-  `nguoi_dung_id` int NOT NULL,
   `ma_don_hang` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ten_nguoi_nhan` varchar(255) NOT NULL,
   `email_nguoi_nhan` varchar(255) NOT NULL,
-  `sdt_nguoi_nhan` int NOT NULL,
+  `sdt_nguoi_nhan` varchar(10) NOT NULL,
   `dia_chi_nguoi_nhan` varchar(255) NOT NULL,
   `ngay_dat` date NOT NULL,
   `khuyen_mai_id` int NOT NULL,
@@ -107,16 +171,17 @@ CREATE TABLE `don_hangs` (
   `trang_thai_thanh_toan` tinyint(1) NOT NULL,
   `thanh_toan` float NOT NULL,
   `trang_thai_id` int NOT NULL,
-  `ghi_chu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+  `ghi_chu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nguoi_dung_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `don_hangs`
 --
 
-INSERT INTO `don_hangs` (`id`, `nguoi_dung_id`, `ma_don_hang`, `ten_nguoi_nhan`, `email_nguoi_nhan`, `sdt_nguoi_nhan`, `dia_chi_nguoi_nhan`, `ngay_dat`, `khuyen_mai_id`, `phuong_thuc_thanh_toan`, `trang_thai_thanh_toan`, `thanh_toan`, `trang_thai_id`, `ghi_chu`) VALUES
-(1, 49, 'PH54651', 'Phạm Phú Trung', 'phutrung1606a@gmail.com', 355011558, 'Hải Dương', '2024-11-06', 1, 1, 1, 23000, 5, NULL),
-(2, 1, 'PH111223', 'Tiên Văn Sư', 'tiensu@gmail.com', 355011558, 'Hà Nam', '2024-11-29', 2, 2, 1, 23000, 7, NULL);
+INSERT INTO `don_hangs` (`id`, `ma_don_hang`, `ten_nguoi_nhan`, `email_nguoi_nhan`, `sdt_nguoi_nhan`, `dia_chi_nguoi_nhan`, `ngay_dat`, `khuyen_mai_id`, `phuong_thuc_thanh_toan`, `trang_thai_thanh_toan`, `thanh_toan`, `trang_thai_id`, `ghi_chu`, `nguoi_dung_id`) VALUES
+(4, 'PH111223', 'ưertyuio', 'phutrung@gmail.com', '0355011558', 'ẻtyjklj;k', '2024-11-11', 7, 1, 1, 230000, 7, '312423gfdgd', 7),
+(5, 'PH111223', 'ègdfmn,', 'eqwrr@gmail.com', '0355011558', 'ưqewq', '2024-11-20', 2, 2, 1, 230000, 5, '123', 6);
 
 -- --------------------------------------------------------
 
@@ -153,43 +218,6 @@ INSERT INTO `hinh_anh_san_phams` (`id`, `san_pham_id`, `link_hinh_anh`) VALUES
 (102, 111, './admin/uploads/1731432987Thiet-bi-dien-tu-vien-thong-768x250.jpg'),
 (103, 111, './admin/uploads/1731432987Youtube_logo.png'),
 (104, 111, './admin/uploads/1731432987zalomkt.jpg'),
-(311, 127, './admin/uploads/17315808012023_Facebook_icon.svg'),
-(312, 127, './admin/uploads/1731580801ggmkt.jpg'),
-(313, 127, './admin/uploads/1731580801google-maps-icon-on-map - Copy.jpg'),
-(314, 127, './admin/uploads/1731580801google-maps-icon-on-map.jpg'),
-(315, 127, './admin/uploads/1731580801image2132.png'),
-(316, 127, './admin/uploads/1731580801images - Copy.jpg'),
-(317, 127, './admin/uploads/1731580801images.jpg'),
-(318, 127, './admin/uploads/1731580801images.png'),
-(319, 127, './admin/uploads/1731580801iphone 16 pro - 3.jpg'),
-(320, 127, './admin/uploads/1731580801kisspng-tiktok-video-musical-ly-youtube-vine-1713907999522.webp'),
-(321, 127, './admin/uploads/1731580801logo21.png'),
-(322, 127, './admin/uploads/1731580801mktt.png'),
-(323, 127, './admin/uploads/1731580801pngtree-vector-conceptual-design-of-circuit-board-logo-on-a-white-background-png-image_12534520.png'),
-(324, 127, './admin/uploads/1731580801Q.jpg'),
-(325, 127, './admin/uploads/1731580801san_phams.sql'),
-(326, 127, './admin/uploads/1731580801simsmkt.jpg'),
-(327, 127, './admin/uploads/1731580801slider_2_image.png'),
-(328, 127, './admin/uploads/1731580801slider_2_image.webp'),
-(329, 127, './admin/uploads/1731580801Thiet-bi-dien-tu-van-phong-768x470.jpg'),
-(341, 129, './admin/uploads/17315822788.jpg'),
-(342, 129, './admin/uploads/17315822789.jpg'),
-(343, 129, './admin/uploads/173158227810.jpg'),
-(344, 129, './admin/uploads/17315822782023_Facebook_icon.svg'),
-(345, 129, './admin/uploads/1731582278a.jpg'),
-(346, 129, './admin/uploads/1731582278banner 3.jpg'),
-(347, 129, './admin/uploads/1731582278banner 3.webp'),
-(348, 129, './admin/uploads/1731582278banner_2.jpg'),
-(349, 129, './admin/uploads/1731582278banner_2.webp'),
-(350, 129, './admin/uploads/1731582278bn.jpg'),
-(351, 129, './admin/uploads/1731582278fbmkt.jpg'),
-(352, 129, './admin/uploads/1731582278ggmkt.jpg'),
-(353, 129, './admin/uploads/1731582278google-maps-icon-on-map - Copy.jpg'),
-(354, 129, './admin/uploads/1731582278google-maps-icon-on-map.jpg'),
-(355, 129, './admin/uploads/1731582278image2132.png'),
-(356, 129, './admin/uploads/1731582278images - Copy.jpg'),
-(357, 129, './admin/uploads/1731582278images.jpg'),
-(358, 129, './admin/uploads/1731582278images.png'),
 (359, 130, './admin/uploads/1731582570bn.jpg'),
 (360, 130, './admin/uploads/1731582570fbmkt.jpg'),
 (361, 130, './admin/uploads/1731582570ggmkt.jpg'),
@@ -208,10 +236,6 @@ INSERT INTO `hinh_anh_san_phams` (`id`, `san_pham_id`, `link_hinh_anh`) VALUES
 (374, 133, './admin/uploads/1731584843bn.jpg'),
 (375, 133, './admin/uploads/1731584843iphone 16 pro - 3.jpg'),
 (376, 133, './admin/uploads/1731584843kisspng-tiktok-video-musical-ly-youtube-vine-1713907999522.webp'),
-(377, 134, './admin/uploads/1731586496bn.jpg'),
-(378, 134, './admin/uploads/1731586496fbmkt.jpg'),
-(379, 134, './admin/uploads/1731586496ggmkt.jpg'),
-(380, 134, './admin/uploads/1731586496google-maps-icon-on-map - Copy.jpg'),
 (381, 135, './admin/uploads/1731586630iphone 16 pro - 3.jpg'),
 (382, 135, './admin/uploads/1731586630kisspng-tiktok-video-musical-ly-youtube-vine-1713907999522.webp'),
 (383, 135, './admin/uploads/1731586630Youtube_logo.png'),
@@ -224,7 +248,26 @@ INSERT INTO `hinh_anh_san_phams` (`id`, `san_pham_id`, `link_hinh_anh`) VALUES
 (390, 137, './admin/uploads/17315876502023_Facebook_icon - Copy.svg'),
 (391, 138, './admin/uploads/1731588985Youtube_logo - Copy.png'),
 (392, 138, './admin/uploads/1731588985Youtube_logo.png'),
-(393, 138, './admin/uploads/1731588985zalomkt.jpg');
+(393, 138, './admin/uploads/1731588985zalomkt.jpg'),
+(394, 0, './admin/uploads/1731733343Ảnh chụp màn hình (517).png'),
+(395, 0, './admin/uploads/1731733343Ảnh chụp màn hình (518).png'),
+(396, 0, './admin/uploads/1731733343Ảnh chụp màn hình (519).png'),
+(397, 0, './admin/uploads/1731733343Ảnh chụp màn hình (520).png'),
+(398, 0, './admin/uploads/1731733343Ảnh chụp màn hình (521).png'),
+(399, 0, './admin/uploads/1731733343Ảnh chụp màn hình (522).png'),
+(400, 0, './admin/uploads/1731733343Ảnh chụp màn hình (523).png'),
+(401, 0, './admin/uploads/1731733343Ảnh chụp màn hình (524).png'),
+(402, 0, './admin/uploads/1731733343Ảnh chụp màn hình (525).png'),
+(403, 139, './admin/uploads/1731733863udemy.jpg'),
+(404, 139, './admin/uploads/1731733863Youtube_logo - Copy.png'),
+(405, 139, './admin/uploads/1731733863Youtube_logo.png'),
+(406, 139, './admin/uploads/1731733863zalomkt.jpg'),
+(412, 141, './admin/uploads/1731775226banner 3.jpg'),
+(413, 141, './admin/uploads/1731775226banner 3.webp'),
+(414, 141, './admin/uploads/1731775226banner_2.jpg'),
+(415, 141, './admin/uploads/1731775226banner_2.webp'),
+(416, 142, './admin/uploads/1731775452images.png'),
+(417, 142, './admin/uploads/1731775452iphone 16 pro - 3.jpg');
 
 -- --------------------------------------------------------
 
@@ -248,8 +291,8 @@ CREATE TABLE `khuyen_mais` (
 --
 
 INSERT INTO `khuyen_mais` (`id`, `ten_khuyen_mai`, `ma_khuyen_mai`, `gia_tri`, `ngay_bat_dau`, `ngay_ket_thuc`, `mo_ta`, `trang_thai`) VALUES
-(1, 'Khuyến mãi Black Friday', 'BF2024', 1, '2024-11-15', '2024-11-30', 'Giảm giá 20% tất cả sản phẩm', 1),
-(2, 'Khuyến mãi Giáng Sinh', 'XMAS2024', 30, '2024-12-01', '2024-12-25', 'Giảm giá 30% nhân dịp lễ Giáng Sinh', 0),
+(1, 'Khuyến mãi Black Friday', 'BF2024', 10000, '2024-11-15', '2024-11-30', 'Giảm giá 20% tất cả sản phẩm', 1),
+(2, 'Khuyến mãi Giáng Sinh', 'XMAS2024', 30000, '2024-12-01', '2024-12-25', 'Giảm giá 30% nhân dịp lễ Giáng Sinh', 0),
 (7, '1222', '111', 1111, '2024-11-22', '2024-11-30', '11', 0);
 
 -- --------------------------------------------------------
@@ -260,11 +303,11 @@ INSERT INTO `khuyen_mais` (`id`, `ten_khuyen_mai`, `ma_khuyen_mai`, `gia_tri`, `
 
 CREATE TABLE `lien_hes` (
   `id` int NOT NULL,
-  `ten` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `loi_nhan` varchar(255) NOT NULL,
+  `ten` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `loi_nhan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `trang_thai` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lien_hes`
@@ -277,42 +320,13 @@ INSERT INTO `lien_hes` (`id`, `ten`, `email`, `loi_nhan`, `trang_thai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nguoi_dungs`
---
-
-CREATE TABLE `nguoi_dungs` (
-  `id` int NOT NULL,
-  `ten` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `mat_khau` varchar(255) NOT NULL,
-  `so_dien_thoai` int NOT NULL,
-  `dia_chi` varchar(255) NOT NULL,
-  `hinh_anh` varchar(255) DEFAULT NULL,
-  `ngay_sinh` date NOT NULL,
-  `gioi_tinh` tinyint(1) NOT NULL,
-  `trang_thai` tinyint(1) NOT NULL,
-  `vai_tro` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `nguoi_dungs`
---
-
-INSERT INTO `nguoi_dungs` (`id`, `ten`, `email`, `mat_khau`, `so_dien_thoai`, `dia_chi`, `hinh_anh`, `ngay_sinh`, `gioi_tinh`, `trang_thai`, `vai_tro`) VALUES
-(1, 'Nguyễn Văn A', 'admin@fpt.edu.vn', '$2y$10$KW7bcY5NGfWq/K3Y8yNSJObPrLVAuyoOw6JSr/gbU0CsCp0rNPXyS', 355011558, 'Hà Nội', './uploads/images/avatarUser.jpg', '2024-11-14', 1, 1, 1),
-(49, 'Phạm Phú Trung', 'admin@gmail.com', '$2y$10$KSqjyVpUIx8.YGFutbLLsu2zSVSr4lPv1e3YJy99N7L2G7CqC08Km', 3245567, '321423', './uploads/images/67332c0d5b83f3_l.png', '2001-03-23', 1, 1, 2),
-(50, 'Nguyễn Văn ABC', 'admin@fpt.edu.vn', '$2y$10$oN0TJTly7j2cOgVJt56GluoKB42aUKOlofvmre2VUEvb8NuiscaIm', 123456789, 'Hà Nội', './uploads/images/6735d70fdc0acNew-York-Yankees.png', '2011-11-11', 2, 2, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `phuong_thuc_thanh_toans`
 --
 
 CREATE TABLE `phuong_thuc_thanh_toans` (
   `id` int NOT NULL,
-  `ten_phuong_thuc` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ten_phuong_thuc` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `phuong_thuc_thanh_toans`
@@ -343,7 +357,7 @@ CREATE TABLE `san_phams` (
   `mo_ta_chi_tiet` text COLLATE utf8mb4_general_ci NOT NULL,
   `trang_thai` tinyint(1) NOT NULL,
   `danh_muc_id` int NOT NULL,
-  `ma_san_pham` int NOT NULL,
+  `ma_san_pham` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `ngay_nhap` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -352,27 +366,49 @@ CREATE TABLE `san_phams` (
 --
 
 INSERT INTO `san_phams` (`id`, `ten_san_pham`, `luot_xem`, `thong_so`, `so_luong`, `so_luong_ton_kho`, `mo_ta`, `anh_san_pham`, `gia_nhap`, `gia_ban`, `gia_khuyen_mai`, `mo_ta_chi_tiet`, `trang_thai`, `danh_muc_id`, `ma_san_pham`, `ngay_nhap`) VALUES
-(85, 'wew', 0, '', 67, 0, 'dsfd', 'uploads/1731313972a.jpg', '0.00', '543.00', '0.00', '', 1, 0, 0, '0000-00-00'),
-(88, 'gfgf', 0, '', 676, 0, 'gfg', 'uploads/17313139639.jpg', '0.00', '5.00', '0.00', '', 1, 0, 0, '0000-00-00'),
-(89, '4545', 0, '', 5654, 0, '45ffhf', 'uploads/17313115981.jpg', '0.00', '0.00', '0.00', '', 1, 0, 0, '0000-00-00'),
-(90, 'grgdfg', 0, '', 54, 0, 'gdf', 'uploads/1731311620a.jpg', '0.00', '454.00', '0.00', '', 2, 0, 0, '0000-00-00'),
-(92, 'ere', 0, '', 343, 0, 'fdsf', 'uploads/173131263810.jpg', '0.00', '454.00', '0.00', '', 2, 0, 0, '0000-00-00'),
-(93, 'rtr', 0, '', 565, 0, 'gdfg', 'uploads/1731312995banner 3.jpg', '0.00', '454.00', '0.00', '', 2, 0, 0, '0000-00-00'),
-(94, 'sd', 0, '', 56, 0, 'fd', 'uploads/17313169604.jpg', '0.00', '344.00', '0.00', '', 2, 0, 0, '0000-00-00'),
-(95, 'rtre', 0, '', 54, 0, 'gdfgdfg', 'uploads/1731317893a.jpg', '0.00', '6546.00', '0.00', '', 2, 0, 0, '0000-00-00'),
-(96, 'rtrt', 4543, '345', 43, 45, 'egrgrgg', NULL, '33.00', '34.00', '0.00', 'vrttt', 0, 0, 0, '0000-00-00'),
-(111, 'tgdf', 4354, '', 2423, 0, 'fcrefrr4543', '', '24.00', '34543.00', '242.00', 'erewr4543', 1, 13, 334, '2024-11-13'),
-(127, 'dfds', 646, '', 64, 0, 'ybtrty5654', './admin/uploads/17315808422023_Facebook_icon.svg', '4645.00', '64.00', '4654.00', 'btrby6546', 1, 1, 56456, '2024-11-14'),
-(129, '42', 54, '', 54, 0, 'fgfdgf', './admin/uploads/17315822788.jpg', '43.00', '432.00', '434354.00', 'uhfnudshfufhie', 1, 2, 842, '2024-11-14'),
-(130, 'fdsf', 32, '', 432, 0, 'dfdsfdfdddddddddddddddddddddd', './admin/uploads/1731582570a.jpg', '343.00', '54.00', '4324.00', 'eu h e hewuteutetie', 2, 1, 300, '2024-11-14'),
-(131, 'asas', 65, '', 56, 0, 'tỷ', './admin/uploads/1731582706a.jpg', '56.00', '65.00', '56.00', 'yt', 1, 3, 56456, '2024-11-14'),
-(132, 'dfds', 435, '', 24, 0, 'ewrew343', './admin/uploads/1731584399a.jpg', '242.00', '23.00', '43243.00', 'ewrew324', 1, 2, 842, '2024-11-14'),
-(133, 'brty', 45, '', 43, 0, 'er453', './admin/uploads/17315848432023_Facebook_icon.svg', '43.00', '32.00', '435.00', 'wrew543', 2, 1, 64, '2024-11-14'),
-(134, 'sfsf', 34, '', 34, 0, '42erewrwe', './admin/uploads/1731586496a.jpg', '0.00', '4.00', '423.00', 'cerwr3434', 1, 2, 0, '2024-11-14'),
-(135, 'Redmi K70 Pro', 32, '', 32, 0, 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', './admin/uploads/1731586630zalomkt.jpg', '12.00', '123.00', '3048.00', 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 4, 0, '2024-11-14'),
-(136, 'êr', 54, '', 54, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './admin/uploads/1731586822a.jpg', '43.00', '23.00', '2443.00', 'vRedmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 1, 34, '2024-11-14'),
-(137, 'Hiếu', 2, '', 21, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './admin/uploads/1731587650iphone 16 pro - 3.jpg', '23.00', '234.00', '21.00', 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', 1, 1, 56456, '2024-11-14'),
-(138, 'SSADSAD', 45, '', 42, 0, 'yyt', './admin/uploads/1731590727fbmkt.jpg', '32.00', '343.00', '242.00', 'gfgdfgd', 1, 3, 842, '2005-05-09');
+(111, 'tgdf', 4354, '', 2423, 0, 'fcrefrr4543', '', '24.00', '34543.00', '242.00', 'erewr4543', 1, 13, '334', '2024-11-13'),
+(130, 'fdsf', 32, '', 432, 0, 'dfdsfdfdddddddddddddddddddddd', './admin/uploads/1731660245email-marketing-la-gi-1.jpg', '343.00', '54.00', '4324.00', 'eu h e hewuteutetie', 2, 1, '300', '2024-11-14'),
+(131, 'asas', 65, '', 56, 0, 'tỷ', './admin/uploads/1731582706a.jpg', '56.00', '65.00', '56.00', 'yt', 1, 3, '56456', '2024-11-14'),
+(132, 'dfds', 435, '', 24, 0, 'ewrew343', './admin/uploads/1731584399a.jpg', '242.00', '23.00', '43243.00', 'ewrew324', 1, 2, '842', '2024-11-14'),
+(133, 'brty', 45, '', 43, 0, 'er453', './admin/uploads/17315848432023_Facebook_icon.svg', '43.00', '32.00', '435.00', 'wrew543', 2, 1, '64', '2024-11-14'),
+(135, 'Redmi K70 Pro', 32, '', 32, 0, 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', './admin/uploads/1731586630zalomkt.jpg', '12.00', '123.00', '3048.00', 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 4, '0', '2024-11-14'),
+(136, 'êr', 54, '', 54, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './admin/uploads/1731586822a.jpg', '43.00', '23.00', '2443.00', 'vRedmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 1, '34', '2024-11-14'),
+(137, 'Hiếu', 2, '', 21, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './admin/uploads/1731587650iphone 16 pro - 3.jpg', '23.00', '234.00', '21.00', 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', 1, 1, '56456', '2024-11-14'),
+(138, 'SSADSAD', 45, '', 42, 0, 'yyt', './admin/uploads/1731590727fbmkt.jpg', '32.00', '343.00', '242.00', 'gfgdfgd', 1, 3, '842', '2005-05-09'),
+(139, 'ưe', 45, '', 343, 0, '234fver', './admin/uploads/17317338632023_Facebook_icon.svg', '543.00', '34.00', '43.00', '343rv', 1, 1, '123', '2024-11-16'),
+(141, '456789', 535, '', 45, 0, 'bby54', './admin/uploads/1731775303banner 3.jpg', '45.00', '56.00', '34.00', '5thyty', 1, 1, '456', '2024-11-16'),
+(142, 'cẻerer', 4, '', 34, 0, '432fdf', './admin/uploads/1731775452iphone 16 pro - 3.jpg', '34.00', '24.00', '342.00', '445dfds', 2, 1, '32', '2024-11-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tai_khoans`
+--
+
+CREATE TABLE `tai_khoans` (
+  `id` int NOT NULL,
+  `ho_ten` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `anh_dai_dien` text COLLATE utf8mb4_general_ci NOT NULL,
+  `ngay_sinh` date NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `so_dien_thoai` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `gioi_tinh` tinyint(1) NOT NULL,
+  `dia_chi` text COLLATE utf8mb4_general_ci NOT NULL,
+  `mat_khau` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `chuc_vu_id` int NOT NULL,
+  `trang_thai` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tai_khoans`
+--
+
+INSERT INTO `tai_khoans` (`id`, `ho_ten`, `anh_dai_dien`, `ngay_sinh`, `email`, `so_dien_thoai`, `gioi_tinh`, `dia_chi`, `mat_khau`, `chuc_vu_id`, `trang_thai`) VALUES
+(0, 'Nguyễn anh', '', '0000-00-00', 'anh@gmail.com', '0968086223', 0, '', '$2y$10$NW12CMjaaGxxziJt/7sZKe/cQO/7BF/8plIUCpGqI0gL1IKoIZ2KG', 2, 2),
+(1, 'Nguyễn Trung Hiếu', '', '2014-11-11', 'admin@gmail.com', '0968086233', 1, 'Hà Nam', '$2y$10$6Vnlzahj.4FgTty4TctJlOz6P5fWyUZKQGAHRxn/pHvJTgBZUcEIG', 1, 1),
+(6, 'Nguyễn Hoàng Anh23', '', '0000-00-00', 'hieunguyentrung343@gmail.com', '', 0, '', '$2y$10$16VGzu6oq0d0BZmixtlsS..4T2pqWfOH9JrI3zHfDpNZZ/xw8yW0G', 1, 1),
+(7, 'Nguyễn Hoàng Anh', '', '2024-11-15', 'nguyentrunghie22@gmail.com', '0968086233', 1, '', '$2y$10$M8BVCa6v0UmbRFsudRU9Y.rHgXlbDdQrI2dytTMPLeBAJV5liRWRe', 2, 2),
+(8, 'Phạm Phú Trung', '', '2014-11-08', 'phutrung1606a@gmail.com', '0355011558', 1, 'Hải Dương', '$2y$10$6Vnlzahj.4FgTty4TctJlOz6P5fWyUZKQGAHRxn/pHvJTgBZUcEIG', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -382,12 +418,12 @@ INSERT INTO `san_phams` (`id`, `ten_san_pham`, `luot_xem`, `thong_so`, `so_luong
 
 CREATE TABLE `tin_tucs` (
   `id` int NOT NULL,
-  `tieu_de_bai_viet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tieu_de_bai_viet` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `ngay_dang_bai` date DEFAULT NULL,
   `luot_xem` int DEFAULT NULL,
   `trang_thai_bai_viet` tinyint(1) NOT NULL,
-  `noi_dung_bai_viet` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `noi_dung_bai_viet` text COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tin_tucs`
@@ -408,9 +444,9 @@ INSERT INTO `tin_tucs` (`id`, `tieu_de_bai_viet`, `ngay_dang_bai`, `luot_xem`, `
 
 CREATE TABLE `trang_thai_don_hang` (
   `id` int NOT NULL,
-  `ten_trang_thai` varchar(255) NOT NULL,
+  `ten_trang_thai` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `trang_thai` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `trang_thai_don_hang`
@@ -424,6 +460,25 @@ INSERT INTO `trang_thai_don_hang` (`id`, `ten_trang_thai`, `trang_thai`) VALUES
 (5, 'Đã hoàn thành', 1),
 (6, 'Đã thất bại', 1),
 (7, 'Đã hủy', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trang_thai_thanh_toans`
+--
+
+CREATE TABLE `trang_thai_thanh_toans` (
+  `id` int NOT NULL,
+  `trang_thai_thanh_toan` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `trang_thai_thanh_toans`
+--
+
+INSERT INTO `trang_thai_thanh_toans` (`id`, `trang_thai_thanh_toan`) VALUES
+(1, 'Chưa thanh toán'),
+(2, 'Đã thanh toán');
 
 --
 -- Indexes for dumped tables
@@ -439,7 +494,32 @@ ALTER TABLE `banners`
 -- Indexes for table `binh_luans`
 --
 ALTER TABLE `binh_luans`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lk_binh_luans_san_pham` (`san_pham_id`),
+  ADD KEY `lk_binh_luans_tai_khoans` (`nguoi_dung_id`);
+
+--
+-- Indexes for table `chi_tiet_don_hangs`
+--
+ALTER TABLE `chi_tiet_don_hangs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lk_ctdh_sp` (`san_pham_id`),
+  ADD KEY `lk_ct_dh` (`don_hang_id`),
+  ADD KEY `lk_ct_khuyen_mais` (`khuyen_mai_id`);
+
+--
+-- Indexes for table `chuc_vus`
+--
+ALTER TABLE `chuc_vus`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `danh_gias`
+--
+ALTER TABLE `danh_gias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lk_danhgia_sp` (`san_pham_id`),
+  ADD KEY `lk_danhgia_nd` (`nguoi_dung_id`);
 
 --
 -- Indexes for table `danh_mucs`
@@ -452,7 +532,7 @@ ALTER TABLE `danh_mucs`
 --
 ALTER TABLE `don_hangs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `lk_don_hangs_nguoi_dungs` (`nguoi_dung_id`),
+  ADD KEY `lk_don_hangs_tai_khoans` (`nguoi_dung_id`),
   ADD KEY `lk_don_hangs_khuyen_mais` (`khuyen_mai_id`),
   ADD KEY `lk_don_hangs_trang_thai_don_hangs` (`trang_thai_id`),
   ADD KEY `lk_don_hangs_phuong_thuc_thanh_toans` (`phuong_thuc_thanh_toan`);
@@ -476,12 +556,6 @@ ALTER TABLE `lien_hes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nguoi_dungs`
---
-ALTER TABLE `nguoi_dungs`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `phuong_thuc_thanh_toans`
 --
 ALTER TABLE `phuong_thuc_thanh_toans`
@@ -491,6 +565,12 @@ ALTER TABLE `phuong_thuc_thanh_toans`
 -- Indexes for table `san_phams`
 --
 ALTER TABLE `san_phams`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tai_khoans`
+--
+ALTER TABLE `tai_khoans`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -506,6 +586,12 @@ ALTER TABLE `trang_thai_don_hang`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `trang_thai_thanh_toans`
+--
+ALTER TABLE `trang_thai_thanh_toans`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -513,31 +599,49 @@ ALTER TABLE `trang_thai_don_hang`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `binh_luans`
 --
 ALTER TABLE `binh_luans`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `chi_tiet_don_hangs`
+--
+ALTER TABLE `chi_tiet_don_hangs`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `chuc_vus`
+--
+ALTER TABLE `chuc_vus`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `danh_gias`
+--
+ALTER TABLE `danh_gias`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `danh_mucs`
 --
 ALTER TABLE `danh_mucs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `don_hangs`
 --
 ALTER TABLE `don_hangs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `hinh_anh_san_phams`
 --
 ALTER TABLE `hinh_anh_san_phams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=394;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=418;
 
 --
 -- AUTO_INCREMENT for table `khuyen_mais`
@@ -552,12 +656,6 @@ ALTER TABLE `lien_hes`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `nguoi_dungs`
---
-ALTER TABLE `nguoi_dungs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
---
 -- AUTO_INCREMENT for table `phuong_thuc_thanh_toans`
 --
 ALTER TABLE `phuong_thuc_thanh_toans`
@@ -567,7 +665,7 @@ ALTER TABLE `phuong_thuc_thanh_toans`
 -- AUTO_INCREMENT for table `san_phams`
 --
 ALTER TABLE `san_phams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT for table `tin_tucs`
@@ -582,16 +680,44 @@ ALTER TABLE `trang_thai_don_hang`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `trang_thai_thanh_toans`
+--
+ALTER TABLE `trang_thai_thanh_toans`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `binh_luans`
+--
+ALTER TABLE `binh_luans`
+  ADD CONSTRAINT `lk_binh_luans_san_pham` FOREIGN KEY (`san_pham_id`) REFERENCES `san_phams` (`id`),
+  ADD CONSTRAINT `lk_binh_luans_tai_khoans` FOREIGN KEY (`nguoi_dung_id`) REFERENCES `tai_khoans` (`id`);
+
+--
+-- Constraints for table `chi_tiet_don_hangs`
+--
+ALTER TABLE `chi_tiet_don_hangs`
+  ADD CONSTRAINT `lk_ct_dh` FOREIGN KEY (`don_hang_id`) REFERENCES `don_hangs` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `lk_ct_khuyen_mais` FOREIGN KEY (`khuyen_mai_id`) REFERENCES `khuyen_mais` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `lk_ctdh_sp` FOREIGN KEY (`san_pham_id`) REFERENCES `san_phams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `danh_gias`
+--
+ALTER TABLE `danh_gias`
+  ADD CONSTRAINT `lk_danhgia_nd` FOREIGN KEY (`nguoi_dung_id`) REFERENCES `tai_khoans` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `lk_danhgia_sp` FOREIGN KEY (`san_pham_id`) REFERENCES `san_phams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `don_hangs`
 --
 ALTER TABLE `don_hangs`
   ADD CONSTRAINT `lk_don_hangs_khuyen_mais` FOREIGN KEY (`khuyen_mai_id`) REFERENCES `khuyen_mais` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `lk_don_hangs_nguoi_dungs` FOREIGN KEY (`nguoi_dung_id`) REFERENCES `nguoi_dungs` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `lk_don_hangs_phuong_thuc_thanh_toans` FOREIGN KEY (`phuong_thuc_thanh_toan`) REFERENCES `phuong_thuc_thanh_toans` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `lk_don_hangs_tai_khoans` FOREIGN KEY (`nguoi_dung_id`) REFERENCES `tai_khoans` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `lk_don_hangs_trang_thai_don_hangs` FOREIGN KEY (`trang_thai_id`) REFERENCES `trang_thai_don_hang` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
