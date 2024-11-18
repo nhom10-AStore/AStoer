@@ -108,9 +108,9 @@
                                                 <?php
                                                 $tong_tien = 0;
                                                 foreach ($sanPhamDonHang as $key => $sanPham):
-                                                    $tong_tien += ($sanPham['gia_ban'] - $sanPham['gia_tri'] / 100) * $sanPham['so_luong'];
+                                                    $tong_tien += $sanPham['so_luong']*($sanPham['gia_ban']  - $sanPham['gia_ban']*$sanPham['gia_tri'] / 100);
                                                     // var_dump($tong_tien); die;  
-                                                ?>
+                                                ?>  
                                                     <tr>
                                                         <td class="text-center"><?= $key + 1 ?></td>
                                                         <td>
@@ -124,7 +124,7 @@
                                                             <?= number_format($sanPham['gia_tri']) ?> %
                                                         </td>
                                                         <td class="text-end">
-                                                            <?= number_format($sanPham['gia_ban'] * $sanPham['so_luong'] - $sanPham['gia_tri'] / 100, 0, ',', '.') ?> đ
+                                                            <?= number_format($sanPham['so_luong']*($sanPham['gia_ban']  - $sanPham['gia_ban']*$sanPham['gia_tri'] / 100), 0, ',', '.') ?> đ
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>

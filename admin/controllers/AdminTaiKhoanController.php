@@ -273,4 +273,7 @@ class AdminTaiKhoanController
                 }                
             }
         }
+        public function dangKy(){
+            require_once './views/auth/formLogin.php';
+        }
 }

@@ -128,11 +128,11 @@
                                     Tài khoản khách nagf
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= BASE_URL_ADMIN . '?act=form-sua-quan-tri' ?>" class="nav-link" data-key="t-sweet-alerts">
                                     Thay đổi thông tin admin
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </li>

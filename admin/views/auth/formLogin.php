@@ -94,6 +94,10 @@
                                         <div class="mt-4">
                                             <button class="btn btn-success w-100" type="submit">Sign In</button>
                                         </div>
+                                        <div class="mt-4">
+                                            <span>Bạn chưa có tài khoản?</span>
+                                            <a href="<?=BASE_URL .'?act=dang-ky'?>">Đăng ký</a>
+                                        </div>
                                     </form>
                                 </div>
 

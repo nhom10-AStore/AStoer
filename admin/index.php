@@ -127,4 +127,6 @@ match ($act) {
     'danh-gias'             => (new SanPhamController())->detailSanPham(),
     'sua-danh-gia'          => (new SanPhamController())->updateDanhGia(),
     'form-phanhoi'     => (new SanPhamController())->formPhanHoi(),
+    // Đăng ký
+    'dang-ky'           =>(new AdminTaiKhoanController())->dangKy(),
 };

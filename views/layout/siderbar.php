@@ -73,14 +73,14 @@
 				<div class="row gy-50px">
 					<?php foreach ($listSanPham as $key => $sanPham) : ?>
 						<div class="col-lg-4 col-xl-3 col-sm-6">
-							<div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-								<figure class="card-img-top position-relative mb-7 overflow-hidden ">
-									<a href="./shop/product-details-v1.html" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
-										<img src="<?= BASE_URL .  $sanPham['anh_san_pham'] ?>" xlink:src="/admin/uploads/avt.png" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil" width="330px" height="440px">
+							<div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp" style="width: 200px;">
+								<figure class="card-img-top position-relative mb-7 overflow-hidden " >
+									<a href="<?=BASE_URL. '?act=chi-tiet-san-pham&id-san-pham='.$sanPham['id'] ?>" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
+										<img src="<?= BASE_URL .  $sanPham['anh_san_pham'] ?>" xlink:src="/admin/uploads/avt.png" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil" >
 									</a>
 
-									<div class="position-absolute d-flex z-index-2 product-actions  horizontal"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
-											<svg class="icon icon-shopping-bag-open-light">
+									<div style="width: 125px; height:30px;" class="position-absolute d-flex z-index-2 product-actions  horizontal"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+											<svg style="width: 20px;" class="icon icon-shopping-bag-open-light">
 												<use xlink:href="#icon-shopping-bag-open-light"></use>
 											</svg>
 										</a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
@@ -104,8 +104,8 @@
 									</div>
 								</figure>
 								<div class="card-body text-center p-0">
-									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$20.00</span>
-									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="./shop/product-details-v1.html">Perfecting Facial Oil</a></h4>
+									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6"><?=number_format($sanPham['gia_ban'],0,)?>đ</span>
+									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="./shop/product-details-v1.html"><?=$sanPham['ten_san_pham']?></a></h4>
 									<div class="d-flex align-items-center fs-12px justify-content-center">
 										<div class="rating">
 											<div class="empty-stars">
@@ -163,7 +163,7 @@
 													</svg>
 												</span>
 											</div>
-										</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
+										</div><span class="reviews ms-4 pt-3 fs-14px"><?=$sanPham['luot_xem']?> reviews</span>
 									</div>
 								</div>
 							</div>

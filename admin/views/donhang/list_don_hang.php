@@ -140,13 +140,7 @@
                                                                                 </button>
                                                                             </form>
                                                                         <?php elseif ($donHang['trang_thai_id'] == 5): ?>
-                                                                            <form action="?act=xoa-don-hang" method="POST"
-                                                                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                                                                <input type="hidden" name="trang_thai_id" value="<?= $donHang['id'] ?>">
-                                                                                <button type="submit" class="link-danger fs-15" style="border: none; background: none;">
-                                                                                    <i class="ri-delete-bin-line"></i>
-                                                                                </button>
-                                                                            </form>
+                                                
                                                                         <?php else: ?>
                                                                             <a href="?act=form-sua-don-hang&id=<?= $donHang['id'] ?>" class="link-warning">
                                                                                 <i class="ri-settings-4-line"></i>
