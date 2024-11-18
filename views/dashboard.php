@@ -8,23 +8,23 @@
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Home Page 07 - Glowing - Bootstrap 5 HTML Templates</title>
-	 <!-- CSS -->
-     <?php
-    require_once "layout/libs_css.php";
-    ?>
+	<!-- CSS -->
+	<?php
+	require_once "layout/libs_css.php";
+	?>
 
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <?php
-        require_once "layout/header.php";
+	<!-- HEADER -->
+	<?php
+	require_once "layout/header.php";
 
-        require_once "layout/siderbar.php";
-        ?>
-        
-        <main id="content" class="wrapper layout-page">
+	require_once "layout/siderbar.php";
+	?>
+
+	<!-- <main id="content" class="wrapper layout-page">
 		<section>
 
 			<div class="slick-slider hero hero-header-07 slick-slider-dots-inside"
@@ -3623,9 +3623,9 @@
 			</div>
 		</section>
 
-	</main>
+	</main> -->
 
-    <footer class="pt-14 pt-lg-19 pb-16 footer bg-image" data-bg-src="./assets/images/background/bg-footer-01.jpg">
+	<footer class="pt-14 pt-lg-19 pb-16 footer bg-image" data-bg-src="./assets/images/background/bg-footer-01.jpg">
 		<div class="container container-xxl pt-4">
 			<div class="row">
 				<div class="col-lg-5 col-12 mb-13 mb-lg-0">
@@ -3717,11 +3717,11 @@
 			</div>
 		</div>
 	</footer>
- <!-- JAVASCRIPT -->
- <?php
-    require_once "layout/libs_js.php";
-    ?>
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+	<!-- JAVASCRIPT -->
+	<?php
+	require_once "layout/libs_js.php";
+	?>
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="icon-bedroom" viewBox="0 0 46 32">
 			<path
 				d="M44.421 15.217v-9.803c0-2.985-2.428-5.414-5.414-5.414h-31.82c-2.985 0-5.414 2.428-5.414 5.414v9.803c-1.080 0.86-1.775 2.185-1.775 3.67v4.872c0 2.587 2.105 4.692 4.692 4.692h2.406v1.744c0 0.997 0.808 1.805 1.805 1.805s1.805-0.808 1.805-1.805v-1.744h24.782v1.744c0 0.997 0.808 1.805 1.805 1.805s1.805-0.808 1.805-1.805v-1.744h2.406c2.587 0 4.692-2.104 4.692-4.692v-4.872c0-1.485-0.694-2.81-1.775-3.67zM7.188 3.609h31.82c0.995 0 1.805 0.81 1.805 1.805v8.782h-3.489v-3.489c0-1.99-1.619-3.609-3.609-3.609h-5.304c-1.99 0-3.609 1.619-3.609 3.609v3.489h-3.407v-3.489c0-1.99-1.619-3.609-3.609-3.609h-5.304c-1.99 0-3.609 1.619-3.609 3.609v3.489h-3.489v-8.782c0-0.995 0.81-1.805 1.805-1.805zM28.41 14.195v-3.489h5.304v3.489h-5.304zM12.481 14.195v-3.489h5.304v3.489h-5.304zM42.587 23.759c0 0.597-0.486 1.083-1.083 1.083h-36.812c-0.597 0-1.083-0.486-1.083-1.083v-4.872c0-0.597 0.486-1.083 1.083-1.083h36.812c0.597 0 1.083 0.486 1.083 1.083 0 0 0 4.872 0 4.872z"></path>

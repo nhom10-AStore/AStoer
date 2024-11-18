@@ -11,45 +11,44 @@ class SanPham
         $this->conn = connectDB();
     }
 
-    //Danh sách danh mục
+    // Lấy tất cả sản phẩm
     public function getAllSanPham()
     {
         try {
-
-            $sql = 'SELECT san_phams.*, danh_mucs.ten_danh_muc
-            FROM san_phams
-            INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
-            
-            ';
+            $sql = 'SELECT san_phams.*, danh_mucs.ten_danh_muc FROM san_phams INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id';
 
             $stmt = $this->conn->prepare($sql);
-
             $stmt->execute();
-
             return  $stmt->fetchAll();
-        } catch (PDOexception $e) {
-            echo 'lỗi: ' . $e->getMessage();
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
         }
     }
 
     public function insertSanPham($ma_san_pham, $ten_san_pham, $luot_xem, $gia_nhap, $gia_ban, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $mo_ta_chi_tiet, $anh_san_pham)
     {
         try {
-            // var_dump($ma_san_pham,$ten_san_pham,$luot_xem, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id,$trang_thai, $mo_ta,$mo_ta_chi_tiet,$anh_san_pham);
-            // die();
+            // Kiểm tra nếu danh mục có tồn tại hay không (nếu không dùng khóa ngoại)
+            $sql_check = 'SELECT COUNT(*) FROM danh_mucs WHERE id = :danh_muc_id';
+            $stmt_check = $this->conn->prepare($sql_check);
+            $stmt_check->execute([':danh_muc_id' => $danh_muc_id]);
+            $count = $stmt_check->fetchColumn();
 
-            $sql = 'INSERT INTO san_phams (ma_san_pham,ten_san_pham,luot_xem, gia_nhap,gia_ban,gia_khuyen_mai,so_luong, ngay_nhap,danh_muc_id,trang_thai, mo_ta,mo_ta_chi_tiet,anh_san_pham)
-            VALUES (:ma_san_pham,:ten_san_pham,:luot_xem, :gia_nhap,:gia_ban,:gia_khuyen_mai,:so_luong,:ngay_nhap,:danh_muc_id,:trang_thai,:mo_ta,:mo_ta_chi_tiet,:anh_san_pham)';
+            if ($count == 0) {
+                throw new Exception("Danh mục không tồn tại.");
+            }
 
+            // Nếu kiểm tra danh mục hợp lệ, thực hiện chèn dữ liệu
+            $sql = 'INSERT INTO san_phams (ma_san_pham, ten_san_pham, luot_xem, gia_nhap, gia_ban, gia_khuyen_mai, so_luong, ngay_nhap, danh_muc_id, trang_thai, mo_ta, mo_ta_chi_tiet, anh_san_pham)
+                    VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen_mai, :so_luong, :ngay_nhap, :danh_muc_id, :trang_thai, :mo_ta, :mo_ta_chi_tiet, :anh_san_pham)';
             $stmt = $this->conn->prepare($sql);
 
-            //gán gtri vào các tham số
+            // Gán giá trị vào các tham số
             $stmt->bindParam(':ma_san_pham', $ma_san_pham);
             $stmt->bindParam(':ten_san_pham', $ten_san_pham);
             $stmt->bindParam(':luot_xem', $luot_xem);
             $stmt->bindParam(':gia_nhap', $gia_nhap);
             $stmt->bindParam(':gia_ban', $gia_ban);
-            $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
             $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
             $stmt->bindParam(':so_luong', $so_luong);
             $stmt->bindParam(':ngay_nhap', $ngay_nhap);
@@ -61,11 +60,10 @@ class SanPham
             $stmt->execute();
 
             return $this->conn->lastInsertId();
-        } catch (PDOexception $e) {
-            echo 'lỗi: ' . $e->getMessage();
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
         }
     }
-
     public function getDetailSanPham($id)
     {
         try {

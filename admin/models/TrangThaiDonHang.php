@@ -18,18 +18,17 @@ class TrangThai
             echo "Thất bại" . $e->getMessage();
         }
     }
-    public function postData($ten_trang_thai, $trang_thai)
+    public function postData($ten_trang_thai)
     {
         try {
 
 
             //code...
-            $sql = 'INSERT INTO trang_thai_don_hang (ten_trang_thai, trang_thai)
-                        VALUES (:ten_trang_thai, :trang_thai)';
+            $sql = 'INSERT INTO trang_thai_don_hang (ten_trang_thai)
+                        VALUES (:ten_trang_thai)';
             $stmt = $this->conn->prepare($sql);
             // Gan gtri vao cac tham so
             $stmt->bindParam(':ten_trang_thai', $ten_trang_thai);
-            $stmt->bindParam(':trang_thai', $trang_thai);
             $stmt->execute();
             return  true;
         } catch (PDOException $e) {
@@ -49,16 +48,15 @@ class TrangThai
             echo "Thất bại" . $e->getMessage();
         }
     }
-    public function updateData($id, $ten_trang_thai, $trang_thai)
+    public function updateData($id, $ten_trang_thai)
     {
         try {
             //code...
-            $sql = 'UPDATE trang_thai_don_hang SET ten_trang_thai= :ten_trang_thai,trang_thai= :trang_thai WHERE id=:id';
+            $sql = 'UPDATE trang_thai_don_hang SET ten_trang_thai= :ten_trang_thai WHERE id=:id';
             $stmt = $this->conn->prepare($sql);
             // Gan gtri vao cac tham so
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':ten_trang_thai', $ten_trang_thai);
-            $stmt->bindParam(':trang_thai', $trang_thai);
             $stmt->execute();
             return  true;
         } catch (PDOException $e) {

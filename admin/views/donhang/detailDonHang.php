@@ -108,7 +108,7 @@
                                                 <?php
                                                 $tong_tien = 0;
                                                 foreach ($sanPhamDonHang as $key => $sanPham):
-                                                    $tong_tien += $sanPham['gia_ban'] * $sanPham['so_luong'] - $sanPham['gia_tri'];
+                                                    $tong_tien += ($sanPham['gia_ban'] - $sanPham['gia_tri'] / 100) * $sanPham['so_luong'];
                                                     // var_dump($tong_tien); die;  
                                                 ?>
                                                     <tr>
@@ -121,10 +121,10 @@
                                                         </td>
                                                         <td class="text-center"><?= $sanPham['so_luong'] ?></td>
                                                         <td class="text-end">
-                                                            <?= number_format($sanPham['gia_tri'], 0, ',', '.') ?> đ
+                                                            <?= number_format($sanPham['gia_tri']) ?> %
                                                         </td>
                                                         <td class="text-end">
-                                                            <?= number_format($sanPham['gia_ban'] * $sanPham['so_luong'] - $sanPham['gia_tri'], 0, ',', '.') ?> đ
+                                                            <?= number_format($sanPham['gia_ban'] * $sanPham['so_luong'] - $sanPham['gia_tri'] / 100, 0, ',', '.') ?> đ
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -138,12 +138,12 @@
                                                 </tr>
                                                 <tr class="table-light">
                                                     <td colspan="5" class="text-end">Phí vận chuyển:</td>
-                                                    <td class="text-end">20.000 đ</td>
+                                                    <td class="text-end"><?= number_format($sanPham['phi_van_chuyen']) ?></td>
                                                 </tr>
                                                 <tr class="table-light">
                                                     <td colspan="5" class="text-end fw-bold">Tổng thanh toán:</td>
                                                     <td class="text-end fw-bold fs-5 text-primary">
-                                                        <?= number_format($tong_tien + 20000, 0, ',', '.') ?> đ
+                                                        <?= number_format($tong_tien + $sanPham['phi_van_chuyen'], 0, ',', '.') ?> đ
                                                     </td>
                                                 </tr>
                                             </tbody>

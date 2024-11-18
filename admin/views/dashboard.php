@@ -146,30 +146,97 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Đơn Hàng Bị Hủy</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                                                            <?php echo number_format($completedOrdersCancelled) ?>
+                                                        </h4>
+                                                        <a href="#" class="text-decoration-underline">Xem chi tiết</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-warning-subtle rounded fs-3">
+                                                            <i class="bx bx-check-circle text-warning"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="card">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Sản phẩm nổi bật</h4>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body">
+                                                <div class="table-responsive table-card">
+                                                    <table class="table table-hover table-centered align-middle table-nowrap mb-3">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Ảnh sản phẩm</th>
+                                                                <th>Tên sản phẩm</th>
+                                                                <th>Giá bán</th>
+                                                                <th>Số lượng</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach ($topProducts as $index => $product): ?>
+                                                                <!-- <?php var_dump($product['anh_san_pham']); ?> -->
+                                                                <tr>
+                                                                    <td><?= $index + 1 ?></td>
+                                                                    <td>
+                                                                        <img src="<?= BASE_URL .  $product['anh_san_pham'] ?>" alt="" srcset="" width="50px" height="50px">
+                                                                    </td>
+                                                                    <td><?= htmlspecialchars($product['ten_san_pham']) ?></td>
+                                                                    <td><?= number_format($product['gia_ban'], 0, ',', '.') ?> đ</td>
+                                                                    <td><?= $product['total_sold'] ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script> © NN Shop
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-sm-end d-none d-sm-block">
-                                Design & Develop by NN Shop
-                            </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> © NN Shop
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by NN Shop
                         </div>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
+    </div>
     </div>
 
     <!--start back-to-top-->
