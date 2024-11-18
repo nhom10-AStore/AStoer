@@ -8,7 +8,7 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/HomeController.php';
 
 // Require toàn bộ file Models
-
+require_once './models/sanPham.php';
 // Route
 $act = $_GET['act'] ?? '/';
 
