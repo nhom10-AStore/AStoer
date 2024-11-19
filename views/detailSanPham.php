@@ -24,20 +24,7 @@
 	// require_once "layout/siderbar.php";
 	?>
 <main id="content" class="wrapper layout-page">
-	<section class="z-index-2 position-relative pb-2 mb-12">
 
-		<div class="bg-body-secondary mb-3">
-			<div class="container">
-				<nav class="py-4 lh-30px" aria-label="breadcrumb">
-					<ol class="breadcrumb justify-content-center py-1 mb-0">
-						<li class="breadcrumb-item"><a title="Home" href="../index.html">Home</a></li>
-						<li class="breadcrumb-item"><a title="Shop" href="../shop/shop-layout-v2.html">Shop</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Natural Coconut Cleansing Oil</li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-	</section>
 	<section class="container pt-6 pb-13 pb-lg-20">
 		<div class="row ">
 			<div class="col-md-6 pe-lg-13">

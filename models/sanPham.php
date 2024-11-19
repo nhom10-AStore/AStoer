@@ -24,7 +24,7 @@ class SanPham
             echo 'Lỗi: ' . $e->getMessage();
         }
     }
-    public function getDetailSanPham($id)
+    public function chiTietSanPham($id)
     {
         try {
             $sql = 'SELECT san_phams.*, danh_mucs.ten_danh_muc
