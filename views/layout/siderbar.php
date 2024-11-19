@@ -4,7 +4,10 @@
 		<div class="slick-slider hero hero-header-07 slick-slider-dots-inside"
 			data-slick-options='{&#34;arrows&#34;:false,&#34;autoplay&#34;:true,&#34;cssEase&#34;:&#34;ease-in-out&#34;,&#34;dots&#34;:false,&#34;fade&#34;:true,&#34;infinite&#34;:true,&#34;slidesToShow&#34;:1,&#34;speed&#34;:600}'>
 			<?php foreach ($banners as $index => $banner) : ?>
-				<div class="vh-100 d-flex align-items-center" style="width:1000px; height:300px">
+
+				<div class="vh-100 d-flex align-items-center" style="width:1440px; height:300px">
+					<!-- <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100"    data-bg-src=" <?= BASE_URL_ADMIN . $banner['ten_banner'] ?>">
+					</div> -->
 					<div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100" data-bg-src="<?= BASE_URL_ADMIN . $banner['ten_banner'] ?>">
 					</div>
 				</div>
