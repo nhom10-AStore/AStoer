@@ -42,4 +42,16 @@ class SanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function getAllDanhGia()
+    {
+        try {
+            $sql = 'SELECT danh_gias.*, tai_khoans.ho_ten FROM danh_gias
+            JOIN tai_khoans ON danh_gias.nguoi_dung_id = tai_khoans.id';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Thất bại: " . $e->getMessage();
+        }
+    }
 }

@@ -8,7 +8,9 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/HomeController.php';
 
 // Require toàn bộ file Models
+require_once './models/taiKhoan.php';
 require_once './models/sanPham.php';
+require_once './models/banner.php';
 // Route
 $act = $_GET['act'] ?? '/';
 
@@ -19,5 +21,9 @@ match ($act) {
     '/'                 => (new HomeController())->index(),
     'chi-tiet-san-pham' => (new HomeController())->getDetailSanPham(),
     'dang-ky'           =>(new HomeController())->dangKy(),
+    // auth
+    'login'             =>(new HomeController())->formLogin(),
+    'check-login'             =>(new HomeController())->postLogin(),
+
 };
 ?>

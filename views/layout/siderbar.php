@@ -3,64 +3,12 @@
 
 		<div class="slick-slider hero hero-header-07 slick-slider-dots-inside"
 			data-slick-options='{&#34;arrows&#34;:false,&#34;autoplay&#34;:true,&#34;cssEase&#34;:&#34;ease-in-out&#34;,&#34;dots&#34;:false,&#34;fade&#34;:true,&#34;infinite&#34;:true,&#34;slidesToShow&#34;:1,&#34;speed&#34;:600}'>
-
-			<div class="vh-100 d-flex align-items-center">
-				<div class="z-index-2 container container-xxl py-15">
-					<div data-animate="fadeInDown" class="card border-0 ps-lg-1 mx-md-0 mx-auto hero-card">
-						<div class="card-body p-11">
-							<h1 class="mb-7 hero-title-5 pe-lg-12">Ipone 16 mẫu sản phẩm mới nhất của Apple</h1>
-							<p class="hero-desc fs-18px text-body-calculate mb-9">Made using clean, non-toxic ingredients, our products are designed for everyone.</p>
-							<a href="#" class="btn btn-dark rounded btn-hover-bg-primary btn-hover-border-primary">
-								Shop Now
-							</a>
-						</div>
+			<?php foreach ($banners as $index => $banner) : ?>
+				<div class="vh-100 d-flex align-items-center" style="width:1000px; height:300px">
+					<div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100" data-bg-src="<?= BASE_URL_ADMIN . $banner['ten_banner'] ?>">
 					</div>
-
 				</div>
-				<div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img" data-bg-src="./assets/images/hero-slider/hero-slider-15.jpg">
-				</div>
-				<div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100" data-bg-src="./assets/images/hero-slider/hero-slider-white-15.jpg">
-				</div>
-			</div>
-
-			<div class="vh-100 d-flex align-items-center">
-				<div class="z-index-2 container container-xxl py-15">
-					<div data-animate="fadeInDown" class="card border-0 ps-lg-1 mx-md-0 mx-auto hero-card">
-						<div class="card-body p-11">
-							<h1 class="mb-7 hero-title-5 pe-lg-12">Our Autumn Skincare</h1>
-							<p class="hero-desc fs-18px text-body-calculate mb-9">Made using clean, non-toxic ingredients, our products are designed for everyone.</p>
-							<a href="#" class="btn btn-dark rounded btn-hover-bg-primary btn-hover-border-primary">
-								Shop Now
-							</a>
-						</div>
-					</div>
-
-				</div>
-				<div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img" data-bg-src="./assets/images/hero-slider/hero-slider-16.jpg">
-				</div>
-				<div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100" data-bg-src="./assets/images/hero-slider/hero-slider-white-16.jpg">
-				</div>
-			</div>
-
-			<div class="vh-100 d-flex align-items-center">
-				<div class="z-index-2 container container-xxl py-15">
-					<div data-animate="fadeInDown" class="card border-0 ps-lg-1 mx-md-0 mx-auto hero-card">
-						<div class="card-body p-11">
-							<h1 class="mb-7 hero-title-5 pe-lg-12">Love Your Skin Naturally</h1>
-							<p class="hero-desc fs-18px text-body-calculate mb-9">Made using clean, non-toxic ingredients, our products are designed for everyone.</p>
-							<a href="#" class="btn btn-dark rounded btn-hover-bg-primary btn-hover-border-primary">
-								Shop Now
-							</a>
-						</div>
-					</div>
-
-				</div>
-				<div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img" data-bg-src="./assets/images/hero-slider/hero-slider-17.jpg">
-				</div>
-				<div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100" data-bg-src="./assets/images/hero-slider/hero-slider-white-17.jpg">
-				</div>
-			</div>
-
+			<?php endforeach; ?>
 		</div>
 	</section>
 
@@ -74,9 +22,9 @@
 					<?php foreach ($listSanPham as $key => $sanPham) : ?>
 						<div class="col-lg-4 col-xl-3 col-sm-6">
 							<div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp" style="width: 200px;">
-								<figure class="card-img-top position-relative mb-7 overflow-hidden " >
-									<a href="<?=BASE_URL. '?act=chi-tiet-san-pham&id-san-pham='.$sanPham['id'] ?>" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
-										<img src="<?= BASE_URL .  $sanPham['anh_san_pham'] ?>" xlink:src="/admin/uploads/avt.png" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil" >
+								<figure class="card-img-top position-relative mb-7 overflow-hidden ">
+									<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id-san-pham=' . $sanPham['id'] ?>" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
+										<img src="<?= BASE_URL .  $sanPham['anh_san_pham'] ?>" xlink:src="/admin/uploads/avt.png" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil">
 									</a>
 
 									<div style="width: 125px; height:30px;" class="position-absolute d-flex z-index-2 product-actions  horizontal"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
@@ -104,8 +52,8 @@
 									</div>
 								</figure>
 								<div class="card-body text-center p-0">
-									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6"><?=number_format($sanPham['gia_ban'],0,)?>đ</span>
-									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="./shop/product-details-v1.html"><?=$sanPham['ten_san_pham']?></a></h4>
+									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6"><?= number_format($sanPham['gia_ban'], 0,) ?>đ</span>
+									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="./shop/product-details-v1.html"><?= $sanPham['ten_san_pham'] ?></a></h4>
 									<div class="d-flex align-items-center fs-12px justify-content-center">
 										<div class="rating">
 											<div class="empty-stars">
@@ -163,7 +111,7 @@
 													</svg>
 												</span>
 											</div>
-										</div><span class="reviews ms-4 pt-3 fs-14px"><?=$sanPham['luot_xem']?> reviews</span>
+										</div><span class="reviews ms-4 pt-3 fs-14px"><?= $sanPham['luot_xem'] ?> reviews</span>
 									</div>
 								</div>
 							</div>
@@ -177,44 +125,12 @@
 
 	</section>
 
-
-	<section>
-
-		<div class="container container-xxl">
-			<div class="row">
-				<div class="col-lg-5 order-2 order-lg-1 py-lg-23 mt-12 mt-lg-0" data-animate="fadeInLeft">
-					<div class="text-left">
-						<p class="fs-15px mb-6 ls-1 text-body-emphasis fw-semibold">NEW COLLECTION</p>
-						<h2 class="mb-6">Anti-aging Cream</h2>
-						<p class="fs-18px mb-0">Made using clean, non-toxic ingredients, our products <br /> are designed for everyone.</p>
-					</div>
-
-					<a href="#" class="mt-10 btn btn-dark btn-hover-bg-primary btn-hover-border-primary">Explore More</a>
-				</div>
-				<div class="col-lg-7 order-1 order-lg-2" data-animate="fadeInRight">
-					<div class="bg-image video-01 d-flex justify-content-center align-items-center h-lg-100 position-relative py-18 py-lg-0 py-md-23 lazy-bg"
-						data-bg-src="./assets/images/others/video-bg.jpg">
-						<div class="position-absolute start-0 d-none d-xl-block m-n14 ps-14 h-75 bg-section-2"></div>
-						<a href="https://www.youtube.com/watch?v=6v2L2UGZJAM" class="view-video iframe-link video-btn d-flex justify-content-center align-items-center fs-30px lh-115px btn btn-outline-light border border-white border-2 rounded-circle transition-all-1"><svg class="icon">
-								<use xlink:href="#icon-play-fill"></use>
-							</svg></a>
-
-
-
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<section class="pt-lg-19 pt-14 pb-lg-18 pb-15">
 
 		<div class="container container-xxl">
 			<div class="mb-md-13 mb-11">
 				<div class="text-center" data-animate="fadeInUp">
-					<h2 class="mb-6">Why Shop with Glowing?</h2>
+					<h2 class="mb-6">Tại sao nên chọn AStore?</h2>
 				</div>
 
 			</div>
@@ -224,11 +140,11 @@
 						<div class="d-flex justify-content-center">
 
 
-							<img class="lazy-image img-fluid" src="#" data-src="./assets/images/image-box/image-box-16.png" width="140" height="140" alt="Guaranteed PURE">
+							<img class="lazy-image img-fluid" src="assets/images/shop/tuVan.jpg" width="150" height="150" alt="Guaranteed PURE">
 						</div>
 						<div class="card-body text-center pt-7 mt-3">
-							<h3 class="fs-4 mb-6">Guaranteed PURE</h3>
-							<p class="mb-0 px-lg-6">All Grace formulations adhere to strict purity standards and will never contain harsh or toxic ingredients</p>
+							<h3 class="fs-4 mb-6">Hỗ trợ 24/7</h3>
+							<p class="mb-0 px-lg-6">Chuyên viên trực máy 24/7 chỉ cần bạn cần hỗ trợ, bất kể khung giờ nào chúng tôi cũng sẽ có mặt</p>
 						</div>
 					</div>
 
@@ -238,11 +154,11 @@
 						<div class="d-flex justify-content-center">
 
 
-							<img class="lazy-image img-fluid" src="#" data-src="./assets/images/image-box/image-box-19.png" width="140" height="140" alt="Completely Cruelty-Free">
+							<img class="lazy-image img-fluid" src="assets/images/shop/sale.png" width="150" height="120" alt="Completely Cruelty-Free">
 						</div>
 						<div class="card-body text-center pt-7 mt-3">
-							<h3 class="fs-4 mb-6">Completely Cruelty-Free</h3>
-							<p class="mb-0 px-lg-6">All Grace formulations adhere to strict purity standards and will never contain harsh or toxic ingredients</p>
+							<h3 class="fs-4 mb-6">Giảm giá lớn</h3>
+							<p class="mb-0 px-lg-6">Đến với AStore bạn không cần phải lo về giá chúng tôi có hàng loạt voucher đang chờ bạn</p>
 						</div>
 					</div>
 
@@ -252,11 +168,11 @@
 						<div class="d-flex justify-content-center">
 
 
-							<img class="lazy-image img-fluid" src="#" data-src="./assets/images/image-box/image-box-20.png" width="140" height="140" alt="Ingredient Sourcing">
+							<img class="lazy-image img-fluid" src="#" data-src="assets/images/shop/ut.jpg" width="140" height="140" alt="Ingredient Sourcing">
 						</div>
 						<div class="card-body text-center pt-7 mt-3">
-							<h3 class="fs-4 mb-6">Ingredient Sourcing</h3>
-							<p class="mb-0 px-lg-6">All Grace formulations adhere to strict purity standards and will never contain harsh or toxic ingredients</p>
+							<h3 class="fs-4 mb-6">Uy tín - chất lương</h3>
+							<p class="mb-0 px-lg-6">Mọi sản phẩm của chúng tôi đều được nhập từ kho của Apple, lỗi 1 đổi 1 không ưng hoàn tiền</p>
 						</div>
 					</div>
 
@@ -265,7 +181,7 @@
 		</div>
 	</section>
 
-	<section class="bg-section-3 ">
+	<!-- <section class="bg-section-3 ">
 
 		<div class="container container-xxl">
 			<div class="row align-items-center">
@@ -312,7 +228,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 
 	<section class="pt-14 pt-lg-18 mt-3">
@@ -321,8 +237,8 @@
 			<div class="row">
 				<div class="col-lg-4 d-flex flex-column  justify-content-lg-between mb-12 mb-lg-0">
 					<div class="mt-lg-8 text-left" data-animate="fadeInUp">
-						<h2 class="mb-6">Testimonials</h2>
-						<p class="fs-18px w-80">Made using clean, non-toxic ingredients, our products are designed for everyone.</p>
+						<h2 class="mb-6">Đánh giá từ khách hàng</h2>
+						<p class="fs-18px w-80">Mọi đánh giá của khách hàng về bấy kỳ sản phẩm nào của chúng tôi đều ở đây </p>
 					</div>
 
 					<div class="d-flex mt-2 custom-arrow" data-animate="fadeInUp">
@@ -332,296 +248,28 @@
 				</div>
 				<div class="col-lg-8">
 					<div class="slick-slider custom-arrows-02 custom-slider-04" data-slick-options='{&#34;arrows&#34;:true,&#34;autoplay&#34;:true,&#34;centerMode&#34;:false,&#34;cssEase&#34;:&#34;ease-in-out&#34;,&#34;dots&#34;:false,&#34;fade&#34;:false,&#34;infinite&#34;:true,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1024,&#34;settings&#34;:{&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:768,&#34;settings&#34;:{&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:2,&#34;speed&#34;:600}'>
-						<div class="px-6 py-0" data-animate="fadeInUp">
-							<div class="card border-0 bg-section-3 rounded p-sm-11 p-9">
-								<div class="card-body px-4">
-									<div class="d-flex align-items-center fs-14px ls-0 mb-6">
-										<div class="rating">
-											<div class="empty-stars">
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-											</div>
-											<div class="filled-stars"
-												style="width: 100%">
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-											</div>
-										</div>
-									</div>
-									<p class="fs-5 text-primary fw-semibold mb-11">
-										“ Amazing product. The results are so transformative in texture and my face feels plump and healthy. Highly recommend! “
-									</p>
-									<div class="d-flex align-items-center">
-										<div class="d-flex justify-content-start align-items-center">
-											<img src="#" data-src="./assets/images/testimonial/testimonials-05.png" alt="" class="lazy-image me-7" style="width: 60px; height: 60px">
-											<div class="author-info">
-												<h4 class="fw-bold text-uppercase mb-1 fs-15px fw-bold ls-1">JENNIFER C.</h4>
-												<p class="mb-0">/ Orlando, FL</p>
+						<?php foreach ($listDanhGia as $key => $danhGia) : ?>
+							<div class="px-6 py-0" data-animate="fadeInUp">
+								<div class="card border-0 bg-section-3 rounded p-sm-11 p-9">
+									<div class="card-body px-4">
+										<p class="fs-5 text-primary fw-semibold mb-11"><?= $danhGia['noi_dung'] ?></p>
+										<div class="d-flex align-items-center">
+											<div class="d-flex justify-content-start align-items-center">
+												<img src="assets/images/shop/avt.jpg" alt="" class="lazy-image me-7" style="width: 60px; height: 60px; border-radius:50%">
+												<div class="author-info">
+													<h4 class="fw-bold text-uppercase mb-1 fs-15px fw-bold ls-1"><?= $danhGia['ho_ten'] ?></h4>
+													<p class="mb-0"><?= $danhGia['ngaydg'] ?></p>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="px-6 py-0" data-animate="fadeInUp">
-							<div class="card border-0 bg-section-3 rounded p-sm-11 p-9">
-								<div class="card-body px-4">
-									<div class="d-flex align-items-center fs-14px ls-0 mb-6">
-										<div class="rating">
-											<div class="empty-stars">
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-											</div>
-											<div class="filled-stars"
-												style="width: 100%">
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-											</div>
-										</div>
-									</div>
-									<p class="fs-5 text-primary fw-semibold mb-11">
-										“ Amazing product. The results are so transformative in texture and my face feels plump and healthy. Highly recommend! “
-									</p>
-									<div class="d-flex align-items-center">
-										<div class="d-flex justify-content-start align-items-center">
-											<img src="#" data-src="./assets/images/testimonial/testimonials-06.png" alt="" class="lazy-image me-7" style="width: 60px; height: 60px">
-											<div class="author-info">
-												<h4 class="fw-bold text-uppercase mb-1 fs-15px fw-bold ls-1">JENNIFER C.</h4>
-												<p class="mb-0">/ Orlando, FL</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="px-6 py-0" data-animate="fadeInUp">
-							<div class="card border-0 bg-section-3 rounded p-sm-11 p-9">
-								<div class="card-body px-4">
-									<div class="d-flex align-items-center fs-14px ls-0 mb-6">
-										<div class="rating">
-											<div class="empty-stars">
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star-o">
-														<use xlink:href="#star-o"></use>
-													</svg>
-												</span>
-											</div>
-											<div class="filled-stars"
-												style="width: 100%">
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-												<span class="star">
-													<svg class="icon star text-primary">
-														<use xlink:href="#star"></use>
-													</svg>
-												</span>
-											</div>
-										</div>
-									</div>
-									<p class="fs-5 text-primary fw-semibold mb-11">
-										“ Amazing product. The results are so transformative in texture and my face feels plump and healthy. Highly recommend! “
-									</p>
-									<div class="d-flex align-items-center">
-										<div class="d-flex justify-content-start align-items-center">
-											<img src="#" data-src="./assets/images/testimonial/testimonials-04.png" alt="" class="lazy-image me-7" style="width: 60px; height: 60px">
-											<div class="author-info">
-												<h4 class="fw-bold text-uppercase mb-1 fs-15px fw-bold ls-1">JENNIFER C.</h4>
-												<p class="mb-0">/ Orlando, FL</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
+				<?php endforeach; ?>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section class="pt-14 pt-lg-16 pb-8 pb-md-12 pb-lg-16">
-
-		<div class="container container-xxl">
-			<div class="mb-11">
-				<div class="text-center" data-animate="fadeInUp">
-					<h2 class="mb-6">More to Discover</h2>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-md-4 mb-9 mb-md-0" data-animate="fadeInUp">
-					<div class="card border-0 hover-zoom-in">
-						<div class="image-box-4">
-
-
-							<img class="lazy-image img-fluid lazy-image" src="#" data-src="./assets/images/image-box/image-box-21.jpg" width="960" height="640" alt="">
-						</div>
-						<div class="card-body text-body-emphasis text-center pt-9 mt-2">
-							<h5 class="card-titletext-decoration-none fs-4 d-block fw-semibold"><a class="color-inherit text-decoration-none" href="#">Find a Store</a></h5>
-							<a href="#" title="Shop now" class="btn btn-link fw-semibold text-body-emphasis">Our Store <i class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-md-4 mb-9 mb-md-0" data-animate="fadeInUp">
-					<div class="card border-0 hover-zoom-in">
-						<div class="image-box-4">
-
-
-							<img class="lazy-image img-fluid lazy-image" src="#" data-src="./assets/images/image-box/image-box-13.jpg" width="960" height="640" alt="">
-						</div>
-						<div class="card-body text-body-emphasis text-center pt-9 mt-2">
-							<h5 class="card-titletext-decoration-none fs-4 d-block fw-semibold"><a class="color-inherit text-decoration-none" href="#">From Our Blog</a></h5>
-							<a href="#" title="Shop now" class="btn btn-link fw-semibold text-body-emphasis">Read more <i class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-md-4 mb-9 mb-md-0" data-animate="fadeInUp">
-					<div class="card border-0 hover-zoom-in">
-						<div class="image-box-4">
-
-
-							<img class="lazy-image img-fluid lazy-image" src="#" data-src="./assets/images/image-box/image-box-14.jpg" width="960" height="640" alt="">
-						</div>
-						<div class="card-body text-body-emphasis text-center pt-9 mt-2">
-							<h5 class="card-titletext-decoration-none fs-4 d-block fw-semibold"><a class="color-inherit text-decoration-none" href="#">Our Story</a></h5>
-							<a href="#" title="Shop now" class="btn btn-link fw-semibold text-body-emphasis">View More <i class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-
+	<br>
 </main>
