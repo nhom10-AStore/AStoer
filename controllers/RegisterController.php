@@ -65,7 +65,7 @@ class RegisterController
                 }
             } else {
                 $_SESSION['errors'] = $errors;
-                header('Location:?act=dang-ky');
+                header('Location:' . BASE_URL . '?act=dang-ky');
                 exit();
             }
         }
