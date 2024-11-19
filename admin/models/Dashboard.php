@@ -23,19 +23,24 @@ class Dashboard
     {
         $sql = "
         SELECT 
-            COALESCE(SUM(chi_tiet_don_hangs.so_luong * (san_phams.gia_ban - IFNULL(khuyen_mais.gia_tri/100, 0))), 0) AS total_revenue
+            COALESCE(SUM(chi_tiet_don_hangs.so_luong * (san_phams.gia_ban - san_phams.gia_ban*IFNULL(khuyen_mais.gia_tri/100, 0))), 0) AS total_revenue
         FROM 
             chi_tiet_don_hangs
         INNER JOIN 
             san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id
         LEFT JOIN 
             khuyen_mais ON chi_tiet_don_hangs.khuyen_mai_id = khuyen_mais.id
+        INNER JOIN 
+            don_hangs ON chi_tiet_don_hangs.don_hang_id = don_hangs.id
+        WHERE 
+            don_hangs.trang_thai_id = 5
     ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_revenue'];
     }
+
 
     // Đếm số đơn hàng đã giao thành công
     public function countCompletedOrders()
