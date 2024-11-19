@@ -63,7 +63,7 @@
 
 						<li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10 dropdown dropdown-hover dropdown-fullwidth">
 							<a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px "
-								href="./index.html" id="menu-item-home" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+								href="<?=BASE_URL?>" id="menu-item-home" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
 						</li>
 						<li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10 dropdown dropdown-hover">
 							<a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px dropdown-toggle"
