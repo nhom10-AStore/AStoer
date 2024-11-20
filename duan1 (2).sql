@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 18, 2024 at 03:36 AM
+-- Generation Time: Nov 20, 2024 at 09:33 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -38,11 +38,9 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `ten_banner`, `trang_thai`) VALUES
-(13, 'uploads/sharktank2-1.png.webp', 1),
-(14, 'uploads/logo-5.png', 2),
-(15, 'uploads/tải xuống (1).jpg', 1),
-(16, 'uploads/logo-5.png', 2),
-(17, 'uploads/Ảnh chụp màn hình 2024-11-17 004408.png', 2);
+(13, 'uploads/34b5bf180145769.6505ae7623131.jpg', 1),
+(14, 'uploads/banner-web-traidepcarelifetime-150324zz-1763.png', 2),
+(15, 'uploads/giathat-rethat.webp', 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,8 @@ CREATE TABLE `chi_tiet_don_hangs` (
 INSERT INTO `chi_tiet_don_hangs` (`id`, `don_hang_id`, `san_pham_id`, `so_luong`, `khuyen_mai_id`, `phi_van_chuyen`) VALUES
 (6, 4, 135, 4, 2, 10000),
 (7, 4, 133, 23, 1, 15000),
-(8, 5, 130, 4, 1, 20000);
+(8, 5, 130, 4, 1, 20000),
+(9, 6, 130, 4, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -131,7 +130,7 @@ CREATE TABLE `danh_gias` (
 --
 
 INSERT INTO `danh_gias` (`id`, `nguoi_dung_id`, `sao`, `noi_dung`, `ngaydg`, `tra_loi`, `san_pham_id`) VALUES
-(130, 1, 4, 'ưertyuiu', '2024-11-05', 'abca', 130);
+(130, 1, 4, 'Giao hàng nhanh, sản phẩm chất lượng, tư vấn viên nhanh nhẹn nhiệt tình', '2024-11-05', 'abca', 130);
 
 -- --------------------------------------------------------
 
@@ -363,16 +362,15 @@ CREATE TABLE `san_phams` (
 --
 
 INSERT INTO `san_phams` (`id`, `ten_san_pham`, `luot_xem`, `thong_so`, `so_luong`, `so_luong_ton_kho`, `mo_ta`, `anh_san_pham`, `gia_nhap`, `gia_ban`, `gia_khuyen_mai`, `mo_ta_chi_tiet`, `trang_thai`, `danh_muc_id`, `ma_san_pham`, `ngay_nhap`) VALUES
-(111, 'tgdf', 4354, '', 2423, 0, 'fcrefrr4543', '', '24.00', '34543.00', '242.00', 'erewr4543', 1, 1, '334', '2024-11-13'),
-(130, 'fdsf', 32, '', 432, 0, 'dfdsfdfdddddddddddddddddddddd', './uploads/1731895154Ảnh chụp màn hình 2024-09-19 140845.png', '343.00', '54.00', '4324.00', 'eu h e hewuteutetie', 2, 1, '300', '2024-11-14'),
+(130, 'iPhone 16 Pro', 32, '', 432, 0, 'iPhone 16 Pro có thiết kế titan Cấp 5 với kết cấu vi điểm tinh tế mới. Titan là một trong những kim loại có tỷ số độ bền và trọng lượng cao nhất, giúp phiên bản này cực kỳ cứng cáp và nhẹ ấn tượng. iPhone 16 Pro có bốn màu tuyệt đẹp, bao gồm màu Titan Sa Mạc mới.', './uploads/1731928189iphone_14__eso1fig4ci6a_xlarge.png', '28999000.00', '30000000.00', '29599999.00', 'Các cải tiến thiết kế bên trong (như cấu trúc tản nhiệt bên dưới được làm từ 100% nhôm tái chế và mặt kính sau với những đặc tính tối ưu giúp tản nhiệt hiệu quả hơn) cho phép duy trì hiệu suất tốt hơn 20% so với iPhone 15 Pro. Nhờ đó, bạn có thể làm mọi điều mình thích, như chơi game cường độ cao được lâu hơn.', 1, 1, '300', '2024-11-18'),
 (131, 'asas', 65, '', 56, 0, 'tỷ', './admin/uploads/1731582706a.jpg', '56.00', '65.00', '56.00', 'yt', 1, 3, '56456', '2024-11-14'),
-(132, 'dfds', 435, '', 24, 0, 'ewrew343', './admin/uploads/1731584399a.jpg', '242.00', '23.00', '43243.00', 'ewrew324', 1, 2, '842', '2024-11-14'),
-(133, 'brty', 45, '', 43, 0, 'er453', './admin/uploads/17315848432023_Facebook_icon.svg', '43.00', '32.00', '435.00', 'wrew543', 2, 1, '64', '2024-11-14'),
-(135, 'Redmi K70 Pro', 32, '', 32, 0, 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', './admin/uploads/1731586630zalomkt.jpg', '12.00', '123.00', '3048.00', 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 3, '0', '2024-11-14'),
-(136, 'êr', 54, '', 54, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './uploads/1731899465Ảnh chụp màn hình 2024-09-19 140845.png', '43.00', '23.00', '2443.00', 'vRedmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 1, '34', '2024-11-14'),
-(137, 'Hiếu', 2, '', 21, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './admin/uploads/1731587650iphone 16 pro - 3.jpg', '23.00', '234.00', '21.00', 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', 1, 1, '56456', '2024-11-14'),
+(132, 'iPhone 16', 435, '', 300, 0, 'ewrew343', './uploads/1731928040iphone_14__eso1fig4ci6a_xlarge.png', '22999000.00', '23299000.00', '23000000.00', 'ewrew324', 1, 1, '842', '2024-11-15'),
+(133, 'iPhone 15', 45, '', 43, 0, 'er453', './uploads/1731928067iphone_15__buwagff0mwwi_xlarge.png', '18000000.00', '18999999.00', '18799999.00', 'wrew543', 1, 1, '64', '2024-11-14'),
+(135, 'Redmi K70 Pro', 32, '', 32, 0, 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', './admin/uploads/1731586630zalomkt.jpg', '12.00', '123.00', '3048.00', 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 3, '465', '2024-11-14'),
+(136, 'êr', 54, '', 54, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './uploads/1731928115iphone_15__buwagff0mwwi_xlarge.png', '43.00', '23.00', '2443.00', 'vRedmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', 1, 1, '34', '2024-11-14'),
+(137, 'Hiếu', 2, '', 21, 0, 'Redmi K70 ra mắt: Snapdragon 8 Gen 2, màn hình 2K, sạc nhanh 120 W (cập nhật: 29/11) Về tổng quan, mình nhận thấy Redmi K70 có ngoại hình khá tương đồng với một số mẫu Redmi Note được ra mắt gần đây. Máy sở hữu những đường nét vuông vắn ở cạnh viền, kết hợp cùng mặt lưng được bo cong nhẹ ở phần mép giúp tạo nên một tổng thể hài hòa. Đồng thời, khu vực mặt lưng của Redmi K70 cũng có sự tinh chỉnh cách thiết kế tùy theo phiên bản màu.', './uploads/1731928126iphone_14__eso1fig4ci6a_xlarge.png', '23.00', '234.00', '21.00', 'Redmi K70 trang bị chip Snapdragon 8 Gen 2 kết hợp với RAM lên tới 16GB giúp đảm bảo hiệu năng vô cùng mạnh mẽ. Thiết bị xuất xưởng với hệ điều hành HyperOS hoàn toàn mới có nhiều tính năng hấp dẫn và hiện đại. Redmi K70 có màn hình OLED QHD+ hỗ trợ 68 tỷ màu có độ sáng siêu cao lên tới 4000 nit.', 1, 1, '56456', '2024-11-14'),
 (138, 'SSADSAD', 45, '', 42, 0, 'yyt', './admin/uploads/1731590727fbmkt.jpg', '32.00', '343.00', '242.00', 'gfgdfgd', 1, 3, '842', '2005-05-09'),
-(139, 'ưe', 45, '', 343, 0, '234fver', './uploads/1731899446Ảnh chụp màn hình 2024-09-19 140845.png', '543.00', '34.00', '43.00', '343rv', 1, 1, '123', '2024-11-16');
+(139, 'ưe', 45, '', 343, 0, '234fver', './admin/uploads/1732079323iphone_15__buwagff0mwwi_xlarge.png', '543.00', '34.00', '43.00', '343rv', 1, 1, '12314', '2024-11-16');
 
 -- --------------------------------------------------------
 
@@ -383,7 +381,7 @@ INSERT INTO `san_phams` (`id`, `ten_san_pham`, `luot_xem`, `thong_so`, `so_luong
 CREATE TABLE `tai_khoans` (
   `id` int NOT NULL,
   `ho_ten` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `anh_dai_dien` text COLLATE utf8mb4_general_ci NOT NULL,
+  `anh_dai_dien` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `ngay_sinh` date NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `so_dien_thoai` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
@@ -399,11 +397,12 @@ CREATE TABLE `tai_khoans` (
 --
 
 INSERT INTO `tai_khoans` (`id`, `ho_ten`, `anh_dai_dien`, `ngay_sinh`, `email`, `so_dien_thoai`, `gioi_tinh`, `dia_chi`, `mat_khau`, `chuc_vu_id`, `trang_thai`) VALUES
-(0, 'Nguyễn anh', '', '0000-00-00', 'anh@gmail.com', '0968086223', 0, '', '$2y$10$NW12CMjaaGxxziJt/7sZKe/cQO/7BF/8plIUCpGqI0gL1IKoIZ2KG', 2, 2),
 (1, 'Nguyễn Trung Hiếu', '', '2014-11-11', 'admin@gmail.com', '0968086233', 1, 'Hà Nam', '$2y$10$6Vnlzahj.4FgTty4TctJlOz6P5fWyUZKQGAHRxn/pHvJTgBZUcEIG', 1, 1),
-(6, 'Nguyễn Hoàng Anh23', '', '0000-00-00', 'hieunguyentrung343@gmail.com', '', 0, '', '$2y$10$16VGzu6oq0d0BZmixtlsS..4T2pqWfOH9JrI3zHfDpNZZ/xw8yW0G', 1, 1),
+(2, 'Nguyễn anh', '', '2004-03-12', 'anh@gmail.com', '0968086223', 2, '', '$2y$10$NW12CMjaaGxxziJt/7sZKe/cQO/7BF/8plIUCpGqI0gL1IKoIZ2KG', 2, 2),
+(6, 'Nguyễn Hoàng Anh23', '', '2024-11-07', 'hieunguyentrung343@gmail.com', '', 0, '', '$2y$10$16VGzu6oq0d0BZmixtlsS..4T2pqWfOH9JrI3zHfDpNZZ/xw8yW0G', 1, 1),
 (7, 'Nguyễn Hoàng Anh', '', '2024-11-15', 'nguyentrunghie22@gmail.com', '0968086233', 1, '', '$2y$10$M8BVCa6v0UmbRFsudRU9Y.rHgXlbDdQrI2dytTMPLeBAJV5liRWRe', 2, 2),
-(8, 'Phạm Phú Trung', '', '2014-11-08', 'phutrung1606a@gmail.com', '0355011558', 1, 'Hải Dương', '$2y$10$6Vnlzahj.4FgTty4TctJlOz6P5fWyUZKQGAHRxn/pHvJTgBZUcEIG', 1, 1);
+(16, 'Nguyễn Văn C', 'uploads/images (1).jpg', '2005-10-11', 'phutrung149@gmail.com', '0355011558', 1, 'Hải Dương', '$2y$10$C/IG/1uc5FGxr7zNeI.fbuExJ9bljXpgroGN4n5S7tVHyER74pFHa', 2, 1),
+(17, 'Phạm Phú Trung', 'uploads/iphone_15__buwagff0mwwi_xlarge.png', '2005-04-08', 'user@gmail.com', '0123456789', 2, 'Hà Nội', '$2y$10$kNlSPQvIJH7ehzSg5B4r1e77D2OEtG4s8MXID8/oQ1uhjy0m/shw.', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -596,7 +595,7 @@ ALTER TABLE `binh_luans`
 -- AUTO_INCREMENT for table `chi_tiet_don_hangs`
 --
 ALTER TABLE `chi_tiet_don_hangs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `chuc_vus`
@@ -651,6 +650,12 @@ ALTER TABLE `phuong_thuc_thanh_toans`
 --
 ALTER TABLE `san_phams`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+
+--
+-- AUTO_INCREMENT for table `tai_khoans`
+--
+ALTER TABLE `tai_khoans`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tin_tucs`

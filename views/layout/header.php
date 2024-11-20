@@ -162,7 +162,7 @@
 								</svg>
 							</a>
 						<?php else: ?>
-							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=profile' ?>">
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan' ?>">
 								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien'] ?>" alt="User Avatar" class="user-avatar">
 							</a>
 							<a href="<?= BASE_URL ?>?act=dang-xuat" class="lh-1 color-inherit text-decoration-none" style="gap: 20px;">
@@ -178,4 +178,5 @@
 			</div>
 		</div>
 	</div>
+	
 </header>

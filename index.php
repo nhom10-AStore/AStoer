@@ -30,5 +30,7 @@ match ($act) {
     // Đăng ký
     'dang-ky'           => (new RegisterController())->create(),
     'dangky'            => (new RegisterController())->store(),
+    //thông tin nguời dùng
+    'thong-tin-ca-nhan'  =>(new HomeController())->profile(),
     
 };
