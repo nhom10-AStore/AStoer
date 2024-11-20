@@ -29,7 +29,7 @@ class RegisterController
             $so_dien_thoai = $_POST['so_dien_thoai'];
             $gioi_tinh = $_POST['gioi_tinh'];
             $dia_chi = $_POST['dia_chi'];
-            $mat_khau = $_POST['mat_khau'];
+            $mat_khau = password_hash($_POST['mat_khau'], PASSWORD_DEFAULT);
 
             $chuc_vu_id = 2;
             $trang_thai = 1;
@@ -42,15 +42,20 @@ class RegisterController
             move_uploaded_file($anh_dai_dien['tmp_name'], $file_path);
 
             // Kiểm tra dữ liệu
-            $errors = [];
             if (empty($ho_ten)) $errors['ho_ten'] = 'Nhập họ tên';
-            if (empty($ho_ten)) $errors['anh_dai_dien'] = 'anh_dai_dien';
+            if (empty($anh_dai_dien)) $errors['anh_dai_dien'] = 'Chọn ảnh đại diện';
             if (empty($ngay_sinh)) $errors['ngay_sinh'] = 'Nhập ngày sinh';
+            if ($ngay_sinh > date('Y-m-d')) $errors['ngay_sinh'] = 'Ngày sinh không được là ngày tương lai';
             if (empty($email)) $errors['email'] = 'Nhập email';
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = 'Email không hợp lệ';
+            if ($this->modelRegister->checkEmailExist($email)) $errors['email'] = 'Email đã tồn tại';
             if (empty($so_dien_thoai)) $errors['so_dien_thoai'] = 'Nhập số điện thoại';
+            if (!preg_match('/^[0-9]{10,11}$/', $so_dien_thoai)) $errors['so_dien_thoai'] = 'Số điện thoại không hợp lệ';
+            if ($this->modelRegister->checkPhoneExist($so_dien_thoai)) $errors['so_dien_thoai'] = 'Số điện thoại đã tồn tại';
             if (empty($gioi_tinh)) $errors['gioi_tinh'] = 'Chọn giới tính';
             if (empty($dia_chi)) $errors['dia_chi'] = 'Nhập địa chỉ';
             if (empty($mat_khau)) $errors['mat_khau'] = 'Nhập mật khẩu';
+            if (strlen($mat_khau) < 6) $errors['mat_khau'] = 'Mật khẩu phải lớn hơn 6 ký tự';
 
             // Thêm dữ liệu nếu không có lỗi
             if (empty($errors)) {

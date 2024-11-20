@@ -40,5 +40,22 @@ class Register
             return false;
         }
     }
+
+    public function checkEmailExist($email)
+    {
+        $sql = "SELECT COUNT(*) FROM tai_khoans WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function checkPhoneExist($so_dien_thoai)
+    {
+        $sql = "SELECT COUNT(*) FROM tai_khoans WHERE so_dien_thoai = :so_dien_thoai";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':so_dien_thoai', $so_dien_thoai);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 }
-?>

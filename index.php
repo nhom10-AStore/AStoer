@@ -25,8 +25,10 @@ match ($act) {
     'chi-tiet-san-pham' => (new HomeController())->getDetailSanPham(),
     // auth
     'login'             => (new HomeController())->formLogin(),
-    'check-login'             => (new HomeController())->postLogin(),
+    'check-login'       => (new HomeController())->postLogin(),
+    'dang-xuat'         =>(new HomeController())->logout(),
     // Đăng ký
-    'dang-ky'        => (new RegisterController())->create(),
+    'dang-ky'           => (new RegisterController())->create(),
     'dangky'            => (new RegisterController())->store(),
+    
 };

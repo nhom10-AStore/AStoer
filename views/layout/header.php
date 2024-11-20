@@ -63,7 +63,7 @@
 
 						<li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10 dropdown dropdown-hover dropdown-fullwidth">
 							<a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px "
-								href="<?=BASE_URL?>" id="menu-item-home" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+								href="<?= BASE_URL ?>" id="menu-item-home" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
 						</li>
 						<li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10 dropdown dropdown-hover">
 							<a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px dropdown-toggle"
@@ -136,13 +136,6 @@
 						</a>
 					</div>
 					<div class="px-5 d-none d-xl-inline-block">
-						<a class="lh-1 color-inherit text-decoration-none" href="<?=BASE_URL_ADMIN .'?act=login-admin'?>">
-							<svg class="icon icon-user-light">
-								<use xlink:href="#icon-user-light"></use>
-							</svg>
-						</a>
-					</div>
-					<div class="px-5 d-none d-xl-inline-block">
 						<a class="position-relative lh-1 color-inherit text-decoration-none" href="./shop/wishlist.html">
 							<svg class="icon icon-star-light">
 								<use xlink:href="#icon-star-light"></use>
@@ -161,6 +154,26 @@
 							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
 						</a>
 					</div>
+					<div class="px-5 d-none d-xl-inline-block">
+						<?php if (!isset($_SESSION['user'])): ?>
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL_ADMIN . '?act=login-admin' ?>">
+								<svg class="icon icon-user-light">
+									<use xlink:href="#icon-user-light"></use>
+								</svg>
+							</a>
+						<?php else: ?>
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL_ADMIN . '?act=profile' ?>">
+								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien'] ?>" alt="User Avatar" class="user-avatar">
+							</a>
+							<a href="<?= BASE_URL ?>?act=dang-xuat" class="lh-1 color-inherit text-decoration-none">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+									<path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+								</svg>
+							</a>
+						<?php endif; ?>
+					</div>
+
 				</div>
 			</div>
 		</div>
