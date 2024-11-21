@@ -74,6 +74,38 @@ class HomeController
             exit();
         }
     }
+    public function addComment()
+    {
+        // Kiểm tra người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['user'])) {
+            echo json_encode(['status' => 'error', 'message' => 'Bạn cần đăng nhập để bình luận.']);
+            return;
+        }
+
+        // Lấy thông tin người dùng và sản phẩm từ request
+        $nguoi_dung_id = $_SESSION['user']['id']; // ID người dùng từ session
+        $san_pham_id = $_GET['id_san_pham']; // ID sản phẩm
+        $noi_dung = isset($_POST['noi_dung']) ? trim($_POST['noi_dung']) : ''; // Nội dung bình luận
+        // var_dump($san_pham_id);die;
+        // Kiểm tra tính hợp lệ của dữ liệu
+        if (empty($san_pham_id) || empty($noi_dung)) {
+            echo json_encode(['status' => 'error', 'message' => 'Vui lòng nhập đầy đủ thông tin bình luận.']);
+            return;
+        }
+
+        // Gọi model để thêm bình luận
+        $result = $this->modelSanPham->addComment($nguoi_dung_id, $san_pham_id, $noi_dung);
+
+        // Xử lý kết quả thêm bình luận
+        if ($result) {
+            // Nếu thêm bình luận thành công, chuyển hướng về trang chi tiết sản phẩm
+            header("Location: " . BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $san_pham_id);
+            exit();
+        } else {
+            // Nếu có lỗi trong quá trình thêm bình luận, thông báo lỗi
+            echo json_encode(['status' => 'error', 'message' => 'Đã xảy ra lỗi khi thêm bình luận.']);
+        }
+    }
 
     public function logout()
     {

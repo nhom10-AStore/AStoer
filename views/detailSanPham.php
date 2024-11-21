@@ -373,20 +373,18 @@
 						<div class="tab-content reviews-tab">
 							<!-- Form bình luận -->
 							<div class="tab-pane fade show active" id="comments-tab">
-								<?php if (isset($_SESSION['tai_khoan_id'])): ?>
-									<form action="index.php?controller=HomeController&action=addComment" method="POST" class="review-form">
-										<div class="form-group mb-3">
-											<label for="comment-content" class="form-label">
-												<span class="text-danger">*</span> Bình luận
-											</label>
-											<textarea id="comment-content" name="content" class="form-control" placeholder="Nhập bình luận của bạn..." required></textarea>
-											<input type="hidden" name="email" value="<?= $email ?>">
-										</div>
-										<button type="submit" class="btn btn-primary">Gửi bình luận</button>
+								<?php if (isset($_SESSION['user'])): ?>
+									<form id="formAddComment" method="post" action="<?= BASE_URL . '?act=xu-ly-binh-luan&id_san_pham=' . $_GET['id_san_pham']; ?>">
+										<input type="hidden" name="id_san_pham" value="<?= $_GET['id_san_pham']; ?>">
+
+										<textarea name="noi_dung" placeholder="Nhập bình luận của bạn" required></textarea>
+										<button type="submit">Gửi bình luận</button>
 									</form>
+
 								<?php else: ?>
-									<p class="text-muted">Bạn cần <a href="http://localhost/AStoer-master/admin/?act=login-admin">đăng nhập</a> để bình luận.</p>
+									<p class="text-muted">Bạn cần <a href="<?=BASE_URL_ADMIN.'?act=login-admin'?>">đăng nhập</a> để bình luận.</p>
 								<?php endif; ?>
+
 							</div>
 
 							<!-- Danh sách bình luận -->
@@ -412,7 +410,7 @@
 		</div>
 
 	</main>
-	
+
 	<!-- JAVASCRIPT -->
 	<?php
 	require_once "views/layout/footer.php";

@@ -23,6 +23,7 @@ match ($act) {
     // Trang chủ
     '/'                 => (new HomeController())->index(),
     'chi-tiet-san-pham' => (new HomeController())->chiTietSanPham(),
+    'xu-ly-binh-luan' =>(new HomeController())->addComment(),
 
     // auth
     'login'             => (new HomeController())->formLogin(),
