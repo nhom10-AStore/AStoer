@@ -36,15 +36,8 @@
 		</div>
 	</div>
 	<div class="sticky-area">
-		<div class="main-header nav navbar bg-body navbar-light navbar-expand-xl py-6 py-xl-0">
+		<div class="main-header nav navbar bg-body navbar-dark navbar-expand-xl py-6 py-xl-0">
 			<div class="container-xxl container flex-nowrap">
-
-
-
-
-
-
-
 				<div class="w-72px d-flex d-xl-none">
 					<button class="navbar-toggler align-self-center  border-0 shadow-none px-0 canvas-toggle p-4" type="button"
 						data-bs-toggle="offcanvas"
@@ -121,8 +114,8 @@
 
 				<a href="./" class="navbar-brand px-8 py-4 mx-auto">
 
-					<img class="light-mode-img" src="assets/images/others/logoAStore-white.png" width="250" height="150">
-					<img class="dark-mode-img" src="assets/images/others/logoAStore.png" width="250" height="150"></a>
+					<!-- <img class="light-mode-img" src="assets/images/others/logoAStore-white.png" width="250" height="150"> -->
+					<img class="dark-mode-img" src="assets/images/others/logoAStore.png" width="250" height="130"></a>
 
 				<div class="icons-actions d-flex justify-content-end w-xl-50 fs-28px text-body-emphasis">
 					<div class="px-xl-5 d-inline-block">
@@ -130,15 +123,15 @@
 							data-bs-target="#searchModal"
 							aria-controls="searchModal"
 							aria-expanded="false">
-							<svg class="icon icon-magnifying-glass-light">
-								<use xlink:href="#icon-magnifying-glass-light"></use>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 							</svg>
 						</a>
 					</div>
 					<div class="px-5 d-none d-xl-inline-block">
 						<a class="position-relative lh-1 color-inherit text-decoration-none" href="./shop/wishlist.html">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-star-light"></use>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+								<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
 							</svg>
 							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
 						</a>
@@ -148,8 +141,9 @@
 							data-bs-target="#shoppingCart"
 							aria-controls="shoppingCart"
 							aria-expanded="false">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-shopping-bag-open-light"></use>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
+								<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
 							</svg>
 							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
 						</a>
@@ -162,11 +156,11 @@
 								</svg>
 							</a>
 						<?php else: ?>
-							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan' ?>">
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan&id='.$_SESSION['user']['id'] ?>">
 								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien'] ?>" alt="User Avatar" class="user-avatar">
 							</a>
 							<a href="<?= BASE_URL ?>?act=dang-xuat" class="lh-1 color-inherit text-decoration-none" style="gap: 20px;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
 									<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
 									<path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
 								</svg>
@@ -178,5 +172,5 @@
 			</div>
 		</div>
 	</div>
-	
+
 </header>

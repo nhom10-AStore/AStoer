@@ -6,6 +6,19 @@ class TaiKhoan
     {
         $this->conn = connectDB();
     }
+    public function getDetailTaiKhoan($id)
+    {
+        try {
+            $sql = "SELECT * FROM tai_khoans WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(
+                [':id' => $id]
+            );
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Lỗi' . $e->getMessage();
+        }
+    }
     public function checkLogin($email, $mat_khau)
     {
         try {

@@ -26,7 +26,7 @@
 						<div class="col-lg-4 col-xl-3 col-sm-6">
 							<div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp" style="width: 200px;">
 								<figure class="card-img-top position-relative mb-7 overflow-hidden ">
-									<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id-san-pham=' . $sanPham['id'] ?>" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
+									<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id'] ?>" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
 										<img src="<?= BASE_URL .  $sanPham['anh_san_pham'] ?>" xlink:src="/admin/uploads/avt.png" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil">
 									</a>
 

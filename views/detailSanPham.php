@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 
 <head>
 
@@ -7,13 +7,38 @@
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Home Page 07 - Glowing - Bootstrap 5 HTML Templates</title>
+	<title>Chi tiêt sản phẩm</title>
 	<!-- CSS -->
 	<?php
 	require_once "layout/libs_css.php";
 	?>
 
 </head>
+<style>
+	/* Ảnh nhỏ tràn khung với tỉ lệ 3:4 */
+	.thumbnail {
+		width: 75px;
+		/* Fixed width for thumbnails */
+		height: 100px;
+		/* Fixed height for thumbnails */
+		object-fit: cover;
+		/* Ensures the image covers the entire container */
+		object-position: center;
+		/* Keeps the image centered within the container */
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		margin-bottom: 10px;
+		transition: transform 0.2s, border-color 0.2s;
+	}
+
+	/* Hover effect for thumbnails */
+	.thumbnail:hover {
+		transform: scale(1.1);
+		/* Slight zoom effect on hover */
+		border-color: #007bff;
+		/* Change border color on hover */
+	}
+</style>
 
 <body>
 
@@ -23,2162 +48,374 @@
 
 	// require_once "layout/siderbar.php";
 	?>
-<main id="content" class="wrapper layout-page">
+	<main id="content" class="wrapper layout-page">
 
-	<section class="container pt-6 pb-13 pb-lg-20">
-		<div class="row ">
-			<div class="col-md-6 pe-lg-13">
-				<div class="row">
-					<div class="col-xl-2 pe-xl-0 order-1 order-xl-0 mt-5 mt-xl-0">
-						<div id="vertical-slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4 mx-xl-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#vertical-slider-slides&#34;,&#34;dots&#34;:false,&#34;focusOnSelect&#34;:true,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1260,&#34;settings&#34;:{&#34;vertical&#34;:false}}],&#34;slidesToShow&#34;:4,&#34;vertical&#34;:true}'><img src="#" data-src="../assets/images/shop/product-gallery-05-154x205.jpg" class="cursor-pointer lazy-image mx-3 mx-xl-0 px-0 mb-xl-7" width="75" height="100" title="" alt=""><img src="#" data-src="../assets/images/shop/product-gallery-06-154x205.jpg" class="cursor-pointer lazy-image mx-3 mx-xl-0 px-0 mb-xl-7" width="75" height="100" title="" alt=""><img src="#" data-src="../assets/images/shop/product-gallery-07-154x205.jpg" class="cursor-pointer lazy-image mx-3 mx-xl-0 px-0 mb-xl-7" width="75" height="100" title="" alt="">
+		<section class="container pt-6 pb-13 pb-lg-20">
+			<div class="row ">
+				<div class="col-md-6 pe-lg-13">
+					<div class="row">
+						<div class="col-xl-2 pe-xl-0 order-1 order-xl-0 mt-5 mt-xl-0">
+							<!-- Thumbnails Section -->
 							<div class="position-relative cursor-pointer mx-3 mx-xl-0 px-0 mb-xl-7">
-								<img src="#" data-src="../assets/images/shop/product-gallery-08-154x205.jpg" class="w-100 lazy-image" alt="product gallery" width="75" height="100">
-								<div class="card-img-overlay d-inline-flex flex-column align-items-center justify-content-center">
-									<div class="d-flex justify-content-center align-items-center rounded-circle product-gallery-video-thumb text-body-emphasis bg-body">
-										<i class="fas fa-play"></i>
-									</div>
-								</div>
+								<?php foreach ($listAnhSanPham as $key => $anhSanPham): ?>
+									<img src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>"
+										class="thumbnail cursor-pointer lazy-image"
+										alt="product gallery"
+										data-large-src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>">
+								<?php endforeach ?>
+							</div>
+						</div>
+						<div class="col-xl-10 ps-xl-8 pe-xl-0 order-0 order-xl-1">
+							<!-- Main Image Section -->
+							<div id="vertical-slider-slides" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#vertical-slider-thumb&#34;,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1,&#34;vertical&#34;:true}'>
+								<a href="<?= $sanPham['anh_san_pham'] ?>" data-gallery="product-gallery">
+									<img id="main-image" src="<?= $sanPham['anh_san_pham'] ?>" width="540" height="720" title="" class="h-auto lazy-image" alt="">
+								</a>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-10 ps-xl-8 pe-xl-0 order-0 order-xl-1">
-						<div id="vertical-slider-slides" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#vertical-slider-thumb&#34;,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1,&#34;vertical&#34;:true}'><a href="../assets/images/shop/product-gallery-05.jpg" data-gallery="product-gallery" data-thumb-src="../assets/images/shop/product-gallery-05.jpg"><img src="#" data-src="../assets/images/shop/product-gallery-05.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt=""></a><a href="../assets/images/shop/product-gallery-06.jpg" data-gallery="product-gallery" data-thumb-src="../assets/images/shop/product-gallery-06.jpg"><img src="#" data-src="../assets/images/shop/product-gallery-06.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt=""></a><a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="product-gallery" data-thumb-src="../assets/images/shop/product-gallery-07.jpg"><img src="#" data-src="../assets/images/shop/product-gallery-07.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt=""></a>
-							<div class="position-relative">
-								<img src="#" data-src="../assets/images/shop/product-gallery-08.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt="">
-								<div class="card-img-overlay d-inline-flex flex-column align-items-center justify-content-center">
-									<a href="https://www.youtube.com/watch?v=6v2L2UGZJAM" class="view-video d-flex justify-content-center align-items-center rounded-circle product-gallery-video btn btn-white">
-										<i class="fas fa-play"></i>
+				</div>
+				<div class="col-md-6 pt-md-0 pt-10">
+					<p class="d-flex align-items-center mb-6">
+						<span class="text-decoration-line-through"><?= $sanPham['gia_nhap'] ?></span>
+						<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= $sanPham['gia_ban'] ?></span>
+						<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= $sanPham['gia_khuyen_mai'] ?>%</span>
+					</p>
+					<h1 class="mb-4 pb-2 fs-4"><?= $sanPham['ten_san_pham'] ?></h1>
+
+					<p class="fs-15px"><?= $sanPham['mo_ta'] ?></p>
+
+
+					<form class="product-info-custom">
+						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Add To Bag
+						</button>
+					</form>
+					<div class="d-flex align-items-center flex-wrap">
+						<a href="../shop/compare.html" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
+							<svg class="icon fs-5">
+								<use xlink:href="#icon-arrows-left-right-light"></use>
+							</svg>
+							<span class="ms-4 ps-2">Compare</span>
+						</a>
+						<a href="#" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
+							<svg class="icon fs-5">
+								<use xlink:href="#icon-star-light"></use>
+							</svg>
+							<span class="ms-4 ps-2">Add to wishlist</span>
+						</a>
+					</div>
+
+					<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
+						<li class="d-flex mb-4 pb-2 align-items-center">
+							<span class="text-body-emphasis fw-semibold fs-14px">Số lượng</span>
+							<span class="ps-4"><?= $sanPham['so_luong'] ?></span>
+						</li>
+						<li class="d-flex mb-4 pb-2 align-items-center">
+							<span class="text-body-emphasis fw-semibold fs-14px">Lượt xem</span>
+							<span class="ps-4"><?= $sanPham['luot_xem'] ?></span>
+						</li>
+						<li class="d-flex mb-4 pb-2 align-items-center">
+							<span class="text-body-emphasis fw-semibold fs-14px">Danh mục</span>
+							<span class="ps-4"><?= $sanPham['ten_danh_muc'] ?></span>
+						</li>
+						<li class="d-flex mb-4 pb-2 align-items-center">
+							<span class="text-body-emphasis fw-semibold fs-14px">Share:</span>
+							<ul class="list-inline d-flex align-items-center mb-0 col-8 col-lg-10 ps-4">
+								<li class="list-inline-item me-7">
+									<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Twitter">
+										<i class="fab fa-twitter"></i>
 									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+								</li>
+								<li class="list-inline-item me-7">
+									<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Facebook">
+										<i class="fab fa-facebook-f"></i>
+									</a>
+								</li>
+								<li class="list-inline-item me-7">
+									<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Instagram">
+										<i class="fab fa-instagram"></i>
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Youtube">
+										<i class="fab fa-youtube"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+
+
 				</div>
 			</div>
-			<div class="col-md-6 pt-md-0 pt-10">
-				<p class="d-flex align-items-center mb-6">
-					<span class="text-decoration-line-through">39.00</span>
-					<span class="fs-18px text-body-emphasis ps-6 fw-bold">29.00</span>
-					<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3">20%</span>
-				</p>
-				<h1 class="mb-4 pb-2 fs-4">Natural Coconut Cleansing Oil</h1>
-				<div class="d-flex align-items-center fs-15px mb-6">
-					<p class="mb-0 fw-semibold text-body-emphasis">4.86</p>
-					<div class="d-flex align-items-center fs-12px justify-content-center mb-0 px-6 rating-result">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 96%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<a href="#" class="border-start ps-6 text-body">Read 2947 reviews</a>
-				</div>
-				<p class="fs-15px">Niacinamide and Vitamin C are two anti-aging superstars but not usually formulated together because of their different pH levels.</p>
-
-
-				<form class="product-info-custom">
-					<div class="form-group shop-swatch mb-7 d-flex align-items-center">
-						<span class="fw-semibold text-body-emphasis me-7">Size: </span>
-						<ul class="list-inline d-flex justify-content-start mb-0">
-							<li class="list-inline-item me-4 fw-semibold">
-								<input type="radio" id="radio1" name="radio" class="product-info-size d-none" checked>
-								<label for="radio1" class="fs-14px p-4 d-block rounded text-decoration-none border" data-var="full size">Full size</label>
-							</li>
-							<li class="list-inline-item me-4 fw-semibold">
-								<input type="radio" id="radio2" name="radio" class="product-info-size d-none">
-								<label for="radio2" class="fs-14px p-4 d-block rounded text-decoration-none border" data-var="full size">Mini size</label>
-							</li>
-
-						</ul>
-					</div>
-
-					<p class="text-body-emphasis fw-semibold mb-6">Quantity: </p>
-					<div class="form-checkmb-2 pb-4">
-						<input type="radio" id="buy1" name="quality" class="me-4 form-check-input product-info-input" checked>
-						<label for="buy1" class="text-body-emphasis form-check-label">
-							Buy 1 -
-							<span class="text-decoration-line-through mx-3 text-body">$39.00</span>
-							<span class="fw-bold">$29.00</span>
-						</label>
-						<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 10%</span>
-					</div>
-					<div class="form-checkmb-2 pb-4">
-						<input type="radio" id="buy2" name="quality" class="me-4 form-check-input product-info-input">
-						<label for="buy2" class="text-body-emphasis form-check-label">
-							Buy 2 -
-							<span class="text-decoration-line-through mx-3 text-body">$78.00</span>
-							<span class="fw-bold">$56.00</span>
-						</label>
-						<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 15%</span>
-					</div>
-					<div class="form-checkmb-2 pb-4">
-						<input type="radio" id="buy3" name="quality" class="me-4 form-check-input product-info-input">
-						<label for="buy3" class="text-body-emphasis form-check-label">
-							Buy 3 -
-							<span class="text-decoration-line-through mx-3 text-body">$117.00</span>
-							<span class="fw-bold">$72.00</span>
-						</label>
-						<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 20%</span>
-					</div>
-					<div class="form-checkmb-2 pb-4">
-						<input type="radio" id="buy4" name="quality" class="me-4 form-check-input product-info-input">
-						<label for="buy4" class="text-body-emphasis form-check-label">
-							Buy 4 -
-							<span class="text-decoration-line-through mx-3 text-body">$195.00</span>
-							<span class="fw-bold">$99.00</span>
-						</label>
-						<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 30%</span>
-					</div>
-
-					<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Add To Bag
-					</button>
-				</form>
-				<div class="d-flex align-items-center flex-wrap">
-					<a href="../shop/compare.html" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
-						<svg class="icon fs-5">
-							<use xlink:href="#icon-arrows-left-right-light"></use>
-						</svg>
-						<span class="ms-4 ps-2">Compare</span>
-					</a>
-					<a href="#" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
-						<svg class="icon fs-5">
-							<use xlink:href="#icon-star-light"></use>
-						</svg>
-						<span class="ms-4 ps-2">Add to wishlist</span>
-					</a>
-				</div>
-
-				<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
-					<li class="d-flex mb-4 pb-2 align-items-center">
-						<span class="text-body-emphasis fw-semibold fs-14px">Sku:</span>
-						<span class="ps-4">SF09281</span>
+		</section>
+		<div class="border-top w-100"></div>
+		<section class="container pt-15 pb-12 pt-lg-17 pb-lg-20">
+			<div class="collapse-tabs">
+				<ul class="nav nav-tabs border-0 justify-content-center pb-12 d-none d-md-flex" id="productTabs" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-body-emphasis active"
+							id="product-details-tab" data-bs-toggle="tab" data-bs-target="#product-details" type="button"
+							role="tab" aria-controls="product-details" aria-selected="true">Thông số
+						</button>
 					</li>
-					<li class="d-flex mb-4 pb-2 align-items-center">
-						<span class="text-body-emphasis fw-semibold fs-14px">Categories:</span>
-						<span class="ps-4">Makeup, Skincare</span>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-body-emphasis"
+							id="how-to-use-tab"
+							data-bs-toggle="tab" data-bs-target="#how-to-use" type="button" role="tab"
+							aria-controls="how-to-use" aria-selected="false">Mô tả chi tiết
+						</button>
 					</li>
-					<li class="d-flex mb-4 pb-2 align-items-center">
-						<span class="text-body-emphasis fw-semibold fs-14px">Share:</span>
-						<ul class="list-inline d-flex align-items-center mb-0 col-8 col-lg-10 ps-4">
-							<li class="list-inline-item me-7">
-								<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Twitter">
-									<i class="fab fa-twitter"></i>
-								</a>
-							</li>
-							<li class="list-inline-item me-7">
-								<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Facebook">
-									<i class="fab fa-facebook-f"></i>
-								</a>
-							</li>
-							<li class="list-inline-item me-7">
-								<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Instagram">
-									<i class="fab fa-instagram"></i>
-								</a>
-							</li>
-							<li class="list-inline-item">
-								<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Youtube">
-									<i class="fab fa-youtube"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
+
 				</ul>
+				<div class="tab-content">
+					<div class="tab-inner">
+						<div class="tab-pane fade active show" id="product-details" role="tabpanel"
+							aria-labelledby="product-details-tab" tabindex="0">
+							<div class="card border-0 bg-transparent">
+								<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+									<h5 class="mb-0">
+										<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapse-product-detail"
+											aria-expanded="false" aria-controls="collapse-product-detail">
+											Product Detail
+										</button>
+									</h5>
+								</div>
+								<div class="collapse show border-md-0 border p-md-0 p-6" id="collapse-product-detail">
+									<div class="row">
+										<div class="col-12 col-lg-6 pe-lg-10 pe-xl-20">
+											<img src="<?= $sanPham['anh_san_pham'] ?>" data-src="" class="w-100 lazy-image" alt="" width="470" height="540">
+										</div>
+										<div class="pb-3 col-12 col-lg-6 pt-12 pt-lg-0">
+											<p class="fw-semibold text-body-emphasis mb-2 pb-4"></p>
+											<ul class="mb-7 ps-6">
+												<li class="mb-1">Buildable medium-to-full coverage</li>
+												<li class="mb-1">Weightless, airy feel—no caking!</li>
+												<li class="mb-1">Long-wearing</li>
+												<li class="mb-1">Evens skin tone</li>
+												<li>Available in 07 shades (all exclusive to Makeaholic!)</li>
+											</ul>
 
-
-
-			</div>
-		</div>
-	</section>
-	<div class="border-top w-100"></div>
-	<section class="container pt-15 pb-12 pt-lg-17 pb-lg-20">
-		<div class="collapse-tabs">
-			<ul class="nav nav-tabs border-0 justify-content-center pb-12 d-none d-md-flex" id="productTabs" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-body-emphasis active"
-						id="product-details-tab" data-bs-toggle="tab" data-bs-target="#product-details" type="button"
-						role="tab" aria-controls="product-details" aria-selected="true">Product Details
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-body-emphasis"
-						id="how-to-use-tab"
-						data-bs-toggle="tab" data-bs-target="#how-to-use" type="button" role="tab"
-						aria-controls="how-to-use" aria-selected="false">How To Use
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-body-emphasis"
-						id="ingredients-tab"
-						data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab"
-						aria-controls="ingredients" aria-selected="false">Ingredients
-					</button>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-inner">
-					<div class="tab-pane fade active show" id="product-details" role="tabpanel"
-						aria-labelledby="product-details-tab" tabindex="0">
-						<div class="card border-0 bg-transparent">
-							<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
-								<h5 class="mb-0">
-									<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
-										data-bs-toggle="collapse" data-bs-target="#collapse-product-detail"
-										aria-expanded="false" aria-controls="collapse-product-detail">
-										Product Detail
-									</button>
-								</h5>
-							</div>
-							<div class="collapse show border-md-0 border p-md-0 p-6" id="collapse-product-detail">
-								<div class="row">
-									<div class="col-12 col-lg-6 pe-lg-10 pe-xl-20">
-										<img src="#" data-src="../assets/images/shop/product-details-img.jpg" class="w-100 lazy-image" alt="" width="470" height="540">
-									</div>
-									<div class="pb-3 col-12 col-lg-6 pt-12 pt-lg-0">
-										<p class="fw-semibold text-body-emphasis mb-2 pb-4">For Normal, Oily,
-											Combination Skin
-											Types</p>
-										<p class="mb-2 pb-4">Complexion-perfecting natural foundation enriched with
-											antioxidant-packed superfruits, vitamins, and other skin-nourishing
-											nutrients. Creamy liquid formula sets with a pristine matte finish
-											for soft, velvety smooth skin.</p>
-										<p class="mb-9">Say hello to flawless, long-lasting foundation that
-											comes in 7
-											melt-into-your-skin shades. This lightweight, innovative formula
-											creates a smooth, natural matte finish that won’t settle into lines.
-											It’s the perfect fit for your skin. 1 fl. oz.</p>
-										<p class="fw-semibold text-body-emphasis mb-2 pb-4">Benefits</p>
-										<ul class="mb-7 ps-6">
-											<li class="mb-1">Buildable medium-to-full coverage</li>
-											<li class="mb-1">Weightless, airy feel—no caking!</li>
-											<li class="mb-1">Long-wearing</li>
-											<li class="mb-1">Evens skin tone</li>
-											<li>Available in 07 shades (all exclusive to Makeaholic!)</li>
-										</ul>
-										<div class="row">
-											<div class="col-6 col-md-3 text-center mb-9 pb-2">
-
-
-												<img class="lazy-image light-mode-img" src="#" data-src="../assets/images/shop/product-info-3-1.png" width="66" height="77" alt="">
-												<img class="lazy-image dark-mode-img" src="#" data-src="../assets/images/shop/product-info-white-3-1.png" width="66" height="77" alt="">
-											</div>
-											<div class="col-6 col-md-3 text-center mb-9 pb-2">
-
-
-												<img class="lazy-image light-mode-img" src="#" data-src="../assets/images/shop/product-info-3-2.png" width="66" height="77" alt="">
-												<img class="lazy-image dark-mode-img" src="#" data-src="../assets/images/shop/product-info-white-3-2.png" width="66" height="77" alt="">
-											</div>
-											<div class="col-6 col-md-3 text-center mb-9 pb-2">
-
-
-												<img class="lazy-image light-mode-img" src="#" data-src="../assets/images/shop/product-info-3-3.png" width="66" height="77" alt="">
-												<img class="lazy-image dark-mode-img" src="#" data-src="../assets/images/shop/product-info-white-3-3.png" width="66" height="77" alt="">
-											</div>
-											<div class="col-6 col-md-3 text-center mb-9 pb-2">
-
-
-												<img class="lazy-image light-mode-img" src="#" data-src="../assets/images/shop/product-info-3-4.png" width="66" height="77" alt="">
-												<img class="lazy-image dark-mode-img" src="#" data-src="../assets/images/shop/product-info-white-3-4.png" width="66" height="77" alt="">
-											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="tab-pane fade" id="how-to-use" role="tabpanel" aria-labelledby="how-to-use-tab" tabindex="0">
-						<div class="card border-0 bg-transparent">
+						<div class="tab-pane fade" id="how-to-use" role="tabpanel" aria-labelledby="how-to-use-tab" tabindex="0">
+							<div class="card border-0 bg-transparent">
+								<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+									<h5 class="mb-0">
+										<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse-to-use"
+											aria-expanded="false" aria-controls="collapse-to-use">How To Use
+										</button>
+									</h5>
+								</div>
+								<div class="collapse border-md-0 border p-md-0 p-6" id="collapse-to-use">
+									<div class="pb-3">
+										<p class="fw-semibold text-body-emphasis mb-2 pb-4"><?= $sanPham['mo_ta_chi_tiet'] ?></p>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab" tabindex="0">
 							<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
 								<h5 class="mb-0">
 									<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
 										data-bs-toggle="collapse"
-										data-bs-target="#collapse-to-use"
-										aria-expanded="false" aria-controls="collapse-to-use">How To Use
+										data-bs-target="#collapse-ingredients"
+										aria-expanded="false" aria-controls="collapse-ingredients">How To Use
 									</button>
 								</h5>
 							</div>
-							<div class="collapse border-md-0 border p-md-0 p-6" id="collapse-to-use">
+							<div class="collapse border-md-0 border p-md-0 p-6" id="collapse-ingredients">
 								<div class="pb-3">
-									<p class="fw-semibold text-body-emphasis mb-2 pb-4">Follow these safety guidelines
-										when
-										using cosmetics products of any type:</p>
-									<ul class="ps-6 mb-8">
-										<li class="mb-3">Read the label.
-											Follow all directions and heed all warnings.
-										</li>
-										<li class="mb-3">Wash your hands
-											before you use the product.
-										</li>
-										<li class="mb-3">Do not share
-											makeup.
-										</li>
-										<li class="mb-3">Keep the
-											containers clean and tightly closed when not in use,
-											and protect them from temperature extremes.
-										</li>
-										<li class="mb-3">Throw away
-											cosmetics if there are changes in color or smell.
-										</li>
-										<li>Use aerosols or sprays cans in well-ventilated areas. Do not use them while
-											you are smoking or near an open flame. It could start a fire.
-										</li>
-									</ul>
+									<div class="table-responsive mb-5">
+										<table class="table table-borderless mb-0">
+											<tbody>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">CAS
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														92128-82-0, 9057-02-7
+													</td>
+												</tr>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">
+														INCI
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														Nannochloropsis Oculata (micro algae)
+														extract, pullulan
+													</td>
+												</tr>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">
+														Composition
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														Nannochloropsis Oculata (micro algae)
+														extract, pullulan, water, ethanol
+													</td>
+												</tr>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">
+														Appearance
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														Yellow to amber, viscous liquid
+													</td>
+												</tr>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">
+														Solubility
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														Soluble in water &amp; ethanol
+													</td>
+												</tr>
+												<tr>
+													<td class="ps-0 py-5 pe-5 text-body-emphasis">
+														Storage
+													</td>
+													<td class="text-end py-5 ps-5 pe-0">
+														Store refrigerated (4-8oC / 39-46oF)
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<p class="mb-0">
+										Perfect for Equestrian homes or every horse lover. Designer premium
+										signature aluminum alloy all Arthur Court is compliance with FDA
+										regulations. Aluminum Serveware can be chilled in the freezer or
+										refrigerator and warmed in the oven to 350. Wash by hand with mild dish
+										soap and dry immediately – do not put in the dishwasher. Comes in Gift
+										Box perfect for Equestrian home or Horse lover in your life.
+									</p>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab" tabindex="0">
-						<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
-							<h5 class="mb-0">
-								<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#collapse-ingredients"
-									aria-expanded="false" aria-controls="collapse-ingredients">How To Use
-								</button>
-							</h5>
-						</div>
-						<div class="collapse border-md-0 border p-md-0 p-6" id="collapse-ingredients">
-							<div class="pb-3">
-								<div class="table-responsive mb-5">
-									<table class="table table-borderless mb-0">
-										<tbody>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">CAS
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													92128-82-0, 9057-02-7
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">
-													INCI
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													Nannochloropsis Oculata (micro algae)
-													extract, pullulan
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">
-													Composition
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													Nannochloropsis Oculata (micro algae)
-													extract, pullulan, water, ethanol
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">
-													Appearance
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													Yellow to amber, viscous liquid
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">
-													Solubility
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													Soluble in water &amp; ethanol
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-0 py-5 pe-5 text-body-emphasis">
-													Storage
-												</td>
-												<td class="text-end py-5 ps-5 pe-0">
-													Store refrigerated (4-8oC / 39-46oF)
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<p class="mb-0">
-									Perfect for Equestrian homes or every horse lover. Designer premium
-									signature aluminum alloy all Arthur Court is compliance with FDA
-									regulations. Aluminum Serveware can be chilled in the freezer or
-									refrigerator and warmed in the oven to 350. Wash by hand with mild dish
-									soap and dry immediately – do not put in the dishwasher. Comes in Gift
-									Box perfect for Equestrian home or Horse lover in your life.
-								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<div class="border-top w-100 h-1px"></div>
-	<section class="container pt-15 pb-15 pt-lg-17 pb-lg-20">
-		<div class="text-center">
-			<h3 class="mb-12">You may also like</h3>
-		</div>
+		</section>
+		<div class="border-top w-100 h-1px"></div>
+		<section class="container pt-15 pb-15 pt-lg-17 pb-lg-20">
+			<div class="text-center">
+				<h3 class="mb-12"> Sản phẩm liên quan</h3>
+			</div>
 
-		<div class="slick-slider" data-slick-options="{&#34;arrows&#34;:true,&#34;centerMode&#34;:true,&#34;centerPadding&#34;:&#34;calc((100% - 1440px) / 2)&#34;,&#34;dots&#34;:true,&#34;infinite&#34;:true,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1200,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:3}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:576,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:4}">
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Shield Conditioner">
-							<img src="#" data-src="../assets/images/products/product-01-330x440.jpg" class="img-fluid lazy-image w-100" alt="Shield Conditioner" width="330" height="440">
-						</a>
+			<div class="slick-slider" data-slick-options="{&#34;arrows&#34;:true,&#34;centerMode&#34;:true,&#34;centerPadding&#34;:&#34;calc((100% - 1440px) / 2)&#34;,&#34;dots&#34;:true,&#34;infinite&#34;:true,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1200,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:3}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:576,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:4}">
+				<?php foreach ($listSanPhamCungDanhMuc as $key => $sanPham) : ?>
+					<div class="mb-6">
 
-						<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-25%</span></div>
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
+						<div class="card card-product grid-2 bg-transparent border-0">
+							<figure class="card-img-top position-relative mb-7 overflow-hidden">
+								<a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id']; ?>" class="hover-zoom-in d-block" title="Shield Conditioner">
+									<img src="<?= BASE_URL . $sanPham['anh_san_pham'] ?>" class="img-fluid lazy-image w-100" alt="Shield Conditioner" width="330" height="440">
+								</a>
+
+								<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary"><?= $sanPham['gia_khuyen_mai'] ?>%</span></div>
+								<div class="position-absolute d-flex z-index-2 product-actions  vertical">
+									<!-- <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
+								href="<?= BASE_URL  . $sanPham['id']; ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
 								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
 									<svg class="icon icon-eye-light">
 										<use xlink:href="#icon-eye-light"></use>
 									</svg>
 								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
+							</a> -->
+									<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
+										<svg class="icon icon-star-light">
+											<use xlink:href="#icon-star-light"></use>
+										</svg>
+									</a>
+									<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
+										<svg class="icon icon-arrows-left-right-light">
+											<use xlink:href="#icon-arrows-left-right-light"></use>
+										</svg>
+									</a>
+								</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
+							</figure>
+							<div class="card-body text-center p-0">
+								<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
+									<del class=" text-body fw-500 me-4 fs-13px"><?= $sanPham['gia_nhap'] ?></del>
+									<ins class="text-decoration-none"><?= $sanPham['gia_ban'] ?></ins></span>
+								<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id']; ?>"><?= $sanPham['ten_san_pham'] ?></a></h4>
 
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-							<del class=" text-body fw-500 me-4 fs-13px">$40.00</del>
-							<ins class="text-decoration-none">$30.00</ins></span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Shield Conditioner</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 80%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Perfecting Facial Oil">
-							<img src="#" data-src="../assets/images/products/product-02-330x440.jpg" class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil" width="330" height="440">
-						</a>
-
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$20.00</span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Perfecting Facial Oil</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 100%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Enriched Hand &amp; Body Wash">
-							<img src="#" data-src="../assets/images/products/product-03-330x440.jpg" class="img-fluid lazy-image w-100" alt="Enriched Hand &amp; Body Wash" width="330" height="440">
-						</a>
-
-						<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-new">New</span></div>
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Enriched Hand &amp; Body Wash</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 100%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Shield Shampoo">
-							<img src="#" data-src="../assets/images/products/product-04-330x440.jpg" class="img-fluid lazy-image w-100" alt="Shield Shampoo" width="330" height="440">
-						</a>
-
-						<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-24%</span></div>
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-							<del class=" text-body fw-500 me-4 fs-13px">$25.00</del>
-							<ins class="text-decoration-none">$19.00</ins></span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Shield Shampoo</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 80%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Enriched Hand Wash">
-							<img src="#" data-src="../assets/images/products/product-05-330x440.jpg" class="img-fluid lazy-image w-100" alt="Enriched Hand Wash" width="330" height="440">
-						</a>
-
-						<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-26%</span></div>
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-							<del class=" text-body fw-500 me-4 fs-13px">$39.00</del>
-							<ins class="text-decoration-none">$29.00</ins></span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Enriched Hand Wash</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 80%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Enriched Duo">
-							<img src="#" data-src="../assets/images/products/product-06-330x440.jpg" class="img-fluid lazy-image w-100" alt="Enriched Duo" width="330" height="440">
-						</a>
-
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Enriched Duo</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 100%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Shield Spray">
-							<img src="#" data-src="../assets/images/products/product-07-330x440.jpg" class="img-fluid lazy-image w-100" alt="Shield Spray" width="330" height="440">
-						</a>
-
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Shield Spray</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 100%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="mb-6">
-				<div class="card card-product grid-2 bg-transparent border-0">
-					<figure class="card-img-top position-relative mb-7 overflow-hidden">
-						<a href="../shop/product-details-v1.html" class="hover-zoom-in d-block" title="Shield Spray">
-							<img src="#" data-src="../assets/images/products/product-08-330x440.jpg" class="img-fluid lazy-image w-100" alt="Shield Spray" width="330" height="440">
-						</a>
-
-						<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-36%</span></div>
-						<div class="position-absolute d-flex z-index-2 product-actions  vertical"><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-								<svg class="icon icon-star-light">
-									<use xlink:href="#icon-star-light"></use>
-								</svg>
-							</a>
-							<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-								<svg class="icon icon-arrows-left-right-light">
-									<use xlink:href="#icon-arrows-left-right-light"></use>
-								</svg>
-							</a>
-						</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
-					</figure>
-					<div class="card-body text-center p-0">
-
-
-
-
-
-
-						<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-							<del class=" text-body fw-500 me-4 fs-13px">$39.00</del>
-							<ins class="text-decoration-none">$25.00</ins></span>
-
-						<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="../shop/product-details-v1.html">Shield Spray</a></h4>
-						<div class="d-flex align-items-center fs-12px justify-content-center">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 90%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
-							</div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</section>
-	<div class="border-top w-100"></div>
-	<section class="container pt-15 pb-15 pt-lg-17 pb-lg-20">
-		<div class="text-center">
-			<h3 class="mb-12">Customer Reviews</h3>
-		</div>
-
-		<div class="mb-11">
-			<div class=" d-md-flex justify-content-between align-items-center">
-				<div class=" d-flex align-items-center">
-					<h4 class="fs-1 me-9 mb-0">4.86</h4>
-					<div class="p-0">
-						<div class="d-flex align-items-center fs-6 ls-0 mb-4">
-							<div class="rating">
-								<div class="empty-stars">
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star-o">
-											<use xlink:href="#star-o"></use>
-										</svg>
-									</span>
-								</div>
-								<div class="filled-stars"
-									style="width: 96%">
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-									<span class="star">
-										<svg class="icon star text-primary">
-											<use xlink:href="#star"></use>
-										</svg>
-									</span>
-								</div>
 							</div>
 						</div>
-						<p class="mb-0">2947 Reviews, 18 Q&amp;As</p>
+
 					</div>
-				</div>
-				<div class="text-md-end mt-md-0 mt-7">
-					<a href="#customer-review" class="btn btn-outline-dark" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="customer-review"><svg class="icon">
-							<use xlink:href="#icon-Pencil"></use>
-						</svg>
-						Wire A Review
-					</a>
-				</div>
+				<?php endforeach; ?>
 			</div>
+		</section>
 
-		</div>
-		<div class="collapse mb-14" id="customer-review">
-			<form class="product-review-form">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group mb-7">
-							<label class="mb-4 fs-6 fw-semibold text-body-emphasis" for="reviewName">Name</label>
-							<input id="reviewName" class="form-control" type="text" name="name">
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group mb-4">
-							<label class="mb-4 fs-6 fw-semibold text-body-emphasis" for="reviewEmail">Email</label>
-							<input id="reviewEmail" type="email" name="email" class="form-control">
-						</div>
-					</div>
-				</div>
-				<div>
-					<p class="mt-4 mb-5 fs-6 fw-semibold text-body-emphasis">Your Rating*</p>
-					<div class="form-group mb-6 d-flex justify-content-start">
-						<div class="rate-input">
-							<input type="radio" id="star5" name="rate" value="5" style="">
-							<label for="star5" title="text" class="mb-0 mr-1 lh-1">
-								<i class="far fa-star"></i>
-							</label>
-							<input type="radio" id="star4" name="rate" value="5" style="">
-							<label for="star4" title="text" class="mb-0 mr-1 lh-1">
-								<i class="far fa-star"></i>
-							</label>
-							<input type="radio" id="star3" name="rate" value="5" style="">
-							<label for="star3" title="text" class="mb-0 mr-1 lh-1">
-								<i class="far fa-star"></i>
-							</label>
-							<input type="radio" id="star2" name="rate" value="5" style="">
-							<label for="star2" title="text" class="mb-0 mr-1 lh-1">
-								<i class="far fa-star"></i>
-							</label>
-							<input type="radio" id="star1" name="rate" value="5" style="">
-							<label for="star1" title="text" class="mb-0 mr-1 lh-1">
-								<i class="far fa-star"></i>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group mb-7">
-					<label class="mb-4 fs-6 fw-semibold text-body-emphasis" for="reviewTitle">Title of Review:</label>
-					<input id="reviewTitle" type="text" name="title" class="form-control">
-				</div>
-				<div class="form-group mb-10">
-					<label class="mb-4 fs-6 fw-semibold text-body-emphasis" for="reviewMessage">How was your overall experience?</label>
-					<textarea id="reviewMessage" class="form-control" name="message" rows="5"></textarea>
-				</div>
-				<div class="d-flex">
-					<div class="me-4">
-						<div class="input-group align-items-center">
-							<input type="file" name="img" class="form-control border" id="reviewrAddPhoto">
-						</div>
-					</div><button type="submit" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary fw-semibold">Submit Now</button>
-				</div>
-			</form>
-		</div>
-
-		<div class="product-filter-review">
-
-			<h3 class="fs-5">Filter Review</h3>
-
-			<ul class="list-inline mb-8 mx-n3 filter-review">
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Foundation
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Coverage
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Skin
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Color
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Shade
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Make up
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Face
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Ingredients
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Moisturizer
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Pure
-					</a>
-				</li>
-				<li class="list-inline-item spacing">
-					<a href="#" class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-						Nature
-					</a>
-				</li>
-				<li class="list-inline-item">
-					<a class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500" data-bs-toggle="collapse" href="#collapseExample"
-						role="button" aria-expanded="false" aria-controls="collapseExample">
-						...
-					</a>
-				</li>
-				<li class="collapse m-3 list-inline-item collapse" id="collapseExample">
-					<ul class="list-inline list-inline-item">
-						<li class="list-inline-item">
-							<a href="#"
-								class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-								Good Value
-							</a>
-						</li>
-					</ul>
-					<ul class="list-inline list-inline-item">
-						<li class="list-inline-item">
-							<a href="#"
-								class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-								Lightweight
-							</a>
-						</li>
-					</ul>
-					<ul class="list-inline list-inline-item">
-						<li class="list-inline-item">
-							<a href="#"
-								class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-								Smells Great
-							</a>
-						</li>
-					</ul>
-					<ul class="list-inline list-inline-item">
-						<li class="list-inline-item">
-							<a href="#"
-								class="btn btn-outline btn-hove-border-body-emphasis-color btn-border-1 py-4 px-6 fw-500">
-								Easy To Use
-							</a>
-						</li>
-					</ul>
-
-				</li>
-
-
-			</ul>
-			<div class="row gy-15px align-items-center spacing-02">
-				<div class="col-auto search-review w-100 px-4">
-					<div class="form-group product-review-form">
-						<div class="input-group-prepend position-absolute z-index-10">
-							<button class="btn btn-link text-secondary fs-15px px-7" type="submit"><i class="far fa-search"></i>
-							</button>
-						</div>
-						<input type="text" id="search_reviews" name="search_reviews" class="form-control fs-15px pe-7 ps-13  rounded"
-							placeholder="Search reviews">
-						<label for="search_reviews" class="visually-hidden">Search reviews</label>
-					</div>
-				</div>
-
-				<div class="col-auto dropdown skin-goal px-4">
-					<label for="skin_goal" class="visually-hidden">Skin goal</label>
-					<select name="skin_goal" id="skin_goal" class="form-select">
-						<option>Skin goal</option>
-						<option>Looking Pores</option>
-						<option>Clear Skin</option>
-						<option>Chicagon</option>
-						<option>Dewy-Looking Skin</option>
-						<option>Radiant</option>
-					</select>
-				</div>
-				<div class="col-auto dropdown skin-goal px-4">
-					<label for="image_video" class="visually-hidden">Image &amp; Video</label>
-					<select name="image_video" id="image_video" class="form-select">
-						<option>Image &amp; Video</option>
-						<option>Newest</option>
-						<option>Oldest</option>
-					</select>
-				</div>
-				<div class="col-auto dropdown skin-goal px-4">
-					<label for="sort_by" class="visually-hidden">Sort by</label>
-					<select name="sort_by" id="sort_by" class="form-select">
-						<option>Sort by</option>
-						<option>Newest</option>
-						<option>Oldest</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
-
-		<div class=" mt-12">
-			<h3 class="fs-5">2947 Reviews</h3>
-
-			<div class="border-bottom pb-7 pt-10">
-				<div class="d-flex align-items-center mb-6">
-					<div class="d-flex align-items-center fs-15px ls-0">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 100%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
-					<span class="fs-14">5 day ago</span>
-				</div>
-
-				<div class="d-flex justify-content-start align-items-center mb-5">
-					<img src="#" data-src="../assets/images/others/single-product-01.png" class="me-6 lazy-image rounded-circle" width="60" height="60" alt="Avatar">
-					<div class="">
-						<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
-						<p class="mb-0">/ Orlando, FL</p>
-					</div>
-				</div>
-				<p class="fw-semibold fs-6 text-body-emphasis mb-5">Favorite Foundation</p>
-				<p class="mb-10 fs-6">I order the samples so as not to make mistakes when choosing my color Is a good product as a light shade but the sample doesn&#39;t contain enough product to cover the skin and decide clearly, around my eyes I used the “peach bisque”. I used with primer all mu face and finished texture is good. At the end for my latin tan skin a choose “golden peach” But is out of stock the primer I think is a good match.</p>
-
-
-				<div class="d-flex justify-content-end align-items-center">
-					<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
-					<p class="mb-0 ms-7 text-body-emphasis">
-						<svg class="icon icon-like align-baseline">
-							<use xlink:href="#icon-like"></use>
-						</svg>
-						10
-					</p>
-					<p class="mb-0 ms-6 text-body-emphasis">
-						<svg class="icon icon-unlike align-baseline">
-							<use xlink:href="#icon-unlike"></use>
-						</svg>
-						1
-					</p>
-				</div>
-			</div>
-
-			<div class="border-bottom pb-7 pt-10">
-				<div class="d-flex align-items-center mb-6">
-					<div class="d-flex align-items-center fs-15px ls-0">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 80%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
-					<span class="fs-14">3 day ago</span>
-				</div>
-
-				<div class="d-flex justify-content-start align-items-center mb-5">
-					<img src="#" data-src="../assets/images/others/product-review-avatar-01.jpg" class="me-6 lazy-image rounded-circle" width="60" height="60" alt="Avatar">
-					<div class="">
-						<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
-						<p class="mb-0">/ Georgia</p>
-					</div>
-				</div>
-				<p class="fw-semibold fs-6 text-body-emphasis mb-5">Good as light coverage</p>
-				<p class="mb-10 fs-6">The foundation feels light on my face, and the color matches great. Also the customer service is phenomenal. I would purchase again.</p>
-
-
-				<div class="mb-10"><img src="#" data-src="../assets/images/others/single-product-03.jpg" class="mx-3 w-auto lazy-image" alt="">
-					<img src="#" data-src="../assets/images/others/single-product-02.jpg" class="mx-3 w-auto lazy-image" alt="">
-
-				</div>
-
-				<div class="d-flex justify-content-end align-items-center">
-					<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
-					<p class="mb-0 ms-7 text-body-emphasis">
-						<svg class="icon icon-like align-baseline">
-							<use xlink:href="#icon-like"></use>
-						</svg>
-						12
-					</p>
-					<p class="mb-0 ms-6 text-body-emphasis">
-						<svg class="icon icon-unlike align-baseline">
-							<use xlink:href="#icon-unlike"></use>
-						</svg>
-						4
-					</p>
-				</div>
-			</div>
-
-			<div class="border-bottom pb-7 pt-10">
-				<div class="d-flex align-items-center mb-6">
-					<div class="d-flex align-items-center fs-15px ls-0">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 100%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
-					<span class="fs-14">3 day ago</span>
-				</div>
-
-				<div class="d-flex justify-content-start align-items-center mb-5">
-					<img src="#" data-src="../assets/images/others/product-review-avatar-03.jpg" class="me-6 lazy-image rounded-circle" width="60" height="60" alt="Avatar">
-					<div class="">
-						<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
-						<p class="mb-0">/ Orlando, FL</p>
-					</div>
-				</div>
-				<p class="fw-semibold fs-6 text-body-emphasis mb-5">Favorite Foundation</p>
-				<p class="mb-10 fs-6">The foundation feels light on my face, and the color matches great. Also the customer service is phenomenal. I would purchase again.</p>
-
-
-				<div class="mb-10"><img src="#" data-src="../assets/images/others/single-product-03.jpg" class="mx-3 w-auto lazy-image" alt="">
-					<img src="#" data-src="../assets/images/others/single-product-02.jpg" class="mx-3 w-auto lazy-image" alt="">
-
-				</div>
-
-				<div class="d-flex justify-content-end align-items-center">
-					<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
-					<p class="mb-0 ms-7 text-body-emphasis">
-						<svg class="icon icon-like align-baseline">
-							<use xlink:href="#icon-like"></use>
-						</svg>
-						10
-					</p>
-					<p class="mb-0 ms-6 text-body-emphasis">
-						<svg class="icon icon-unlike align-baseline">
-							<use xlink:href="#icon-unlike"></use>
-						</svg>
-						0
-					</p>
-				</div>
-			</div>
-
-			<div class="border-bottom pb-7 pt-10">
-				<div class="d-flex align-items-center mb-6">
-					<div class="d-flex align-items-center fs-15px ls-0">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 100%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
-					<span class="fs-14">3 day ago</span>
-				</div>
-
-				<div class="d-flex justify-content-start align-items-center mb-5">
-					<img src="#" data-src="../assets/images/others/product-review-avatar-02.jpg" class="me-6 lazy-image rounded-circle" width="60" height="60" alt="Avatar">
-					<div class="">
-						<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
-						<p class="mb-0">/ Orlando, FL</p>
-					</div>
-				</div>
-				<p class="fw-semibold fs-6 text-body-emphasis mb-5">Favorite Foundation</p>
-				<p class="mb-10 fs-6">I order the samples so as not to make mistakes when choosing my color Is a good product as a light shade but the sample doesn’t contain enough product to cover the skin and decide clearly, around my eyes I used the “peach bisque”.I used with primer all mu face and finished texture is good. At the end for my latin tan skin a choose “golden peach” But is out of stock the primer I think is a good match.</p>
-
-
-				<div class="d-flex justify-content-end align-items-center">
-					<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
-					<p class="mb-0 ms-7 text-body-emphasis">
-						<svg class="icon icon-like align-baseline">
-							<use xlink:href="#icon-like"></use>
-						</svg>
-						10
-					</p>
-					<p class="mb-0 ms-6 text-body-emphasis">
-						<svg class="icon icon-unlike align-baseline">
-							<use xlink:href="#icon-unlike"></use>
-						</svg>
-						0
-					</p>
-				</div>
-			</div>
-
-			<div class="border-bottom pb-7 pt-10">
-				<div class="d-flex align-items-center mb-6">
-					<div class="d-flex align-items-center fs-15px ls-0">
-						<div class="rating">
-							<div class="empty-stars">
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star-o">
-										<use xlink:href="#star-o"></use>
-									</svg>
-								</span>
-							</div>
-							<div class="filled-stars"
-								style="width: 100%">
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-								<span class="star">
-									<svg class="icon star text-primary">
-										<use xlink:href="#star"></use>
-									</svg>
-								</span>
-							</div>
-						</div>
-					</div>
-					<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
-					<span class="fs-14">3 day ago</span>
-				</div>
-
-				<div class="d-flex justify-content-start align-items-center mb-5">
-					<img src="#" data-src="../assets/images/others/product-review-avatar-03.jpg" class="me-6 lazy-image rounded-circle" width="60" height="60" alt="Avatar">
-					<div class="">
-						<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">Lucille D</h5>
-						<p class="mb-0">/ Georgia</p>
-					</div>
-				</div>
-				<p class="fw-semibold fs-6 text-body-emphasis mb-5">Good as light coverage</p>
-				<p class="mb-10 fs-6">The foundation feels light on my face, and the color matches great. Also the customer service is phenomenal. I would purchase again.</p>
-
-
-				<div class="mb-10"><img src="#" data-src="../assets/images/others/single-product-03.jpg" class="mx-3 w-auto lazy-image" alt="">
-					<img src="#" data-src="../assets/images/others/single-product-02.jpg" class="mx-3 w-auto lazy-image" alt="">
-
-				</div>
-
-				<div class="d-flex justify-content-end align-items-center">
-					<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
-					<p class="mb-0 ms-7 text-body-emphasis">
-						<svg class="icon icon-like align-baseline">
-							<use xlink:href="#icon-like"></use>
-						</svg>
-						10
-					</p>
-					<p class="mb-0 ms-6 text-body-emphasis">
-						<svg class="icon icon-unlike align-baseline">
-							<use xlink:href="#icon-unlike"></use>
-						</svg>
-						0
-					</p>
-				</div>
-			</div>
-
-		</div>
-
-
-		<nav class="d-flex mt-13 pt-3 justify-content-center" aria-label="pagination">
-			<ul class="pagination m-0">
-				<li class="page-item">
-					<a class="page-link rounded-circle d-flex align-items-center justify-content-center" href="#" aria-label="Previous">
-						<svg class="icon">
-							<use xlink:href="#icon-angle-double-left"></use>
-						</svg>
-					</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item active"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">...</a></li>
-				<li class="page-item"><a class="page-link" href="#">6</a></li>
-				<li class="page-item">
-					<a class="page-link rounded-circle d-flex align-items-center justify-content-center" href="#" aria-label="Next">
-						<svg class="icon">
-							<use xlink:href="#icon-angle-double-right"></use>
-						</svg>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</section>
-</main>
-<footer class="pt-14 pt-lg-19 pb-16 footer bg-image" data-bg-src="./assets/images/background/bg-footer-01.jpg">
-		<div class="container container-xxl pt-4">
+		<div class="container-xxl my-5">
 			<div class="row">
-				<div class="col-lg-5 col-12 mb-13 mb-lg-0">
-					<h3 class="mb-4 text-white">Good emails.</h3>
-					<p class="lh-2 text-white me-xl-24 mb-lg-11 mb-9">Enter your email below to be the first to know about new collections and product launches.</p>
+				<div class="col-lg-12">
+					<div class="product-review-section">
+						<!-- Tab tiêu đề -->
+						<ul class="nav nav-tabs mb-3 review-tab">
+							<li class="nav-item">
+								<a class="nav-link active" data-bs-toggle="tab" href="#comments-tab">
+									Bình luận (<?= count($listBinhLuan) ?>)
+								</a>
+							</li>
+						</ul>
 
+						<!-- Nội dung tab -->
+						<div class="tab-content reviews-tab">
+							<!-- Form bình luận -->
+							<div class="tab-pane fade show active" id="comments-tab">
+								<?php if (isset($_SESSION['tai_khoan_id'])): ?>
+									<form action="index.php?controller=HomeController&action=addComment" method="POST" class="review-form">
+										<div class="form-group mb-3">
+											<label for="comment-content" class="form-label">
+												<span class="text-danger">*</span> Bình luận
+											</label>
+											<textarea id="comment-content" name="content" class="form-control" placeholder="Nhập bình luận của bạn..." required></textarea>
+											<input type="hidden" name="email" value="<?= $email ?>">
+										</div>
+										<button type="submit" class="btn btn-primary">Gửi bình luận</button>
+									</form>
+								<?php else: ?>
+									<p class="text-muted">Bạn cần <a href="http://localhost/AStoer-master/admin/?act=login-admin">đăng nhập</a> để bình luận.</p>
+								<?php endif; ?>
+							</div>
 
-					<form class="pe-xl-21">
-						<div class="input-group position-relative">
-							<input type="email" class="form-control rounded pe-15 py-5 border-0" placeholder="Your email">
-							<button type="submit" class="btn fs-28px bg-transparent text-secondary position-absolute btn-custom px-8 z-index-5 h-100 lh-0">
-								<svg class="icon icon-long-arrow-right">
-									<use xlink:href="#icon-long-arrow-right"></use>
-								</svg>
-							</button>
+							<!-- Danh sách bình luận -->
+							<div class="mt-4">
+								<?php if (!empty($listBinhLuan)): ?>
+									<?php foreach ($listBinhLuan as $binhLuan): ?>
+										<div class="review-box p-3 border rounded mb-3">
+											<div class="d-flex justify-content-between">
+												<strong><?= htmlspecialchars($binhLuan['ho_ten']) ?></strong>
+												<small class="text-muted"><?= htmlspecialchars($binhLuan['ngay_dang']) ?></small>
+											</div>
+											<p class="mt-2"><?= htmlspecialchars($binhLuan['noi_dung']) ?></p>
+										</div>
+									<?php endforeach; ?>
+								<?php else: ?>
+									<p class="text-muted">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
+								<?php endif; ?>
+							</div>
 						</div>
-					</form>
-				</div>
-				<div class="col-lg col-md-4 col-12 mb-11 mb-md-8 mb-lg-0 text-white">
-					<h3 class="fs-5 mb-6 text-white">Company</h3>
-
-
-					<p class="pe-xl-18 lh-2">
-						Find a location nearest you. See <a class="text-white" href="#"><u class="fw-medium">Our Stores</u></a>
-					</p>
-					<p class="mb-0 lh-2"><strong class="">+391 (0)35 2568 4593</strong>
-						<br>
-						hello@domain.com
-					</p>
-
-				</div>
-				<div class="col-lg col-md-4 col-12 mb-11 mb-lg-0 text-white">
-					<h3 class="fs-5 mb-6 text-white">Useful links</h3>
-
-					<ul class="list-unstyled mb-0 fw-medium ">
-
-						<li class="pt-3 mb-4">
-							<a href="#" title="New Products" class="text-white">New Products</a>
-						</li>
-
-						<li class="pt-3 mb-4">
-							<a href="#" title="Best Sellers" class="text-white">Best Sellers</a>
-						</li>
-
-						<li class="pt-3 mb-4">
-							<a href="#" title="Bundle &amp; Save" class="text-white">Bundle &amp; Save</a>
-						</li>
-
-						<li class="pt-3 mb-4">
-							<a href="#" title="Online Gift Card" class="text-white">Online Gift Card</a>
-						</li>
-
-					</ul>
-
-				</div>
-				<div class="col-lg col-md-4 col-12 mb-11 mb-lg-0">
-					<h3 class="fs-5 mb-6 text-white">Social Media</h3>
-					<ul class="list-inline fs-5 mb-0">
-						<li class="list-inline-item me-8">
-							<a class="text-light" href="#">
-								<i class="fab fa-pinterest-p"></i>
-							</a>
-						</li>
-						<li class="list-inline-item me-8">
-							<a class="text-light" href="#">
-								<i class="fab fa-facebook-f"></i>
-							</a>
-						</li>
-						<li class="list-inline-item me-8">
-							<a class="text-light" href="#">
-								<i class="fab fa-instagram"></i>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a class="text-light" href="#">
-								<i class="fab fa-twitter"></i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="row mt-0 mt-lg-20 align-items-center">
-				<div class="col-12 col-md-6 col-lg-4">
-					<p class="mb-0 text-white">© Glowing 2023</p>
-				</div>
-				<div class="col-12 col-md-6 col-lg-8 text-md-end mt-7 mt-md-0">
-					<img src="#" data-src="./assets/images/footer/img_1.png" width="313" height="28" class="img-fluid lazy-image" alt="PayPal">
+					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
+
+	</main>
+	
 	<!-- JAVASCRIPT -->
 	<?php
+	require_once "views/layout/footer.php";
 	require_once "layout/libs_js.php";
 	?>
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -2898,257 +1135,11 @@
 			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
 		</svg>
 	</svg>
-	<div id="searchModal" data-bs-scroll="false" class="offcanvas offcanvas-top" style="--bs-offcanvas-height: auto">
-		<div class="container-wide container-xxl">
-			<nav class="navbar navbar-expand-xl px-0 py-6 py-xl-12 row align-items-start">
-				<div class="col-xl-3 d-flex justify-content-center justify-content-xl-start">
-					<a href="./" class="navbar-brand py-4 d-lg-inline-block">
-						<img src="./assets/images/others/logo.png" height="26" alt="Glowing - Bootstrap 5 HTML Templates">
-					</a>
-				</div>
-				<div class="col-xl-6 d-flex justify-content-center">
-					<form class="w-xl-100 w-sm-75 w-100 mt-6 mt-xl-0 px-6 px-xl-0">
-						<div class="input-group mx-auto">
-							<input type="text" class="form-control form-control bg-transparent border-primary" placeholder="Search product">
-							<div class="form-control-append position-absolute end-0 top-0 bottom-0 d-flex align-items-center">
-								<button class="input-group-text bg-transparent border-0 px-0 me-6" type="submit">
-									<i class="far fa-search fs-5"></i>
-								</button>
-							</div>
-						</div>
-						<div class="d-flex align-items-center justify-content-center mt-6">
-							<p class="text-muted mb-0 mr-3">Popular Searches</p>
-							<nav class="nav">
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">T-Shirt</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Blue</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Jacket</a>
-							</nav>
-						</div>
-					</form>
-				</div>
-				<div class="icons-actions col-xl-3 d-flex justify-content-end fs-28px text-body-emphasis">
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#signInModal">
-							<svg class="icon icon-user-light">
-								<use xlink:href="#icon-user-light"></use>
-							</svg>
-						</a>
-					</div>
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="./shop/wishlist.html">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-star-light"></use>
-							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
-						</a>
-					</div>
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="offcanvas"
-							data-bs-target="#shoppingCart"
-							aria-controls="shoppingCart"
-							aria-expanded="false">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-shopping-bag-open-light"></use>
-							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
-						</a>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
-	<div id="shoppingCart" data-bs-scroll="false" class="offcanvas offcanvas-end">
-		<div class="offcanvas-header fs-4">
-			<h4 class="offcanvas-title fw-semibold">Shopping Bag</h4>
-			<button type="button" class="btn-close btn-close-bg-none" data-bs-dismiss="offcanvas" aria-label="Close">
-				<i class="far fa-times"></i>
-			</button>
-		</div>
-		<div class="offcanvas-body me-xl-auto pt-0 mb-2 mb-xl-0">
-			<form class="table-responsive-md shopping-cart pb-8 pb-lg-10">
-				<table class="table table-borderless">
-					<thead>
-						<tr class="fw-500">
-							<td colspan="3" class="border-bottom pb-6"><i class="far fa-check fs-12px border me-4 px-2 py-1 text-body-emphasis border-dark rounded-circle"></i> Your cart is saved for the next <span class="text-body-emphasis">4m34s</span></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="position-relative">
-							<td class="align-middle text-center">
-								<a href="#" class="d-block clear-product">
-									<i class="far fa-times"></i>
-								</a>
-							</td>
-							<td class="shop-product">
-								<div class="d-flex align-items-center">
-									<div class="me-6">
-										<img src="./assets/images/products/product-03-75x100.jpg" width="60" height="80" alt="natural coconut cleansing oil">
-									</div>
-									<div class="">
-										<p class="card-text mb-1">
-											<span class="fs-13px fw-500 text-decoration-line-through pe-3">$39.00</span>
-											<span class="fs-15px fw-bold text-body-emphasis">$29.00</span>
 
-										</p>
-										<p class="fw-500 text-body-emphasis">Natural Coconut Cleansing Oil</p>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle p-0">
-								<div class="input-group position-relative shop-quantity">
-									<a href="#" class="shop-down position-absolute z-index-2"><i class="far fa-minus"></i></a>
-									<input name="number[]" type="number" class="form-control form-control-sm px-6 py-4 fs-6 text-center border-0" value="1" required="">
-									<a href="#" class="shop-up position-absolute z-index-2"><i class="far fa-plus"></i>
-									</a>
-								</div>
-							</td>
-						</tr>
-						<tr class="position-relative">
-							<td class="align-middle text-center">
-								<a href="#" class="d-block clear-product">
-									<i class="far fa-times"></i>
-								</a>
-							</td>
-							<td class="shop-product">
-								<div class="d-flex align-items-center">
-									<div class="me-6">
-										<img src="./assets/images/products/product-06-75x100.jpg" width="60" height="80" alt="natural coconut cleansing oil">
-									</div>
-									<div class="">
-										<p class="card-text mb-1">
-											<span class="fs-13px fw-500 text-decoration-line-through pe-3">$39.00</span>
-											<span class="fs-15px fw-bold text-body-emphasis">$29.00</span>
 
-										</p>
-										<p class="fw-500 text-body-emphasis">Super Pure</p>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle p-0">
-								<div class="input-group position-relative shop-quantity">
-									<a href="#" class="shop-down position-absolute z-index-2"><i class="far fa-minus"></i></a>
-									<input name="number[]" type="number" class="form-control form-control-sm px-6 py-4 fs-6 text-center border-0" value="1" required="">
-									<a href="#" class="shop-up position-absolute z-index-2"><i class="far fa-plus"></i>
-									</a>
-								</div>
-							</td>
-						</tr>
-						<tr class="position-relative">
-							<td class="align-middle text-center">
-								<a href="#" class="d-block clear-product">
-									<i class="far fa-times"></i>
-								</a>
-							</td>
-							<td class="shop-product">
-								<div class="d-flex align-items-center">
-									<div class="me-6">
-										<img src="./assets/images/products/product-09-75x100.jpg" width="60" height="80" alt="natural coconut cleansing oil">
-									</div>
-									<div class="">
-										<p class="card-text mb-1">
-											<span class="fs-13px fw-500 text-decoration-line-through pe-3">$39.00</span>
-											<span class="fs-15px fw-bold text-body-emphasis">$29.00</span>
 
-										</p>
-										<p class="fw-500 text-body-emphasis">Cleansing Balm</p>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle p-0">
-								<div class="input-group position-relative shop-quantity">
-									<a href="#" class="shop-down position-absolute z-index-2"><i class="far fa-minus"></i></a>
-									<input name="number[]" type="number" class="form-control form-control-sm px-6 py-4 fs-6 text-center border-0" value="1" required="">
-									<a href="#" class="shop-up position-absolute z-index-2"><i class="far fa-plus"></i>
-									</a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</div>
-		<div class="offcanvas-footer flex-wrap">
-			<div class="d-flex align-items-center justify-content-between w-100 mb-5">
-				<span class="text-body-emphasis">Total price:</span>
-				<span class="cart-total fw-bold text-body-emphasis">$106.00</span>
-			</div>
-			<a href="../shop/checkout.html" class="btn btn-dark w-100 mb-7" title="Check Out">Check Out</a>
-			<a href="../shop/shopping-cart.html" class="btn btn-outline-dark w-100" title="View shopping cart">View shopping cart</a>
-		</div>
-	</div>
 
-	<div class="modal" id="signInModal" tabindex="-1" aria-labelledby="signInModal" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header text-center border-0 pb-0">
-					<button type="button" class="btn-close position-absolute end-5 top-5" data-bs-dismiss="modal" aria-label="Close"></button>
-					<h3 class="modal-title w-100" id="signInModalLabel">Sign In</h3>
-				</div>
-				<div class="modal-body px-sm-13 px-8">
-					<p class="text-center fs-16 mb-10">Don’t have an account yet? <a href="#" data-bs-toggle="modal" data-bs-target="#signUpModal" class="text-black">Sign up</a> for free</p>
-					<form action="#">
-						<input name="email" type="email" class="form-control mb-5" placeholder="Your email" required>
-						<input name="password" type="password" class="form-control" placeholder="Password" required>
-						<div class="d-flex align-items-center justify-content-between mt-8 mb-7">
-							<div class="custom-control d-flex form-check">
-								<input name="stay-signed-in" type="checkbox" class="form-check-input rounded-0 me-3" id="staySignedIn">
-								<label class="custom-control-label text-body" for="staySignedIn">Stay signed in</label>
-							</div>
-							<a href="#" class="text-secondary">Forgot your password?</a>
-						</div>
-						<button type="submit" value="Login" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary w-100">Log In</button>
-					</form>
-				</div>
-				<div class="modal-footer px-13 pt-0 pb-12 border-0">
-					<div class="border-bottom w-100"></div>
-					<div class="text-center lh-1 mb-8 w-100 mt-n5">
-						<span class="fs-14 bg-body lh-1 px-4">or Log-in with</span>
-					</div>
-					<div class="d-flex w-100">
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x me-5 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-facebook-f me-4" style="color: #2E58B2"></i>Facebook</a>
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x mt-0 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-google me-4" style="color: #DD4B39"></i>Google</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="modal" id="signUpModal" tabindex="-1" aria-labelledby="signUpModal" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header text-center border-0 pb-0">
-					<button type="button" class="btn-close position-absolute end-5 top-5" data-bs-dismiss="modal" aria-label="Close"></button>
-					<h3 class="modal-title w-100" id="signUpModalLabel">Sign Up</h3>
-				</div>
-				<div class="modal-body px-sm-13 px-8">
-					<p class="text-center fs-16 mb-10">Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal" class="text-black">Log in</a></p>
-					<form action="#">
-						<input name="first-name" type="text" class="form-control border-1 mb-5" placeholder="First name" required>
-						<input name="last-name" type="text" class="form-control border-1 mb-5" placeholder="Last name" required>
-						<input name="email" type="email" class="form-control border-1 mb-5" placeholder="Your email" required>
-						<input name="password" type="password" class="form-control border-1" placeholder="Password" required>
-						<div class="d-flex align-items-center mt-8 mb-7">
-							<div class="form-check">
-								<input name="agree-policy-terms" type="checkbox" class="form-check-input rounded-0 me-3" id="agreePolicyTerm">
-								<label class="custom-control-label text-body" for="agreePolicyTerm">Yes, I agree with Grace <a href="#" class="text-black">Privacy Policy</a> and <a href="#" class="text-black">Terms of Use</a></label>
-							</div>
-						</div>
-						<button type="submit" value="Sign Up" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary w-100">Sign Up</button>
-					</form>
-				</div>
-				<div class="modal-footer px-13 pt-0 pb-12 border-0">
-					<div class="border-bottom w-100"></div>
-					<div class="text-center lh-1 mb-8 w-100 mt-n5">
-						<span class="fs-14 bg-body lh-1 px-4">or Sign Up with</span>
-					</div>
-					<div class="d-flex w-100">
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x me-5 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-facebook-f me-4" style="color: #2E58B2"></i>Facebook</a>
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x mt-0 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-google me-4" style="color: #DD4B39"></i>Google</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="modal fade" id="quickViewModal" aria-labelledby="quickViewModal" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
@@ -3167,7 +1158,7 @@
 												<use xlink:href="#icon-star-light"></use>
 											</svg>
 										</a>
-										<a href="./shop/compare.html" class="d-flex align-items-center justify-content-center mt-5 product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
+										<a href="#" class="d-flex align-items-center justify-content-center mt-5 product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
 											<svg class="icon fs-4">
 												<use xlink:href="#icon-arrows-left-right-light"></use>
 											</svg>
@@ -3175,30 +1166,28 @@
 									</div>
 								</div>
 								<div id="slider" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#slider-thumb&#34;,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1}'>
-									<a href="./assets/images/shop/product-gallery-05.jpg" data-gallery="gallery1" data-thumb-src="./assets/images/shop/product-gallery-05.jpg"><img src="#" data-src="./assets/images/shop/product-gallery-05.jpg" class="h-auto lazy-image" width="540" height="720" alt=""></a>
-									<a href="./assets/images/shop/product-gallery-06.jpg" data-gallery="gallery1" data-thumb-src="./assets/images/shop/product-gallery-06.jpg"><img src="#" data-src="./assets/images/shop/product-gallery-06.jpg" class="h-auto lazy-image" width="540" height="720" alt=""></a>
-									<a href="./assets/images/shop/product-gallery-07.jpg" data-gallery="gallery1" data-thumb-src="./assets/images/shop/product-gallery-07.jpg"><img src="#" data-src="./assets/images/shop/product-gallery-07.jpg" class="h-auto lazy-image" width="540" height="720" alt=""></a>
-									<a href="./assets/images/shop/product-gallery-08.jpg" data-gallery="gallery1" data-thumb-src="./assets/images/shop/product-gallery-08.jpg"><img src="#" data-src="./assets/images/shop/product-gallery-08.jpg" class="h-auto lazy-image" width="540" height="720" alt=""></a>
+									<img src="<?= $sanPham['anh_san_pham'] ?>" class="h-auto lazy-image" width="540" height="720" alt=""></a>
+
 								</div>
 							</div>
 							<div class="mt-6">
-								<div id="slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#slider&#34;,&#34;dots&#34;:false,&#34;focusOnSelect&#34;:true,&#34;slidesToShow&#34;:5,&#34;vertical&#34;:false}'>
-									<img src="#" data-src="./assets/images/shop/product-gallery-05-154x205.jpg" class="mx-3 px-0 h-auto cursor-pointer lazy-image" width="75" height="100" alt="">
-									<img src="#" data-src="./assets/images/shop/product-gallery-06-154x205.jpg" class="mx-3 px-0 h-auto cursor-pointer lazy-image" width="75" height="100" alt="">
-									<img src="#" data-src="./assets/images/shop/product-gallery-07-154x205.jpg" class="mx-3 px-0 h-auto cursor-pointer lazy-image" width="75" height="100" alt="">
-									<img src="#" data-src="./assets/images/shop/product-gallery-08-154x205.jpg" class="mx-3 px-0 h-auto cursor-pointer lazy-image" width="75" height="100" alt="">
-								</div>
+								<?php foreach ($listAnhSanPham as $key => $anhSanPham): ?>
+									<div id="slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#slider&#34;,&#34;dots&#34;:false,&#34;focusOnSelect&#34;:true,&#34;slidesToShow&#34;:5,&#34;vertical&#34;:false}'>
+										<img src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>" class="mx-3 px-0 h-auto cursor-pointer lazy-image" width="75" height="100" alt="">
+
+									</div>
+								<?php endforeach ?>
 							</div>
 						</div>
 						<div class="col-md-6 pt-md-0 pt-10">
 							<p class="d-flex align-items-center mb-6">
-								<span class="text-decoration-line-through">39.00</span>
-								<span class="fs-18px text-body-emphasis ps-6 fw-bold">29.00</span>
-								<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3">20%</span>
+								<span class="text-decoration-line-through"><?= $sanPham['gia_nhap'] ?></span>
+								<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= $sanPham['gia_ban'] ?></span>
+								<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= $sanPham['gia_khuyen_mai'] ?>%</span>
 							</p>
 							<h1 class="mb-4 pb-2 fs-4">
 								<a href="./shop/product-details-v1.html" title="Natural Coconut Cleansing Oil">
-									Natural Coconut Cleansing Oil
+									<?= $sanPham['ten_san_pham'] ?>
 								</a>
 							</h1>
 							<div class="d-flex align-items-center fs-15px mb-6">
@@ -3264,7 +1253,7 @@
 								</div>
 								<a href="#" class="border-start ps-6 text-body">Read 2947 reviews</a>
 							</div>
-							<p class="fs-15px">Niacinamide and Vitamin C are two anti-aging superstars but not usually formulated together because of their different pH levels.</p>
+							<p class="fs-15px"><?= $sanPham['mo_ta'] ?></p>
 
 
 							<p class="mb-4 pb-2">
@@ -3272,15 +1261,15 @@
 									<svg class="icon fs-5 me-4 pe-2 align-text-bottom">
 										<use xlink:href="#icon-eye-light"></use>
 									</svg>
-									17 people
+									<?= $sanPham['luot_xem'] ?>
 								</span>
-								are viewing this right now
+								lượt xem
 							</p>
 							<p class="mb-4 pb-2 text-body-emphasis">
 								<svg class="icon fs-5 me-4 pe-2 align-text-bottom">
 									<use xlink:href="#icon-Timer"></use>
 								</svg>
-								Only 9 left in stock
+								<?= $sanPham['so_luong_ton_kho'] ?>
 							</p>
 							<div class="progress mb-7" style="height: 4px;">
 								<div class="progress-bar w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -3327,12 +1316,12 @@
 							</div>
 							<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
 								<li class="d-flex mb-4 pb-2 align-items-center">
-									<span class="text-body-emphasis fw-semibold fs-14px">Sku:</span>
-									<span class="ps-4">SF09281</span>
+									<span class="text-body-emphasis fw-semibold fs-14px">Số lượng</span>
+									<span class="ps-4"><?= $sanPham['so_luong'] ?></span>
 								</li>
 								<li class="d-flex mb-4 pb-2 align-items-center">
-									<span class="text-body-emphasis fw-semibold fs-14px">Categories:</span>
-									<span class="ps-4">Makeup, Skincare</span>
+									<span class="text-body-emphasis fw-semibold fs-14px">Danh mục</span>
+									<span class="ps-4"><?= $sanPham['ten_danh_muc'] ?></span>
 								</li>
 							</ul>
 
@@ -3909,5 +1898,21 @@
 			title="Back To Top" style="--square-size: 48px"><i class="fa-solid fa-arrow-up"></i></a>
 	</div>
 </body>
+<script>
+	// Select all thumbnails
+	const thumbnails = document.querySelectorAll('.thumbnail');
+
+	// Add click event listener for each thumbnail
+	thumbnails.forEach(thumbnail => {
+		thumbnail.addEventListener('click', function() {
+			// Get the large image URL from the data-large-src attribute
+			const largeImageSrc = this.getAttribute('data-large-src');
+
+			// Find the main image element and change its src to the clicked thumbnail's large image
+			const mainImage = document.getElementById('main-image');
+			mainImage.src = largeImageSrc;
+		});
+	});
+</script>
 
 </html>

@@ -7,7 +7,7 @@ class HomeController
     public $modelTaiKhoan;
     public function __construct()
     {
-       
+
         $this->modelTaiKhoan = new TaiKhoan();
         $this->modelBanner = new Banner();
         $this->modelSanPham = new SanPham();
@@ -60,10 +60,27 @@ class HomeController
             }
         }
     }
-    public function logout(){
+    public function chiTietSanPham()
+    {
+        $id = $_GET['id_san_pham'];
+        $sanPham = $this->modelSanPham->getDetailSanPham($id);
+        $listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
+        $listBinhLuan = $this->modelSanPham->getAllBinhLuan($id);
+        $listSanPhamCungDanhMuc = $this->modelSanPham->getListSanPhamCungDanhMuc($sanPham['danh_muc_id']);
+        if ($sanPham) {
+            require_once './views/detailSanPham.php';
+        } else {
+            header("Location: " . BASE_URL);
+            exit();
+        }
+    }
+
+    public function logout()
+    {
         require_once './views/logout.php';
     }
-    public function profile(){
+    public function profile()
+    {
         require_once './views/profile.php';
     }
 }

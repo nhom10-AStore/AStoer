@@ -22,15 +22,15 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/'                 => (new HomeController())->index(),
-    'chi-tiet-san-pham' => (new HomeController())->getDetailSanPham(),
+    'chi-tiet-san-pham' => (new HomeController())->chiTietSanPham(),
+
     // auth
     'login'             => (new HomeController())->formLogin(),
     'check-login'       => (new HomeController())->postLogin(),
-    'dang-xuat'         =>(new HomeController())->logout(),
+    'dang-xuat'         => (new HomeController())->logout(),
     // Đăng ký
     'dang-ky'           => (new RegisterController())->create(),
     'dangky'            => (new RegisterController())->store(),
     //thông tin nguời dùng
-    'thong-tin-ca-nhan'  =>(new HomeController())->profile(),
-    
+    'thong-tin-ca-nhan'  => (new HomeController())->profile(),
 };

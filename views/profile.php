@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 
 <head>
 
@@ -18,7 +18,7 @@
 <body>
     <?php
     require_once "layout/header.php";
-
+    require_once "views/layout/libs_js.php";
     // require_once "layout/siderbar.php";
     ?>
     <main id="content" class="bg-body-tertiary-01 d-flex flex-column main-content">
@@ -88,7 +88,7 @@
                                         <aside class="col-lg-4">
                                             <div class="text-lg-center">
                                                 <div class="mx-auto">
-                                                    <img class="mb-9 rounded-pill loaded" src="../assets//images/dashboard/avatar-1.png" data-src="../assets//images/dashboard/avatar-1.png" alt="User Photo" height="196" width="196" loading="lazy" data-ll-status="loaded">
+                                                    <img class="mb-9 rounded-pill loaded" src="<?= $_SESSION['user']['anh_dai_dien'] ?>" height="196" width="196" loading="lazy" data-ll-status="loaded">
                                                 </div>
                                                 <div>
                                                     <a class="btn border hover-white bg-hover-primary border-hover-primary" href="#"><i class="fas fa-cloud-upload"></i> Upload </a>
@@ -140,18 +140,8 @@
 
             </div>
         </div>
-        <footer class="pt-6 pb-10 footer-dashboard mt-auto">
-            <div class="row">
-                <div class="col-sm-6 text-sm-start text-center">
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>2024
-                    © Glowing - Beauty &amp; Cosmetics Shop HTML Template .
-                </div>
-                <div class="col-sm-6 text-sm-end text-center">
-                    All rights reserved
-                </div>
-            </div>
-        </footer>
     </main>
+    <?php
+    require_once 'views/layout/footer.php';
+    ?>
 </body>
