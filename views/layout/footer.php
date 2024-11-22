@@ -33,7 +33,7 @@
 
             </div>
             <div class="col-lg col-md-4 col-12 mb-11 mb-lg-0">
-                <h3 class="fs-5 mb-6 text-white">Social Media</h3>
+                <h3 class="fs-5 mb-6 text-white">Kênh truyền thông</h3>
                 <ul class="list-inline fs-5 mb-0">
                     <li class="list-inline-item me-8">
                         <a class="text-light" href="#">

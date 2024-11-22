@@ -111,8 +111,5 @@ class HomeController
     {
         require_once './views/logout.php';
     }
-    public function profile()
-    {
-        require_once './views/profile.php';
-    }
+    
 }

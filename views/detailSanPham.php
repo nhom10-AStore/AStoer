@@ -189,15 +189,7 @@
 											<img src="<?= $sanPham['anh_san_pham'] ?>" data-src="" class="w-100 lazy-image" alt="" width="470" height="540">
 										</div>
 										<div class="pb-3 col-12 col-lg-6 pt-12 pt-lg-0">
-											<p class="fw-semibold text-body-emphasis mb-2 pb-4"></p>
-											<ul class="mb-7 ps-6">
-												<li class="mb-1">Buildable medium-to-full coverage</li>
-												<li class="mb-1">Weightless, airy feel—no caking!</li>
-												<li class="mb-1">Long-wearing</li>
-												<li class="mb-1">Evens skin tone</li>
-												<li>Available in 07 shades (all exclusive to Makeaholic!)</li>
-											</ul>
-
+											<p class="fw-semibold text-body-emphasis mb-2 pb-4"><?= $sanPham['thong_so'] ?></p>
 										</div>
 									</div>
 								</div>

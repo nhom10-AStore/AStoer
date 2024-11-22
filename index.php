@@ -7,6 +7,7 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 // Require toàn bộ file Controllers
 require_once './controllers/HomeController.php';
 require_once './controllers/RegisterController.php';
+require_once './controllers/UserController.php';
 
 
 // Require toàn bộ file Models
@@ -33,5 +34,8 @@ match ($act) {
     'dang-ky'           => (new RegisterController())->create(),
     'dangky'            => (new RegisterController())->store(),
     //thông tin nguời dùng
-    'thong-tin-ca-nhan'  => (new HomeController())->profile(),
+    'thong-tin-ca-nhan'  => (new UserController())->chiTietTaiKhoan(),
+    'xu-ly-thay-doi-thong-tin-ca-nhan' =>(new UserController()) ->updateThongTin(),
+    'doi-mat-khau' => (new UserController())->doiMatKhau(),
+    'xu-ly-doi-mat-khau' => (new UserController())->updatePassword(),
 };

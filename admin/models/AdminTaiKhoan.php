@@ -159,8 +159,6 @@ class AdminTaiKhoan
             return false;
         }
     }
-
-
     public function getTaiKhoanFromEmail($email)
     {
         try {
