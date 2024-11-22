@@ -156,8 +156,8 @@
 								</svg>
 							</a>
 						<?php else: ?>
-							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan&id='.$_SESSION['user']['id'] ?>">
-								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien'] ?>" alt="User Avatar" class="user-avatar">
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan&id=' . $_SESSION['user']['id'] ?>">
+								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien']  ?>" alt="User Avatar" class="user-avatar">
 							</a>
 							<a href="<?= BASE_URL ?>?act=dang-xuat" class="lh-1 color-inherit text-decoration-none" style="gap: 20px;">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">

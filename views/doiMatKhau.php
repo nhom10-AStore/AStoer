@@ -52,7 +52,7 @@
                                     <img src="admin/assets/images/logo-light.png" alt="" height="20">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                            <p class="mt-3 fs-15 fw-medium">Đổi mật khẩu của bạn tại đây</p>
                         </div>
                     </div>
                 </div>
@@ -71,16 +71,19 @@
                                 <div class="p-2">
                                     <form action="?act=xu-ly-doi-mat-khau" method="POST">
                                         <input type="hidden" name="id" value="<?= $_SESSION['user']['id'] ?>"> <?php if (isset($_SESSION['message']) && $_SESSION['message_type'] == "error"): ?> <div class="alert alert-danger"> <?= $_SESSION['message'] ?> </div> <?php unset($_SESSION['message'], $_SESSION['message_type']); ?> <?php endif; ?> <div class="mb-3"> <label class="form-label" for="mat_khau_cu">Mật khẩu cũ</label>
-                                            <div class="position-relative auth-pass-inputgroup"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="mat_khau_cu" name="mat_khau_cu" aria-describedby="passwordInput"  required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
+                                            <div class="position-relative auth-pass-inputgroup"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Nhập mật khẩu" id="mat_khau_cu" name="mat_khau_cu" aria-describedby="passwordInput" required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
                                         </div>
-                                        <div class="mb-3"> <label class="form-label" for="mat_khau_moi1">Mật khẩu mới</label>
-                                            <div class="position-relative auth-pass-inputgroup"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="mat_khau_moi1" name="mat_khau_moi1" aria-describedby="passwordInput" required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
+                                        <div class="mb-4"> <label class="form-label" for="mat_khau_moi1">Mật khẩu mới</label>
+                                            <div class="position-relative auth-pass-inputgroup"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Nhập mật khẩu mới" id="mat_khau_moi1" name="mat_khau_moi1" aria-describedby="passwordInput" required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
                                         </div>
-                                        <div class="mb-3"> <label class="form-label" for="mat_khau_moi2">Nhập lại mật khẩu</label>
-                                            <div class="position-relative auth-pass-inputgroup mb-3"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Confirm password" id="mat_khau_moi2" name="mat_khau_moi2" required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
+                                        <div class="mb-4"> <label class="form-label" for="mat_khau_moi2">Nhập lại mật khẩu</label>
+                                            <div class="position-relative auth-pass-inputgroup mb-3"> <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Nhập lại mật khẩu" id="mat_khau_moi2" name="mat_khau_moi2" required> <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button"><i class="ri-eye-fill align-middle"></i></button> </div>
                                         </div>
                                         <div class="mt-4"> <button class="btn btn-success w-100" type="submit">Đổi mật khẩu</button> </div>
                                     </form>
+                                    <div class="p-2">
+                                        <a href="<?= BASE_URL . '?act=thong-tin-ca-nhan&id=' . $_SESSION['user']['id'] ?>">Quay lại</a>
+                                    </div>
 
                                 </div>
                             </div>

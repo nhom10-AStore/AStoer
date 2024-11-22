@@ -69,7 +69,7 @@
 							<!-- Main Image Section -->
 							<div id="vertical-slider-slides" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#vertical-slider-thumb&#34;,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1,&#34;vertical&#34;:true}'>
 								<a href="<?= $sanPham['anh_san_pham'] ?>" data-gallery="product-gallery">
-									<img id="main-image" src="<?= $sanPham['anh_san_pham'] ?>" width="540" height="720" title="" class="h-auto lazy-image" alt="">
+									<img id="main-image" data-thumb-src="<?= $sanPham['anh_san_pham'] ?>" src="<?= $sanPham['anh_san_pham'] ?>" width="540" height="720" title="" class="h-auto lazy-image" alt="">
 								</a>
 							</div>
 						</div>
@@ -87,7 +87,7 @@
 
 
 					<form class="product-info-custom">
-						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Add To Bag
+						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng
 						</button>
 					</form>
 					<div class="d-flex align-items-center flex-wrap">
@@ -179,7 +179,7 @@
 										<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
 											data-bs-toggle="collapse" data-bs-target="#collapse-product-detail"
 											aria-expanded="false" aria-controls="collapse-product-detail">
-											Product Detail
+											Chi tiết sản phẩm
 										</button>
 									</h5>
 								</div>
@@ -202,7 +202,7 @@
 										<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
 											data-bs-toggle="collapse"
 											data-bs-target="#collapse-to-use"
-											aria-expanded="false" aria-controls="collapse-to-use">How To Use
+											aria-expanded="false" aria-controls="collapse-to-use">
 										</button>
 									</h5>
 								</div>
@@ -298,6 +298,60 @@
 		</section>
 		<div class="border-top w-100 h-1px"></div>
 		<section class="container pt-15 pb-15 pt-lg-17 pb-lg-20">
+			<div class="container-xxl my-5">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="product-review-section">
+							<!-- Tab tiêu đề -->
+							<ul class="nav nav-tabs mb-3 review-tab">
+								<li class="nav-item">
+									<a class="nav-link active" data-bs-toggle="tab" href="#comments-tab">
+										Bình luận (<?= count($listBinhLuan) ?>)
+									</a>
+								</li>
+							</ul>
+
+							<!-- Nội dung tab -->
+							<div class="tab-content reviews-tab">
+								<!-- Form bình luận -->
+								<div class="tab-pane fade show active" id="comments-tab">
+									<?php if (isset($_SESSION['user'])): ?>
+										<form action="<?= BASE_URL . '?act=xu-ly-binh-luan&id_san_pham=' . $_GET['id_san_pham']; ?>" method="POST" class="review-form p-4 border rounded">
+											<div class="form-group mb-3">
+												<textarea style="background-color: white;" id="comment-content" name="noi_dung" class="form-control" placeholder="Nhập bình luận của bạn..." required></textarea>
+												<input type="hidden" name="id_san_pham" value="<?= $_GET['id_san_pham']; ?>">
+											</div>
+											<button type="submit" class="btn btn-primary">Gửi bình luận</button>
+										</form>
+
+									<?php else: ?>
+										<p class="text-muted">Bạn cần <a href="<?= BASE_URL_ADMIN . '?act=login-admin' ?>">đăng nhập</a> để bình luận.</p>
+									<?php endif; ?>
+
+								</div>
+
+								<!-- Danh sách bình luận -->
+								<div class="mt-4">
+									<?php if (!empty($listBinhLuan)): ?>
+										<?php foreach ($listBinhLuan as $binhLuan): ?>
+											<div class="review-box p-3 border rounded mb-3">
+												<div class="d-flex justify-content-between">
+													<strong><?= htmlspecialchars($binhLuan['ho_ten']) ?></strong>
+													<small class="text-muted"><?= htmlspecialchars($binhLuan['ngay_dang']) ?></small>
+												</div>
+												<p class="mt-2"><?= htmlspecialchars($binhLuan['noi_dung']) ?></p>
+											</div>
+										<?php endforeach; ?>
+									<?php else: ?>
+										<p class="text-muted">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="text-center">
 				<h3 class="mb-12"> Sản phẩm liên quan</h3>
 			</div>
@@ -337,7 +391,7 @@
 							<div class="card-body text-center p-0">
 								<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
 									<del class=" text-body fw-500 me-4 fs-13px"><?= $sanPham['gia_nhap'] ?></del>
-									<ins class="text-decoration-none"><?= $sanPham['gia_ban'] ?></ins></span>
+									<ins class="text-decoration-none"><?= number_format($sanPham['gia_ban'], 0, ',', '.') ?> VNĐ</ins></span>
 								<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id']; ?>"><?= $sanPham['ten_san_pham'] ?></a></h4>
 
 							</div>
@@ -348,58 +402,6 @@
 			</div>
 		</section>
 
-		<div class="container-xxl my-5">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="product-review-section">
-						<!-- Tab tiêu đề -->
-						<ul class="nav nav-tabs mb-3 review-tab">
-							<li class="nav-item">
-								<a class="nav-link active" data-bs-toggle="tab" href="#comments-tab">
-									Bình luận (<?= count($listBinhLuan) ?>)
-								</a>
-							</li>
-						</ul>
-
-						<!-- Nội dung tab -->
-						<div class="tab-content reviews-tab">
-							<!-- Form bình luận -->
-							<div class="tab-pane fade show active" id="comments-tab">
-								<?php if (isset($_SESSION['user'])): ?>
-									<form id="formAddComment" method="post" action="<?= BASE_URL . '?act=xu-ly-binh-luan&id_san_pham=' . $_GET['id_san_pham']; ?>">
-										<input type="hidden" name="id_san_pham" value="<?= $_GET['id_san_pham']; ?>">
-
-										<textarea name="noi_dung" placeholder="Nhập bình luận của bạn" required></textarea>
-										<button type="submit">Gửi bình luận</button>
-									</form>
-
-								<?php else: ?>
-									<p class="text-muted">Bạn cần <a href="<?=BASE_URL_ADMIN.'?act=login-admin'?>">đăng nhập</a> để bình luận.</p>
-								<?php endif; ?>
-
-							</div>
-
-							<!-- Danh sách bình luận -->
-							<div class="mt-4">
-								<?php if (!empty($listBinhLuan)): ?>
-									<?php foreach ($listBinhLuan as $binhLuan): ?>
-										<div class="review-box p-3 border rounded mb-3">
-											<div class="d-flex justify-content-between">
-												<strong><?= htmlspecialchars($binhLuan['ho_ten']) ?></strong>
-												<small class="text-muted"><?= htmlspecialchars($binhLuan['ngay_dang']) ?></small>
-											</div>
-											<p class="mt-2"><?= htmlspecialchars($binhLuan['noi_dung']) ?></p>
-										</div>
-									<?php endforeach; ?>
-								<?php else: ?>
-									<p class="text-muted">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
-								<?php endif; ?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 	</main>
 
@@ -1172,7 +1174,7 @@
 						<div class="col-md-6 pt-md-0 pt-10">
 							<p class="d-flex align-items-center mb-6">
 								<span class="text-decoration-line-through"><?= $sanPham['gia_nhap'] ?></span>
-								<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= $sanPham['gia_ban'] ?></span>
+								<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= number_format($sanPham['gia_ban']) ?></span>
 								<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= $sanPham['gia_khuyen_mai'] ?>%</span>
 							</p>
 							<h1 class="mb-4 pb-2 fs-4">
@@ -1276,7 +1278,7 @@
 										</div>
 									</div>
 									<div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0">
-										<button type="submit" class="btn-hover-bg-primary btn-hover-border-primary btn btn-lg btn-dark w-100">Add To Bag
+										<button type="submit" class="btn-hover-bg-primary btn-hover-border-primary btn btn-lg btn-dark w-100">Thêm vào giỏ hàng
 										</button>
 									</div>
 								</div>
