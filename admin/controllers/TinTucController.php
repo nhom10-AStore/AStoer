@@ -45,10 +45,10 @@ class TinTucController
             if (empty($errors)) {
                 $this->modelTinTuc->postData($tieu_de_bai_viet,  $noi_dung_bai_viet, $trang_thai_bai_viet);
                 unset($_SESSION['errors']);
-                header('Location:?act=tin-tucs');
+                header('Location:'.BASE_URL_ADMIN.'?act=tin-tucs');
             } else {
                 $_SESSION['errors'] = $errors;
-                header('Location:?act=form-them-tin-tuc');
+                header('Location:'.BASE_URL_ADMIN.'?act=form-them-tin-tuc');
                 exit();
             }
         }
@@ -89,7 +89,7 @@ class TinTucController
                 header('Location:?act=tin-tucs');
             } else {
                 $_SESSION['errors'] = $errors;
-                header('Location:?act=form-them-tin-tuc');
+                header('Location:'.BASE_URL_ADMIN.'?act=form-them-tin-tuc');
                 exit();
             }
         }
@@ -100,7 +100,7 @@ class TinTucController
             $id = $_POST['id'];
             // var_dump($id);
             $this->modelTinTuc->deleteData($id);
-            header('Location:?act=tin-tucs');
+            header('Location:'.BASE_URL_ADMIN.'?act=tin-tucs');
             exit();
             
         }

@@ -2,15 +2,18 @@
 class UserController
 {
     public $modelTaiKhoan;
+    public $modelDanhMuc;
     public function __construct()
     {
         $this->modelTaiKhoan = new TaiKhoan();
+        $this->modelDanhMuc = new DanhMuc();
     }
     public function chiTietTaiKhoan()
     {
         $id = $_GET['id'];
         // var_dump($id);die;
         $taiKhoan = $this->modelTaiKhoan->getDetailTaiKhoan($id);
+        $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
         require_once 'views/profile.php';
     }
     public function updateThongTin()

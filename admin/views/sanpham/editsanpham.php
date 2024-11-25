@@ -70,7 +70,7 @@
 
                                     <div class="card-body">
                                         <div class="live-preview">
-                                            <form action="?act=sua-san-pham" method="POST" enctype="multipart/form-data">
+                                            <form action="<?=BASE_URL_ADMIN?>?act=sua-san-pham" method="POST" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="mb-3">

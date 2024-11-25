@@ -90,20 +90,7 @@
 						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng
 						</button>
 					</form>
-					<div class="d-flex align-items-center flex-wrap">
-						<a href="../shop/compare.html" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
-							<svg class="icon fs-5">
-								<use xlink:href="#icon-arrows-left-right-light"></use>
-							</svg>
-							<span class="ms-4 ps-2">Compare</span>
-						</a>
-						<a href="#" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
-							<svg class="icon fs-5">
-								<use xlink:href="#icon-star-light"></use>
-							</svg>
-							<span class="ms-4 ps-2">Add to wishlist</span>
-						</a>
-					</div>
+					
 
 					<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
 						<li class="d-flex mb-4 pb-2 align-items-center">

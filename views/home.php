@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
 
@@ -24,7 +24,7 @@
 	require_once "layout/footer.php";
 	?>
 
-	
+
 	<!-- JAVASCRIPT -->
 	<?php
 	require_once "layout/libs_js.php";
@@ -746,65 +746,192 @@
 			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
 		</svg>
 	</svg>
-	<div id="searchModal" data-bs-scroll="false" class="offcanvas offcanvas-top" style="--bs-offcanvas-height: auto">
-		<div class="container-wide container-xxl">
-			<nav class="navbar navbar-expand-xl px-0 py-6 py-xl-12 row align-items-start">
-				<div class="col-xl-3 d-flex justify-content-center justify-content-xl-start">
-					<a href="./" class="navbar-brand py-4 d-lg-inline-block">
-						<img src="./assets/images/others/logo.png" height="26" alt="Glowing - Bootstrap 5 HTML Templates">
-					</a>
-				</div>
-				<div class="col-xl-6 d-flex justify-content-center">
-					<form class="w-xl-100 w-sm-75 w-100 mt-6 mt-xl-0 px-6 px-xl-0">
-						<div class="input-group mx-auto">
-							<input type="text" class="form-control form-control bg-transparent border-primary" placeholder="Search product">
-							<div class="form-control-append position-absolute end-0 top-0 bottom-0 d-flex align-items-center">
-								<button class="input-group-text bg-transparent border-0 px-0 me-6" type="submit">
-									<i class="far fa-search fs-5"></i>
-								</button>
-							</div>
+	<!-- Update the search modal in home.php -->
+	<div id="searchModal" class="offcanvas offcanvas-top" tabindex="-1" data-bs-scroll="false">
+		<div class="container-fluid px-4 py-3">
+			<!-- Close button -->
+			<div class="d-flex justify-content-end mb-3">
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+
+			<!-- Search Form -->
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-8 col-xl-6">
+					<form action="<?= BASE_URL ?>" method="GET" class="mb-4" id="searchForm">
+						<input type="hidden" name="act" value="search">
+						<div class="input-group input-group-lg">
+							<input
+								type="text"
+								name="keyword"
+								class="form-control border-2"
+								placeholder="Tìm kiếm sản phẩm..."
+								aria-label="Search products"
+								autocomplete="off">
+							<button class="btn btn-primary" type="submit">
+								<i class="far fa-search"></i>
+							</button>
 						</div>
-						<div class="d-flex align-items-center justify-content-center mt-6">
-							<p class="text-muted mb-0 mr-3">Popular Searches</p>
-							<nav class="nav">
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">T-Shirt</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Blue</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Jacket</a>
-							</nav>
-						</div>
+						<!-- Live Search Results Container -->
+						<div id="searchResults" class="search-results mt-3"></div>
 					</form>
-				</div>
-				<div class="icons-actions col-xl-3 d-flex justify-content-end fs-28px text-body-emphasis">
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#signInModal">
-							<svg class="icon icon-user-light">
-								<use xlink:href="#icon-user-light"></use>
-							</svg>
-						</a>
-					</div>
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="./shop/wishlist.html">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-star-light"></use>
-							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
-						</a>
-					</div>
-					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="offcanvas"
-							data-bs-target="#shoppingCart"
-							aria-controls="shoppingCart"
-							aria-expanded="false">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-shopping-bag-open-light"></use>
-							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
-						</a>
+
+					<!-- Popular Keywords -->
+					<div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
+						<span class="text-muted">Từ khóa nổi bật:</span>
+						<div class="popular-tags">
+							<a href="<?= BASE_URL ?>?act=search&keyword=iPhone%2015" class="btn btn-outline-secondary btn-sm me-2">iPhone 15</a>
+							<a href="<?= BASE_URL ?>?act=search&keyword=iPhone%2014" class="btn btn-outline-secondary btn-sm me-2">iPhone 14</a>
+							<a href="<?= BASE_URL ?>?act=search&keyword=iPhone%2013" class="btn btn-outline-secondary btn-sm">iPhone 13</a>
+						</div>
 					</div>
 				</div>
-			</nav>
+			</div>
 		</div>
 	</div>
+
+	<style>
+		.search-results {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			max-height: 400px;
+			overflow-y: auto;
+			z-index: 1050;
+			display: none;
+		}
+
+		.search-item {
+			padding: 10px 15px;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			transition: background-color 0.2s;
+		}
+
+		.search-item:last-child {
+			border-bottom: none;
+		}
+
+		.search-item:hover {
+			background-color: #f8f9fa;
+		}
+
+		.search-item img {
+			width: 50px;
+			height: 50px;
+			object-fit: cover;
+			border-radius: 4px;
+			margin-right: 15px;
+		}
+
+		.search-item-content {
+			flex: 1;
+		}
+
+		.search-item-title {
+			font-weight: 500;
+			margin-bottom: 4px;
+		}
+
+		.search-item-price {
+			color: #dc3545;
+			font-weight: 500;
+		}
+
+		.search-no-results {
+			padding: 15px;
+			text-align: center;
+			color: #6c757d;
+		}
+	</style>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const searchInput = document.querySelector('input[name="keyword"]');
+			const searchResults = document.querySelector('#searchResults');
+			let searchTimeout;
+
+			// Xử lý nhập liệu tìm kiếm
+			searchInput.addEventListener('input', function() {
+				clearTimeout(searchTimeout);
+				const keyword = this.value;
+
+				if (keyword.length >= 2) {
+					searchResults.style.display = 'block';
+					searchTimeout = setTimeout(() => {
+						fetch(`${BASE_URL}?act=search&keyword=${encodeURIComponent(keyword)}&ajax=1`)
+							.then(response => response.json())
+							.then(data => {
+								updateSearchResults(data);
+							})
+							.catch(error => console.error('Error:', error));
+					}, 300);
+				} else {
+					searchResults.style.display = 'none';
+				}
+			});
+
+			// Đóng kết quả khi click ngoài
+			document.addEventListener('click', function(e) {
+				if (!searchResults.contains(e.target) && e.target !== searchInput) {
+					searchResults.style.display = 'none';
+				}
+			});
+
+			// Hiển thị lại kết quả khi focus vào input
+			searchInput.addEventListener('focus', function() {
+				if (this.value.length >= 2) {
+					searchResults.style.display = 'block';
+				}
+			});
+		});
+
+		function updateSearchResults(products) {
+			const searchResults = document.querySelector('#searchResults');
+			searchResults.innerHTML = '';
+
+			if (products.length === 0) {
+				searchResults.innerHTML = `
+            <div class="search-no-results">
+                Không tìm thấy sản phẩm phù hợp
+            </div>`;
+				return;
+			}
+
+			products.forEach(product => {
+				const productElement = document.createElement('a');
+				productElement.href = `${BASE_URL}?act=product-detail&id=${product.id}`;
+				productElement.className = 'search-item text-decoration-none text-dark';
+
+				const price = product.gia_khuyen_mai > 0 ? product.gia_khuyen_mai : product.gia_ban;
+
+				productElement.innerHTML = `
+            <img src="${BASE_URL}${product.anh_san_pham}" 
+                 alt="${product.ten_san_pham}"
+                 onerror="this.src='${BASE_URL}assets/images/no-image.jpg'">
+            <div class="search-item-content">
+                <div class="search-item-title">${product.ten_san_pham}</div>
+                <div class="search-item-price">${formatPrice(price)} đ</div>
+            </div>
+        `;
+
+				searchResults.appendChild(productElement);
+			});
+
+			// Show the results container
+			searchResults.style.display = 'block';
+		}
+
+		function formatPrice(price) {
+			return new Intl.NumberFormat('vi-VN').format(price);
+		}
+	</script>
+
 	<div id="shoppingCart" data-bs-scroll="false" class="offcanvas offcanvas-end">
 		<div class="offcanvas-header fs-4">
 			<h4 class="offcanvas-title fw-semibold">Shopping Bag</h4>
@@ -960,44 +1087,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="modal" id="signUpModal" tabindex="-1" aria-labelledby="signUpModal" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header text-center border-0 pb-0">
-					<button type="button" class="btn-close position-absolute end-5 top-5" data-bs-dismiss="modal" aria-label="Close"></button>
-					<h3 class="modal-title w-100" id="signUpModalLabel">Sign Up</h3>
-				</div>
-				<div class="modal-body px-sm-13 px-8">
-					<p class="text-center fs-16 mb-10">Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal" class="text-black">Log in</a></p>
-					<form action="#">
-						<input name="first-name" type="text" class="form-control border-1 mb-5" placeholder="First name" required>
-						<input name="last-name" type="text" class="form-control border-1 mb-5" placeholder="Last name" required>
-						<input name="email" type="email" class="form-control border-1 mb-5" placeholder="Your email" required>
-						<input name="password" type="password" class="form-control border-1" placeholder="Password" required>
-						<div class="d-flex align-items-center mt-8 mb-7">
-							<div class="form-check">
-								<input name="agree-policy-terms" type="checkbox" class="form-check-input rounded-0 me-3" id="agreePolicyTerm">
-								<label class="custom-control-label text-body" for="agreePolicyTerm">Yes, I agree with Grace <a href="#" class="text-black">Privacy Policy</a> and <a href="#" class="text-black">Terms of Use</a></label>
-							</div>
-						</div>
-						<button type="submit" value="Sign Up" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary w-100">Sign Up</button>
-					</form>
-				</div>
-				<div class="modal-footer px-13 pt-0 pb-12 border-0">
-					<div class="border-bottom w-100"></div>
-					<div class="text-center lh-1 mb-8 w-100 mt-n5">
-						<span class="fs-14 bg-body lh-1 px-4">or Sign Up with</span>
-					</div>
-					<div class="d-flex w-100">
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x me-5 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-facebook-f me-4" style="color: #2E58B2"></i>Facebook</a>
-						<a href="#" class="btn btn-outline-secondary w-100 border-2x mt-0 btn-hover-bg-primary btn-hover-border-primary"><i class="fab fa-google me-4" style="color: #DD4B39"></i>Google</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="modal fade" id="quickViewModal" aria-labelledby="quickViewModal" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">

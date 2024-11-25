@@ -5,16 +5,19 @@ class HomeController
     public $modelBanner;
     public $modelSanPham;
     public $modelTaiKhoan;
+    public $modelDanhMuc;
     public function __construct()
     {
 
         $this->modelTaiKhoan = new TaiKhoan();
         $this->modelBanner = new Banner();
         $this->modelSanPham = new SanPham();
+        $this->modelDanhMuc = new DanhMuc();
     }
     public function index()
     {
         //    require_once './client/home-15.php';
+        $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
         $listSanPham = $this->modelSanPham->getAllSanPham();
         $banners = $this->modelBanner->getAll();
         $listDanhGia = $this->modelSanPham->getAllDanhGia();
@@ -22,6 +25,7 @@ class HomeController
     }
     public function getDetailSanPham()
     {
+        $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
         require_once 'views/detailSanPham.php';
     }
     public function formLogin()
@@ -60,8 +64,42 @@ class HomeController
             }
         }
     }
+    public function search()
+    {
+        $keyword = $_GET['keyword'] ?? '';
+        $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+        $limit = 8;
+
+        // New filter parameters
+        $priceFilter = $_GET['price_filter'] ?? '';
+        $sortBy = $_GET['sort_by'] ?? '';
+
+        if (!empty($keyword)) {
+            $searchResult = $this->modelSanPham->searchSanPham($keyword, $page, $limit, $priceFilter, $sortBy);
+            $searchResults = $searchResult['products'];
+            $totalPages = $searchResult['totalPages'];
+            $totalProducts = $searchResult['total'];
+        } else {
+            $searchResults = [];
+            $totalPages = 0;
+            $totalProducts = 0;
+        }
+
+        // Return JSON for AJAX requests
+        if (isset($_GET['ajax'])) {
+            header('Content-Type: application/json');
+            echo json_encode($searchResults);
+            exit;
+        }
+
+        // Load view for non-AJAX requests
+        $pageTitle = "Kết quả tìm kiếm: " . htmlspecialchars($keyword);
+        require_once './views/search-results.php';
+    }
+
     public function chiTietSanPham()
     {
+        $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
         $id = $_GET['id_san_pham'];
         $sanPham = $this->modelSanPham->getDetailSanPham($id);
         $listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
@@ -106,10 +144,17 @@ class HomeController
             echo json_encode(['status' => 'error', 'message' => 'Đã xảy ra lỗi khi thêm bình luận.']);
         }
     }
+    public function thanhToan()
+    {
+        // if (!isset($_SESSION['user'])) {
+        //     echo json_encode(['status' => 'error', 'message' => 'Bạn cần đăng nhập để thanh toán.']);
+        //     return;
+        // }
 
+        require_once './views/thanhToan.php';
+    }
     public function logout()
     {
         require_once './views/logout.php';
     }
-    
 }

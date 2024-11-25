@@ -4,18 +4,6 @@
             <div class="col-lg-5 col-12 mb-13 mb-lg-0">
                 <h3 class="mb-4 text-white">Liên hệ</h3>
                 <p class="lh-2 text-white me-xl-24 mb-lg-11 mb-9">Mọi thắc mắc của bạn vui lòng điền vào đây để được hỗ trợ</p>
-
-
-                <form class="pe-xl-21">
-                    <div class="input-group position-relative">
-                        <input type="email" class="form-control rounded pe-15 py-5 border-0" placeholder="Your email">
-                        <button type="submit" class="btn fs-28px bg-transparent text-secondary position-absolute btn-custom px-8 z-index-5 h-100 lh-0">
-                            <svg class="icon icon-long-arrow-right">
-                                <use xlink:href="#icon-long-arrow-right"></use>
-                            </svg>
-                        </button>
-                    </div>
-                </form>
             </div>
             <div class="col-lg col-md-4 col-12 mb-11 mb-lg-0 text-white">
                 <h3 class="fs-5 mb-6 text-white">Thông tin liên hệ</h3>

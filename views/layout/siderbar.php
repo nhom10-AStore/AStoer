@@ -56,7 +56,7 @@
 								</figure>
 								<div class="card-body text-center p-0">
 									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6"><?= number_format($sanPham['gia_ban'], 0,) ?>đ</span>
-									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="./shop/product-details-v1.html"><?= $sanPham['ten_san_pham'] ?></a></h4>
+									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id'] ?>"><?= $sanPham['ten_san_pham'] ?></a></h4>
 									<div class="d-flex align-items-center fs-12px justify-content-center">
 										<div class="rating">
 											<div class="empty-stars">
