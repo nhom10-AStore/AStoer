@@ -53,57 +53,60 @@ class SanPham
         }
     }
 
-    // Lấy tất cả bình luận của sản phẩm
-    public function getAllBinhLuan($san_pham_id)
-    {
-        try {
-            $sql = 'SELECT binh_luans.*, tai_khoans.ho_ten FROM binh_luans 
-                    INNER JOIN tai_khoans ON binh_luans.nguoi_dung_id = tai_khoans.id 
-                    WHERE san_pham_id = :san_pham_id';
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':san_pham_id', $san_pham_id, PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Kết nối thất bại: " . $e->getMessage();
-        }
+ // Lấy tất cả bình luận của sản phẩm (Sắp xếp theo ngày mới nhất)
+public function getAllBinhLuan($san_pham_id)
+{
+    try {
+        // Sắp xếp các bình luận theo ngày đăng (ngày mới nhất ở đầu)
+        $sql = 'SELECT binh_luans.*, tai_khoans.ho_ten FROM binh_luans 
+                INNER JOIN tai_khoans ON binh_luans.nguoi_dung_id = tai_khoans.id 
+                WHERE san_pham_id = :san_pham_id 
+                ORDER BY binh_luans.ngay_dang DESC';  // Sắp xếp theo ngày đăng (mới nhất trước)
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':san_pham_id', $san_pham_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);  // Trả về tất cả các bình luận
+    } catch (PDOException $e) {
+        echo "Kết nối thất bại: " . $e->getMessage();
     }
+}
 
-    // Thêm bình luận cho sản phẩm
-    public function addComment($nguoi_dung_id, $san_pham_id, $noi_dung)
-    {
-        try {
-            // Kiểm tra nội dung bình luận
-            if (empty($noi_dung)) {
-                throw new Exception("Nội dung bình luận không được để trống.");
-            }
 
-            // Chuẩn bị câu lệnh SQL
-            $sql = "INSERT INTO binh_luans (nguoi_dung_id, san_pham_id, noi_dung, ngay_dang) 
-                    VALUES (:nguoi_dung_id, :san_pham_id, :noi_dung, NOW())";
-
-            // Chuẩn bị câu lệnh PDO
-            $stmt = $this->conn->prepare($sql);
-
-            // Thực thi câu lệnh với các tham số
-            $stmt->execute([
-                ':nguoi_dung_id' => $nguoi_dung_id, // ID người dùng
-                ':san_pham_id' => $san_pham_id,     // ID sản phẩm
-                ':noi_dung' => htmlspecialchars($noi_dung, ENT_QUOTES, 'UTF-8') // Đảm bảo an toàn khỏi XSS
-            ]);
-
-            return true; // Thêm bình luận thành công
-        } catch (PDOException $e) {
-            // Ghi log lỗi PDO
-            error_log("Database Error: " . $e->getMessage());
-            return false; // Thêm bình luận thất bại
-        } catch (Exception $e) {
-            // Xử lý lỗi khác
-            error_log("Error: " . $e->getMessage());
-            return false; // Thêm bình luận thất bại
+  // Thêm bình luận cho sản phẩm
+public function addComment($nguoi_dung_id, $san_pham_id, $noi_dung)
+{
+    try {
+        // Kiểm tra nội dung bình luận
+        if (empty($noi_dung)) {
+            throw new Exception("Nội dung bình luận không được để trống.");
         }
-    }
 
+        // Chuẩn bị câu lệnh SQL
+        $sql = "INSERT INTO binh_luans (nguoi_dung_id, san_pham_id, noi_dung, ngay_dang) 
+                VALUES (:nguoi_dung_id, :san_pham_id, :noi_dung, NOW())";
+
+        // Chuẩn bị câu lệnh PDO
+        $stmt = $this->conn->prepare($sql);
+
+        // Thực thi câu lệnh với các tham số
+        $stmt->execute([
+            ':nguoi_dung_id' => $nguoi_dung_id, // ID người dùng
+            ':san_pham_id' => $san_pham_id,     // ID sản phẩm
+            ':noi_dung' => htmlspecialchars($noi_dung, ENT_QUOTES, 'UTF-8') // Đảm bảo an toàn khỏi XSS
+        ]);
+
+        return true; // Thêm bình luận thành công
+    } catch (PDOException $e) {
+        // Ghi log lỗi PDO
+        error_log("Database Error: " . $e->getMessage());
+        return false; // Thêm bình luận thất bại
+    } catch (Exception $e) {
+        // Xử lý lỗi khác
+        error_log("Error: " . $e->getMessage());
+        return false; // Thêm bình luận thất bại
+    }
+}
     // Kiểm tra tính hợp lệ của người dùng
     public function isValidUser($user)
     {

@@ -1,18 +1,16 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en" data-bs-theme="light">
 <head>
-
+	
 	<meta charset="UTF-8">
-	<meta name="viewport"
-		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Home Page 07 - Glowing - Bootstrap 5 HTML Templates</title>
-	<!-- CSS -->
-	<?php
-	require_once "layout/libs_css.php";
-	?>
-
+<meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Trang chủ</title>
+<link rel="icon" href="./assets/images/others/favicon.ico">
+<?php
+require_once 'layout/libs_css.php';
+?>
 </head>
 
 <body>
@@ -751,7 +749,7 @@
 			<nav class="navbar navbar-expand-xl px-0 py-6 py-xl-12 row align-items-start">
 				<div class="col-xl-3 d-flex justify-content-center justify-content-xl-start">
 					<a href="./" class="navbar-brand py-4 d-lg-inline-block">
-						<img src="./assets/images/others/logo.png" height="26" alt="Glowing - Bootstrap 5 HTML Templates">
+						<img src="./assets/images/others/logo.png" height="26" alt="Astore">
 					</a>
 				</div>
 				<div class="col-xl-6 d-flex justify-content-center">
@@ -764,42 +762,90 @@
 								</button>
 							</div>
 						</div>
-						<div class="d-flex align-items-center justify-content-center mt-6">
-							<p class="text-muted mb-0 mr-3">Popular Searches</p>
-							<nav class="nav">
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">T-Shirt</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Blue</a>
-								<a class="nav-link text-decoration-underline py-0 px-4" href="#">Jacket</a>
-							</nav>
-						</div>
+						
 					</form>
 				</div>
 				<div class="icons-actions col-xl-3 d-flex justify-content-end fs-28px text-body-emphasis">
 					<div class="px-5 d-none d-xl-inline-block">
-						<a class="lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#signInModal">
-							<svg class="icon icon-user-light">
-								<use xlink:href="#icon-user-light"></use>
+						<a href="<?= BASE_URL . '?act=quan_li_don_hang' ?>">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+								<path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+								<path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
 							</svg>
+							
 						</a>
 					</div>
 					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="./shop/wishlist.html">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-star-light"></use>
+						<a href="<?= BASE_URL . '?act=gio-hang' ?>">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
+								<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
 							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
+							
 						</a>
 					</div>
+				
 					<div class="px-5 d-none d-xl-inline-block">
-						<a class="position-relative lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="offcanvas"
-							data-bs-target="#shoppingCart"
-							aria-controls="shoppingCart"
-							aria-expanded="false">
-							<svg class="icon icon-star-light">
-								<use xlink:href="#icon-shopping-bag-open-light"></use>
+						<?php if (!isset($_SESSION['user'])): ?>
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL_ADMIN . '?act=login-admin' ?>">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+									<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+									<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+								</svg>
+							</a>
+						<?php else: ?>
+							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL . '?act=thong-tin-ca-nhan&id=' . $_SESSION['user']['id'] ?>">
+								<img style="width: 30px; height:30px; border-radius:50%" src="<?= $_SESSION['user']['anh_dai_dien']  ?>" alt="User Avatar" class="user-avatar">
+							</a>
+							<a href="<?= BASE_URL ?>?act=dang-xuat" class="lh-1 color-inherit text-decoration-none" style="gap: 20px;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+									<path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+								</svg>
+							</a>
+							<?php endif; ?>
+					</div>
+					<div class="color-modes position-relative ps-5">
+						<a class="bd-theme btn btn-link nav-link dropdown-toggle d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle" href="#" aria-expanded="true" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+							<svg class="bi my-1 theme-icon-active">
+								<use href="#sun-fill"></use>
 							</svg>
-							<span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">3</span>
 						</a>
+						<ul class="dropdown-menu dropdown-menu-end fs-14px" data-bs-popper="static">
+							<li>
+								<button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="true">
+									<svg class="bi me-4 opacity-50 theme-icon">
+										<use href="#sun-fill"></use>
+									</svg>
+									Light
+									<svg class="bi ms-auto d-none">
+										<use href="#check2"></use>
+									</svg>
+								</button>
+							</li>
+							<li>
+								<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+									<svg class="bi me-4 opacity-50 theme-icon">
+										<use href="#moon-stars-fill"></use>
+									</svg>
+									Dark
+									<svg class="bi ms-auto d-none">
+										<use href="#check2"></use>
+									</svg>
+								</button>
+							</li>
+							<li>
+								<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+									<svg class="bi me-4 opacity-50 theme-icon">
+										<use href="#circle-half"></use>
+									</svg>
+									Auto
+									<svg class="bi ms-auto d-none">
+										<use href="#check2"></use>
+									</svg>
+								</button>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</nav>
@@ -1695,5 +1741,33 @@
 			title="Back To Top" style="--square-size: 48px"><i class="fa-solid fa-arrow-up"></i></a>
 	</div>
 </body>
+<script>
+	$(document).ready(function(){
+  $('.slick-slider').slick({
+    arrows: false,
+    autoplay: true,
+    cssEase: 'ease-in-out',
+    dots: false,
+    fade: true,
+    infinite: true,
+    slidesToShow: 1,
+    speed: 600
+  });
+});
+
+</script>
+<!-- <script>
+    $(document).ready(function () {
+        $('.slick-slider').slick({
+            arrows: false,
+            autoplay: true,
+            dots: true,
+            fade: true,
+            infinite: true,
+            slidesToShow: 1,
+            speed: 600,
+        });
+    });
+</script> -->
 
 </html>
