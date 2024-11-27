@@ -199,12 +199,11 @@ class HomeController
                 // var_dump('Thêm giỏ hàng thành công');die;
             } else {
                 // Xử lý khi chưa đăng nhập
-                header("Location: " . BASE_URL_ADMIN . "?act=login");
+                header("Location: " . BASE_URL . "?act=login");
                 exit();
             }
         }
     }
-
     public function gioHang()
     {
         if (isset($_SESSION['user'])) {
@@ -222,7 +221,7 @@ class HomeController
             require_once './views/gioHang.php';
         } else {
             // Xử lý khi chưa đăng nhập
-            header("Location: " . BASE_URL . "?act=login");
+            header("Location: " . BASE_URL_ADMIN . "?act=login-admin");
             exit();
         }
     }
@@ -272,7 +271,85 @@ class HomeController
                     $phi_van_chuyen = 15000
                 );
             }
-            $this->modelGioHang->xoaGioHang($gioHang['id']); 
+            $this->modelGioHang->xoaGioHang($gioHang['id']);
+            require_once './views/thanhToanThanhCong.php';
         }
+    }
+    public function deleteFromCart()
+    {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
+            $userId = $_SESSION['user']['id'];
+            $sanPhamId = isset($_POST['san_pham_id']) ? $_POST['san_pham_id'] : null;
+
+            // Thêm log để debug
+            error_log("Delete request - User ID: $userId, Product ID: $sanPhamId");
+            error_log("Raw POST data: " . print_r($_POST, true));
+
+            if (!$sanPhamId) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Không tìm thấy thông tin sản phẩm!'
+                ]);
+                exit();
+            }
+
+            $gioHang = $this->modelGioHang->getGioHangFromUser($userId);
+
+            if ($gioHang) {
+                error_log("Found cart - Cart ID: " . $gioHang['id']);
+
+                $isDeleted = $this->modelGioHang->deleteCartItem($gioHang['id'], $sanPhamId);
+
+                if ($isDeleted) {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Sản phẩm đã được xóa khỏi giỏ hàng!'
+                    ]);
+                    exit();
+                }
+            }
+        }
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Không thể xóa sản phẩm, vui lòng thử lại!'
+        ]);
+        exit();
+    }
+
+    public function updateGioHang()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user'])) {
+            $userId = $_SESSION['user']['id'];
+
+            // Get the user's cart
+            $gioHang = $this->modelGioHang->getGioHangFromUser($userId);
+
+            if ($gioHang) {
+                // Get quantities from POST data
+                $quantities = $_POST['quantity'] ?? [];
+
+                // Update quantities in the database
+                $result = $this->modelGioHang->updateCartItemQuantities($gioHang['id'], $quantities);
+
+                if ($result) {
+                    // Redirect back to cart with success message
+                    $_SESSION['success_message'] = 'Cập nhật số lượng thành công!';
+                    header("Location: " . BASE_URL . '?act=gio-hang');
+                    exit();
+                } else {
+                    // Redirect back to cart with error message
+                    $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật số lượng!';
+                    header("Location: " . BASE_URL . '?act=gio-hang');
+                    exit();
+                }
+            }
+        }
+
+        // If no user or invalid request
+        header("Location: " . BASE_URL . '?act=login');
+        exit();
     }
 }

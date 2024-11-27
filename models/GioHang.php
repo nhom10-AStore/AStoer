@@ -136,4 +136,35 @@ class GioHang
         $stmt->bindParam(':gio_hang_id', $gioHangId);
         $stmt->execute();
     }
+    public function updateCartItemQuantities($gio_hang_id, $quantities)
+    {
+        try {
+            $sql = "UPDATE chi_tiet_gio_hangs 
+                    SET so_luong = :so_luong 
+                    WHERE gio_hang_id = :gio_hang_id 
+                    AND san_pham_id = :san_pham_id";
+            $stmt = $this->conn->prepare($sql);
+
+            // Begin transaction
+            $this->conn->beginTransaction();
+
+            foreach ($quantities as $san_pham_id => $so_luong) {
+                $stmt->execute([
+                    ':gio_hang_id' => $gio_hang_id,
+                    ':san_pham_id' => $san_pham_id,
+                    ':so_luong' => $so_luong
+                ]);
+            }
+
+            // Commit transaction
+            $this->conn->commit();
+
+            return true;
+        } catch (Exception $e) {
+            // Rollback in case of error
+            $this->conn->rollBack();
+            error_log('Error updating cart item quantities: ' . $e->getMessage());
+            return false;
+        }
+    }
 }

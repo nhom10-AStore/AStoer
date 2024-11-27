@@ -67,16 +67,36 @@ class DonHang
     public function updateStatus($id, $statusId)
     {
         try {
+            // Bắt đầu transaction
+            $this->conn->beginTransaction();
+
+            // Cập nhật trang_thai_id
             $sql = 'UPDATE don_hangs SET trang_thai_id = :statusId WHERE id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':statusId', $statusId, PDO::PARAM_INT);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
+            $stmt->execute();
+
+            // Kiểm tra nếu statusId là 5, cập nhật trang_thai_thanh_toan
+            if ($statusId == 5) {
+                $sqlPayment = 'UPDATE don_hangs SET trang_thai_thanh_toan = 1 WHERE id = :id';
+                $stmtPayment = $this->conn->prepare($sqlPayment);
+                $stmtPayment->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmtPayment->execute();
+            }
+
+            // Commit transaction
+            $this->conn->commit();
+
+            return true;
         } catch (PDOException $e) {
+            // Rollback nếu có lỗi
+            $this->conn->rollBack();
             echo 'Error: ' . $e->getMessage();
             return false;
         }
     }
+
     public function deleteData($id)
     {
         try {

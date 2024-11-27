@@ -16,55 +16,48 @@
         <div class="shopping-cart">
             <h1 class="text-center mb-4">Giỏ hàng</h1>
 
-            <form action="" id="cartForm" method="POST" class="table-responsive-md mb-4">
+            <form id="cartForm" method="POST" class="table-responsive-md mb-4">
                 <table class="table table-hover border">
                     <thead class="bg-body-secondary">
                         <tr class="text-uppercase">
-                            <th scope="col" class="align-middle">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="selectAll">
-                                </div>
-                            </th>
-                            <th scope="col">Sản phẩm</th>
+                            <th scope="col" class="text-center">Sản phẩm</th>
                             <th scope="col" class="text-center">Số lượng</th>
-                            <th scope="col" class="text-end">Đơn giá</th>
-                            <th scope="col" class="text-end">Tổng tiền</th>
+                            <th scope="col" class="text-center">Đơn giá</th>
+                            <th scope="col" class="text-center">Tổng tiền</th>
                             <th scope="col" class="text-center">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($chiTietGioHang as $sanPham):
-                            $sanPhamId = htmlspecialchars($sanPham['id']);
+                            $sanPhamId = $sanPham['san_pham_id'];
                             $tenSanPham = htmlspecialchars($sanPham['ten_san_pham']);
                             $anhSanPham = htmlspecialchars(BASE_URL . $sanPham['anh_san_pham']);
-                            $giaBan = number_format($sanPham['gia_ban'], 0, ',');
+                            $giaBan = number_format($sanPham['gia_ban'], 0, ',', '.');
+                            // $giaKhuyenMai = number_format($sanPham['gia_khuyen_mai'], 0, ',', '.');
                             $soLuong = htmlspecialchars($sanPham['so_luong']);
                             $tongTien = number_format($sanPham['gia_ban'] * $sanPham['so_luong'], 0, ',', '.');
                         ?>
                             <tr class="cart-item" data-id="<?= $sanPhamId ?>">
                                 <td class="align-middle">
-                                    <div class="form-check">
-                                        <input class="form-check-input item-checkbox" type="checkbox"
-                                            name="selected_items[]" value="<?= $sanPhamId ?>">
-                                    </div>
-                                </td>
-                                <td class="align-middle">
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= $anhSanPham ?>" class="img-fluid me-3" alt="<?= $tenSanPham ?>"
+                                        <img src="<?= $anhSanPham ?>"
+                                            class="img-fluid me-3" alt="<?= $tenSanPham ?>"
                                             width="75" height="100" loading="lazy">
                                         <div>
                                             <h6 class="mb-1">
-                                                <a href="<?= $anhSanPham ?>" class="text-decoration-none">
+                                                <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPhamId ?>" class="text-decoration-none">
                                                     <?= $tenSanPham ?>
                                                 </a>
                                             </h6>
-                                            <span class="fw-bold d-inline-flex align-items-baseline">
-                                                <?= $giaBan ?> <span class="text-decoration-none" style="line-height: 1; margin-left: 2px;">₫</span>
+                                            <span class="fw-bold">
+                                                <?= $giaBan ?> ₫
                                             </span>
+                                            <!-- <span class="fw-bold">
+                                            <?= $giaKhuyenMai ?> ₫
+                                        </span> -->
                                         </div>
                                     </div>
                                 </td>
-
                                 <td class="align-middle text-center">
                                     <div class="input-group input-group-sm mx-auto" style="max-width: 150px;">
                                         <button type="button" class="btn btn-outline-secondary quantity-decrease">-</button>
@@ -76,17 +69,18 @@
                                         <button type="button" class="btn btn-outline-secondary quantity-increase">+</button>
                                     </div>
                                 </td>
-                                <td class="align-middle text-end">
+                                <td class="align-middle text-center">
                                     <?= $giaBan ?> ₫
                                 </td>
-                                <td class="align-middle text-end item-total">
+                                <td class="align-middle text-center item-total">
                                     <?= $tongTien ?> ₫
                                 </td>
                                 <td class="align-middle text-center">
-                                    <form action="<?= BASE_URL . '?act=xoa-don-hang&id_san_pham=' . $sanPham['id'] ?>"
-                                        method="POST" class="d-inline delete-form">
+                                    <form action="<?= BASE_URL . '?act=xoa-gio-hang' ?>"
+                                        method="POST"
+                                        class="d-inline delete-form">
                                         <input type="hidden" name="san_pham_id" value="<?= $sanPhamId ?>">
-                                        <button type="submit" class="btn btn-link text-danger">
+                                        <button type="button" class="btn btn-link text-danger delete-btn">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
@@ -97,43 +91,50 @@
                 </table>
             </form>
 
-            <form action="<?= BASE_URL . '?act=thanh-toan' ?>" id="cartForm" method="POST" class="table-responsive-md mb-4">
-                <table class="table table-hover border">
-                    <!-- Nội dung bảng giỏ hàng giữ nguyên -->
-                </table>
-
-                <div class="row">
-                    <div class="col-md-8 mb-3">
-                        <a href="<?= BASE_URL ?>" class="btn btn-outline-primary">
-                            <i class="fa fa-arrow-left me-2"></i>Tiếp tục mua sắm
-                        </a>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span>Tổng tiền hàng:</span>
-                                    <span class="fw-bold" id="subtotal">0 ₫</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span>Phí vận chuyển:</span>
-                                    <span class="fw-bold">15.000 ₫</span>
-                                </div>
-                                <hr>
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span class="fs-5">Tổng thanh toán:</span>
-                                    <span class="fs-5 fw-bold text-primary" id="total">0 ₫</span>
-                                </div>
-                                <button type="submit" id="checkoutBtn" class="btn btn-primary w-100">
-                                    Thanh toán
-                                </button>
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <a href="<?= BASE_URL ?>" class="btn btn-outline-primary">
+                        <i class="fa fa-arrow-left me-2"></i>Tiếp tục mua sắm
+                    </a>
+                </div>
+                <div class="col-md-8 mb-3">
+                    <a href="#" class="btn btn-primary w-30" id="updateQuantityBtn">
+                        Cập nhật số lượng
+                    </a>
+                    <?php
+                    if (isset($_SESSION['success_message'])) {
+                        echo '<div class="alert alert-success w-30">' . $_SESSION['success_message'] . '</div>';
+                        unset($_SESSION['success_message']);
+                    }
+                    if (isset($_SESSION['error_message'])) {
+                        echo '<div class="alert alert-danger w-30">' . $_SESSION['error_message'] . '</div>';
+                        unset($_SESSION['error_message']);
+                    }
+                    ?>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Tổng tiền hàng:</span>
+                                <span class="fw-bold" id="subtotal">0 ₫</span>
                             </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Phí vận chuyển:</span>
+                                <span class="fw-bold">15.000 ₫</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fs-5">Tổng thanh toán:</span>
+                                <span class="fs-5 fw-bold text-primary" id="total">0 ₫</span>
+                            </div>
+                            <button type="button" id="checkoutBtn" class="btn btn-primary w-100">
+                                Thanh toán
+                            </button>
                         </div>
                     </div>
                 </div>
-            </form>
-
+            </div>
         </div>
     </section>
 
@@ -183,38 +184,61 @@
                     cart.updateItemTotal(row);
                 },
 
-                deleteItem: async (form) => {
-                    try {
-                        if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-                            return false;
-                        }
+                deleteItem: (sanPhamId) => {
+                    const row = document.querySelector(`.cart-item[data-id="${sanPhamId}"]`);
+                    if (!row) {
+                        console.error('Không tìm thấy hàng sản phẩm');
+                        return;
+                    }
 
-                        const formData = new FormData(form);
-                        const response = await fetch(form.action, {
+                    const formData = new FormData();
+                    formData.append('san_pham_id', sanPhamId);
+
+                    fetch('<?= BASE_URL . '?act=xoa-gio-hang' ?>', {
                             method: 'POST',
                             body: formData
-                        });
-
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-
-                        const data = await response.json();
-                        if (data.success) {
-                            const cartItem = form.closest('.cart-item');
-                            cartItem.style.opacity = '0';
-                            setTimeout(() => {
-                                cartItem.remove();
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                row.remove();
                                 cart.calculateTotals();
-                                alert(data.message || 'Đã xóa sản phẩm khỏi giỏ hàng');
-                            }, 300);
-                        } else {
-                            throw new Error(data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert(error.message || 'Có lỗi xảy ra khi xóa sản phẩm');
-                    }
+                                alert(result.message);
+                            } else {
+                                alert(result.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi khi xóa sản phẩm:', error);
+                            alert('Đã xảy ra lỗi, vui lòng thử lại!');
+                        });
+                },
+
+                updateQuantitiesAndCheckout: () => {
+                    const form = document.getElementById('cartForm');
+                    const updateUrl = '<?= BASE_URL . '?act=cap-nhat-gio-hang' ?>';
+
+                    // Create a FormData object to submit quantities
+                    const formData = new FormData(form);
+
+                    fetch(updateUrl, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // If update is successful, proceed to checkout page 
+                                // (you would replace this with your actual checkout route)
+                                // link chuyển trang
+                                window.location.href = '<?= BASE_URL ?>';
+                            } else {
+                                throw new Error('Cập nhật giỏ hàng không thành công');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi:', error);
+                            alert('Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại.');
+                        });
                 },
 
                 initializeEventListeners: () => {
@@ -232,20 +256,47 @@
                             cart.updateItemTotal(row);
                         });
                     });
-
-                    document.querySelectorAll('.delete-form').forEach(form => {
-                        form.addEventListener('submit', (e) => {
-                            e.preventDefault();
-                            cart.deleteItem(form);
-                        });
-                    });
                 }
             };
 
             document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const sanPhamId = btn.closest('.cart-item').dataset.id;
+                        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+                            cart.deleteItem(sanPhamId);
+                        }
+                    });
+                });
+
+                // Update Quantity Button
+                document.getElementById('updateQuantityBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector('#cartForm').action = '<?= BASE_URL . '?act=cap-nhat-gio-hang' ?>';
+                    document.querySelector('#cartForm').submit();
+                });
+
+                // Checkout Button
+                document.getElementById('checkoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Kiểm tra xem giỏ hàng có sản phẩm hay không
+                    const cartItems = document.querySelectorAll('.cart-item');
+                    if (cartItems.length === 0) {
+                        alert('Giỏ hàng của bạn hiện tại trống. Vui lòng thêm sản phẩm vào giỏ hàng để thanh toán.');
+                        return; // Dừng sự kiện nếu giỏ hàng trống
+                    }
+
+                    if (confirm('Bạn có muốn tiến hành thanh toán?')) {
+                        // Điều hướng sang trang thanh toán
+                        window.location.href = '<?= BASE_URL . '?act=thanh-toan' ?>';
+                    }
+                });
+
                 cart.initializeEventListeners();
                 cart.calculateTotals();
             });
+
         })();
     </script>
 </body>

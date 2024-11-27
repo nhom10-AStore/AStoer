@@ -66,7 +66,7 @@ match ($act) {
     'them-gio-hang' => (new HomeController())->addGioHang(),
     'gio-hang' => (new HomeController())->gioHang(),
     'xoa-gio-hang' => (new HomeController())->deleteFromCart(),
-
+    'cap-nhat-gio-hang' => (new HomeController())->updateGioHang(),
     // quan li dong hang
     'quan_li_don_hang' => (new DonHangController())->quanLiDonHang(),
     'chi-tiet-don-hang'         => (new DonHangController())->detailDonHang(),

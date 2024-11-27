@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
+<html lang="en" data-layout="vertical" data-topbar="dark" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
 
 
 <!-- Mirrored from themesbrand.com/velzon/html/master/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 29 Oct 2024 07:29:52 GMT -->
@@ -108,9 +108,12 @@
                                                 <?php
                                                 $tong_tien = 0;
                                                 foreach ($sanPhamDonHang as $key => $sanPham):
-                                                    $tong_tien += $sanPham['so_luong']*($sanPham['gia_ban']  - $sanPham['gia_ban']*$sanPham['gia_tri'] / 100);
+                                                    $tong_tien += $sanPham['so_luong'] * ($sanPham['gia_ban']  - $sanPham['gia_ban'] * $sanPham['gia_tri'] / 100);
                                                     // var_dump($tong_tien); die;  
-                                                ?>  
+                                                    // var_dump($sanPham);
+                                                    // die;
+                                                ?>
+
                                                     <tr>
                                                         <td class="text-center"><?= $key + 1 ?></td>
                                                         <td>
@@ -121,10 +124,11 @@
                                                         </td>
                                                         <td class="text-center"><?= $sanPham['so_luong'] ?></td>
                                                         <td class="text-end">
-                                                            <?= number_format($sanPham['gia_tri']) ?> %
+                                                            <?= isset($sanPham['gia_tri']) && $sanPham['gia_tri'] ? number_format($sanPham['gia_tri']) . ' %' : '0 %' ?>
                                                         </td>
+
                                                         <td class="text-end">
-                                                            <?= number_format($sanPham['so_luong']*($sanPham['gia_ban']  - $sanPham['gia_ban']*$sanPham['gia_tri'] / 100), 0, ',', '.') ?> đ
+                                                            <?= number_format($sanPham['so_luong'] * ($sanPham['gia_ban']  - $sanPham['gia_ban'] * $sanPham['gia_tri'] / 100), 0, ',', '.') ?> đ
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>

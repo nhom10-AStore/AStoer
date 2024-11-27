@@ -24,7 +24,7 @@
                 <h2 class="mb-6">Thanh toán</h2>
             </div>
 
-            <form class="pt-12" action="<?=BASE_URL.'?act=xu-ly-thanh-toan'?>" method="POST">
+            <form class="pt-12" action="<?= BASE_URL . '?act=xu-ly-thanh-toan' ?>" method="POST">
                 <div class="row">
                     <div class="col-lg-4 pb-lg-0 pb-14 order-lg-last">
                         <div class="card border-0 rounded-0 shadow">
@@ -69,11 +69,11 @@
                             <div class="card-footer bg-transparent py-5 px-0 mx-10">
                                 <div class="d-flex align-items-center fw-bold mb-6">
                                     <span class="text-body-emphasis p-0">Tổng tiền:</span>
-                                    <span class="d-block ms-auto text-body-emphasis fs-4 fw-bold" >
+                                    <span class="d-block ms-auto text-body-emphasis fs-4 fw-bold">
                                         <?php $tongThanhToan = $tongTienSanPham + 15000; ?>
-                                        <input type="hidden" name="thanh_toan" id="" value=" <?=$tongThanhToan ?>">
+                                        <input type="hidden" name="thanh_toan" id="" value=" <?= $tongThanhToan ?>">
                                         <?= number_format($tongThanhToan, 0, ',', '.'); ?> ₫
-                                        
+
                                     </span>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                             <div class="mb-7">
                                 <label class="mb-5 fs-13px letter-spacing-01 fw-semibold text-uppercase">Ghi chú</label>
                                 <div class="col-md-12 ">
-                                    <textarea type="text" class="form-control" id="phone" name="ghi_chu" required="" placeholder="Nhập ghi chú của bạn"></textarea>
+                                    <textarea type="text" class="form-control" id="phone" name="ghi_chu" value="khong"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -141,15 +141,15 @@
                             <div class="mb-7">
                                 <h4 class="fs-4 mb-8 mt-12 pt-lg-1">Phương thức thanh toán</h4>
 
-
                                 <div class="nav nav-tabs border-0">
                                     <div class="mt-3 mb-5 form-check">
-                                        <input type="radio" class="form-check-input rounded-0 me-2" name="phuong_thuc_thanh_toan" id="paymentMethodCOD" value="1">
+                                        <input type="radio" class="form-check-input rounded-0 me-2" name="phuong_thuc_thanh_toan" id="paymentMethodCOD" value="1" checked>
                                         <label class="text-body-emphasis" for="paymentMethodCOD">
                                             <span class="text-body-emphasis">COD - Thanh toán khi nhận hàng</span>
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="nav nav-tabs border-0">
                                     <div class="mt-3 mb-5 form-check">
                                         <input type="radio" class="form-check-input rounded-0 me-2" name="phuong_thuc_thanh_toan" id="paymentMethodPAY" value="2">
@@ -158,10 +158,17 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div id="qrCodeContainer" class="d-none"> <img id="qrCodeImage" src="uploads/kKrS_q_qrcode.png" width="200px" alt="QR Code for PAY" /> </div>
+
+                                <!-- QR Code container, only visible if PAY is selected -->
+                                <div id="qrCodeContainer" class="d-none">
+                                    <img id="qrCodeImage" src="uploads/kKrS_q_qrcode.png" width="200px" alt="QR Code for PAY" />
+                                </div>
                             </div>
+
+                            <!-- Đặt hàng button -->
                             <button type="submit" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary px-11 mt-md-7 mt-4">Đặt hàng</button>
                         </div>
+
 
                     </div>
                 </div>
