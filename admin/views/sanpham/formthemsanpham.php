@@ -165,6 +165,18 @@
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
+                                                            <label for="emailidInput" class="form-label">Thông số</label>
+                                                            <input type="text" class="form-control" name="thong_so">
+                                                            <span class="text-danger">
+                                                                <?= !empty($_SESSION['errors']['thong_so']) ? $_SESSION['errors']['thong_so'] : '' ?>
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
                                                             <label for="emailidInput" class="form-label">Số lượng</label>
                                                             <input type="number" class="form-control" name="so_luong">
                                                             <span class="text-danger">

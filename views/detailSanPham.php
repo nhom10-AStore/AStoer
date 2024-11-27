@@ -38,6 +38,16 @@
 		border-color: #007bff;
 		/* Change border color on hover */
 	}
+	.thumbnail {
+		width: 100%;
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+
+	.main-image {
+		width: 100%;
+		height: auto;
+	}
 </style>
 
 <body>
@@ -66,31 +76,45 @@
 							</div>
 						</div>
 						<div class="col-xl-10 ps-xl-8 pe-xl-0 order-0 order-xl-1">
-							<!-- Main Image Section -->
 							<div id="vertical-slider-slides" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0" data-slick-options='{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#vertical-slider-thumb&#34;,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1,&#34;vertical&#34;:true}'>
-								<a href="<?= $sanPham['anh_san_pham'] ?>" data-gallery="product-gallery">
-									<img id="main-image" data-thumb-src="<?= $sanPham['anh_san_pham'] ?>" src="<?= $sanPham['anh_san_pham'] ?>" width="540" height="720" title="" class="h-auto lazy-image" alt="">
+
+								<a href="<?= $sanPham['anh_san_pham'] ?>" data-gallery="product-gallery" data-thumb-src="<?= $sanPham['anh_san_pham'] ?>">
+									<img src="<?= $sanPham['anh_san_pham'] ?>" data-src="<?= $sanPham['anh_san_pham'] ?>" width="540" height="720" title="" class="main-image lazy-image" alt="">
 								</a>
+
+								<?php foreach ($listAnhSanPham as $key => $anhSanPham): ?>
+									<a href="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>" data-gallery="product-gallery" data-thumb-src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>">
+										<img src="#" data-src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>" width="540" height="720" title="" class="main-image lazy-image" alt="">
+									</a>
+								<?php endforeach ?>
+								<!-- <a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="product-gallery" data-thumb-src="../assets/images/shop/product-gallery-07.jpg">
+	<img src="#" data-src="../assets/images/shop/product-gallery-07.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt="">
+</a> -->
+								<div class="position-relative">
+									<img src="#" data-src="#" width="540" height="720" title="" class="h-auto lazy-image" alt="">
+
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6 pt-md-0 pt-10">
 					<p class="d-flex align-items-center mb-6">
-						<span class="text-decoration-line-through"><?= $sanPham['gia_nhap'] ?></span>
-						<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= $sanPham['gia_ban'] ?></span>
-						<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= $sanPham['gia_khuyen_mai'] ?>%</span>
+						<span class="text-decoration-line-through"><?= number_format($sanPham['gia_nhap']) ?>VNĐ</span>
+						<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= number_format($sanPham['gia_ban']) ?>VNĐ</span>
+						<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= number_format($sanPham['gia_khuyen_mai']) ?>%</span>
 					</p>
 					<h1 class="mb-4 pb-2 fs-4"><?= $sanPham['ten_san_pham'] ?></h1>
 
 					<p class="fs-15px"><?= $sanPham['mo_ta'] ?></p>
 
 
-					<form class="product-info-custom">
+					<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
+						<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
+						<input type="hidden" name="so_luong" value="1">
 						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng
 						</button>
 					</form>
-					
 
 					<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
 						<li class="d-flex mb-4 pb-2 align-items-center">
@@ -201,7 +225,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab" tabindex="0">
+						<!-- <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab" tabindex="0">
 							<div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
 								<h5 class="mb-0">
 									<button class="btn lh-2 fs-5 py-3 px-6 shadow-none w-100 border text-primary" type="button"
@@ -278,7 +302,7 @@
 									</p>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

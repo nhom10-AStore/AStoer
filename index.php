@@ -12,6 +12,8 @@ require_once './controllers/TinTucController.php';
 require_once './controllers/KhuyenMaiController.php';
 require_once './controllers/LienHeController.php';
 require_once './controllers/ListSanPhamController.php';
+require_once './controllers/DonHangController.php';
+
 
 
 // Require toàn bộ file Models
@@ -24,6 +26,9 @@ require_once './models/TinTuc.php';
 require_once './models/KhuyenMai.php';
 require_once './models/LienHe.php';
 require_once './models/ListSanPham.php';
+require_once './models/GioHang.php';
+require_once './models/DonHangQL.php';
+require_once './models/DonHang.php';
 // Route
 $act = $_GET['act'] ?? '/';
 
@@ -55,9 +60,17 @@ match ($act) {
     'lien-he'           => (new LienHeController())->index(),
     'form-them-lien-he' => (new LienHeController())->create(),
     'them-lien-he'      => (new LienHeController())->store(),
-    //Thanh toan
-    'thanh-toan' =>(new HomeController())->thanhToan(),
+    
     'list-san-pham' => (new ListSanPhamController())->getByCategory(),
     'search'            => (new HomeController())->search(),
+    'them-gio-hang' => (new HomeController())->addGioHang(),
+    'gio-hang' => (new HomeController())->gioHang(),
+    'xoa-gio-hang' => (new HomeController())->deleteFromCart(),
 
+    // quan li dong hang
+    'quan_li_don_hang' => (new DonHangController())->quanLiDonHang(),
+    'chi-tiet-don-hang'         => (new DonHangController())->detailDonHang(),
+    //Thanh toan
+    'thanh-toan' => (new HomeController())->thanhToan(),
+    'xu-ly-thanh-toan' => (new HomeController())->postThanhToan(),
 };

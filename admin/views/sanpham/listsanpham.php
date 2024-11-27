@@ -90,6 +90,7 @@
                                                             <th scope="col">Giá khuyến mãi</th>
                                                             <th scope="col">Ngày nhập</th>
                                                             <th scope="col">Số lượng</th>
+                                                            <th scope="col">Thông số</th>
                                                             <th scope="col">Mô tả</th>
                                                             <th scope="col">Danh mục</th>
                                                             <th scope="col">Trạng thái</th>
@@ -111,6 +112,7 @@
                                                                 <td><?= $sanPham['gia_khuyen_mai'] ?></td>
                                                                 <td><?= $sanPham['ngay_nhap'] ?></td>
                                                                 <td><?= $sanPham['so_luong'] ?></td>
+                                                                <td><?= $sanPham['thong_so'] ?></td>
 
                                                                 <td><?= (strlen($sanPham['mo_ta']) > 50) ? substr($sanPham['mo_ta'], 0, 50) . "..." : $sanPham['mo_ta']; ?> </td>
                                                                 <td><?= $sanPham['ten_danh_muc'] ?></td>

@@ -45,6 +45,7 @@ class SanPhamController
             $gia_ban = $_POST['gia_ban'] ?? '';
             $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? '';
             $so_luong = $_POST['so_luong'] ?? '';
+            $thong_so = $_POST['thong_so'] ?? '';
             $ngay_nhap = $_POST['ngay_nhap'] ?? '';
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
@@ -86,6 +87,9 @@ class SanPhamController
             if (empty($so_luong)) {
                 $errors['so_luong'] = 'Số lượng sản phẩm không được để trống';
             }
+            if (empty($thong_so)) {
+                $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
+            }
             if (empty($ngay_nhap)) {
                 $errors['ngay_nhap'] = 'Ngày nhập sản phẩm không được để trống';
             }
@@ -118,6 +122,7 @@ class SanPhamController
                     $gia_ban,
                     $gia_khuyen_mai,
                     $so_luong,
+                    $thong_so,
                     $ngay_nhap,
                     $danh_muc_id,
                     $trang_thai,
@@ -190,13 +195,14 @@ class SanPhamController
             $gia_ban = $_POST['gia_ban'] ?? '';
             $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? '';
             $so_luong = $_POST['so_luong'] ?? '';
+            $thong_so = $_POST['thong_so'] ?? '';
             $ngay_nhap = $_POST['ngay_nhap'] ?? '';
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
             $mo_ta = $_POST['mo_ta'] ?? '';
             $mo_ta_chi_tiet = $_POST['mo_ta_chi_tiet'] ?? '';
 
-            $anh_san_pham = $_FILES['anh_san_pham'] ?? null;
+            $anh_san_pham = $_FILES['anh_san_pham'] ?? NULL;
 
 
 
@@ -221,6 +227,9 @@ class SanPhamController
             if (empty($so_luong)) {
                 $errors['so_luong'] = 'Số lượng sản phẩm không được để trống';
             }
+            if (empty($thong_so)) {
+                $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
+            }
             if (empty($ngay_nhap)) {
                 $errors['ngay_nhap'] = 'Ngày nhập sản phẩm không được để trống';
             }
@@ -244,11 +253,12 @@ class SanPhamController
                 // upload ảnh mới lên
                 $new_file = uploadFile($anh_san_pham, './admin/uploads/');
 
-                if (!empty($old_file)) {   // Nếu có ảnh cũ thì xóa đi
-                    deleteFile($old_file);
-                }
+                // if (!empty($old_file)) {   // Nếu có ảnh cũ thì xóa đi
+                //     deleteFile($old_file);
+                // }
             } else {
                 $new_file = $old_file;
+               
             }
 
 
@@ -256,7 +266,7 @@ class SanPhamController
             if (empty($errors)) {
                 // var_dump('abc'); die;
 
-                $this->modelSanPham->updateSanPham(
+                $san_pham_id = $this->modelSanPham->updateSanPham(
                     $san_pham_id,
                     $ma_san_pham,
                     $ten_san_pham,
@@ -264,6 +274,7 @@ class SanPhamController
                     $gia_ban,
                     $gia_khuyen_mai,
                     $so_luong,
+                    $thong_so,
                     $ngay_nhap,
                     $danh_muc_id,
                     $trang_thai,
