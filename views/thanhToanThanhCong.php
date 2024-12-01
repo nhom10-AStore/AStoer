@@ -37,7 +37,6 @@
             <a href="<?= BASE_URL . '?act=quan_li_don_hang' ?>" class="btn btn-primary mx-2">Xem đơn hàng</a>
             <a href="<?= BASE_URL ?>" class="btn btn-outline-primary mx-2">Về trang chủ</a>
         </div>
-        
     </main>
 
     <?php

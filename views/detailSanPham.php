@@ -38,6 +38,7 @@
 		border-color: #007bff;
 		/* Change border color on hover */
 	}
+
 	.thumbnail {
 		width: 100%;
 		cursor: pointer;
@@ -100,37 +101,46 @@
 				</div>
 				<div class="col-md-6 pt-md-0 pt-10">
 					<p class="d-flex align-items-center mb-6">
-						<span class="text-decoration-line-through"><?= number_format($sanPham['gia_nhap']) ?>VNĐ</span>
-						<span class="fs-18px text-body-emphasis ps-6 fw-bold"><?= number_format($sanPham['gia_ban']) ?>VNĐ</span>
+						<span class="fs-18px text-body-emphasis ps-1 fw-bold"><?= number_format($sanPham['gia_ban']) ?> VNĐ</span>
 						<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= number_format($sanPham['gia_khuyen_mai']) ?>%</span>
 					</p>
 					<h1 class="mb-4 pb-2 fs-4"><?= $sanPham['ten_san_pham'] ?></h1>
 
 					<p class="fs-15px"><?= $sanPham['mo_ta'] ?></p>
 
+					<!-- Kiểm tra số lượng tồn kho -->
+					<?php if ($sanPham['so_luong_ton_kho'] > 0): ?>
+						<!-- <form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
+							<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
+							<input type="hidden" name="so_luong" value="1">
+							<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng</button>
+						</form> -->
+						<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
+							<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
+							<input type="hidden" name="so_luong" value="1"> <!-- Thay đổi số lượng nếu cần -->
+							<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng</button>
+						</form>
 
-					<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
-						<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
-						<input type="hidden" name="so_luong" value="1">
-						<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng
-						</button>
-					</form>
+					<?php else: ?>
+						<!-- Thông báo hết hàng -->
+						<p class="text-danger fw-bold">Sản phẩm đã hết hàng!</p>
+					<?php endif; ?>
 
 					<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
 						<li class="d-flex mb-4 pb-2 align-items-center">
-							<span class="text-body-emphasis fw-semibold fs-14px">Số lượng</span>
-							<span class="ps-4"><?= $sanPham['so_luong'] ?></span>
+							<span class="text-body-emphasis fw-semibold fs-14px">Số lượng tồn kho:</span>
+							<span class="ps-4"><?= $sanPham['so_luong_ton_kho'] ?></span>
 						</li>
 						<li class="d-flex mb-4 pb-2 align-items-center">
-							<span class="text-body-emphasis fw-semibold fs-14px">Lượt xem</span>
+							<span class="text-body-emphasis fw-semibold fs-14px">Lượt xem:</span>
 							<span class="ps-4"><?= $sanPham['luot_xem'] ?></span>
 						</li>
 						<li class="d-flex mb-4 pb-2 align-items-center">
-							<span class="text-body-emphasis fw-semibold fs-14px">Danh mục</span>
+							<span class="text-body-emphasis fw-semibold fs-14px">Danh mục:</span>
 							<span class="ps-4"><?= $sanPham['ten_danh_muc'] ?></span>
 						</li>
 						<li class="d-flex mb-4 pb-2 align-items-center">
-							<span class="text-body-emphasis fw-semibold fs-14px">Share:</span>
+							<span class="text-body-emphasis fw-semibold fs-14px">Chia sẻ:</span>
 							<ul class="list-inline d-flex align-items-center mb-0 col-8 col-lg-10 ps-4">
 								<li class="list-inline-item me-7">
 									<a href="#" class="fs-14px text-body product-info-share" data-bs-toggle="tooltip" data-bs-title="Twitter">
@@ -155,9 +165,6 @@
 							</ul>
 						</li>
 					</ul>
-
-
-
 				</div>
 			</div>
 		</section>
@@ -334,25 +341,23 @@
 											</div>
 											<button type="submit" class="btn btn-primary">Gửi bình luận</button>
 										</form>
-
 									<?php else: ?>
 										<p class="text-muted">Bạn cần <a href="<?= BASE_URL_ADMIN . '?act=login-admin' ?>">đăng nhập</a> để bình luận.</p>
 									<?php endif; ?>
-
 								</div>
 
 								<!-- Danh sách bình luận -->
 								<div class="mt-4">
 									<?php if (!empty($listBinhLuan)): ?>
-										<?php foreach ($listBinhLuan as $binhLuan): ?>
-											<div class="review-box p-3 border rounded mb-3">
-												<div class="d-flex justify-content-between">
-													<strong><?= htmlspecialchars($binhLuan['ho_ten']) ?></strong>
-													<small class="text-muted"><?= htmlspecialchars($binhLuan['ngay_dang']) ?></small>
-												</div>
-												<p class="mt-2"><?= htmlspecialchars($binhLuan['noi_dung']) ?></p>
-											</div>
-										<?php endforeach; ?>
+										<!-- Container chứa các bình luận sẽ được JS quản lý -->
+										<div id="comments-container" class="comments-container"></div>
+
+										<!-- Nút phân trang -->
+										<div class="pagination mt-3 d-flex justify-content-center align-items-center">
+											<button id="prev-page" class="btn btn-secondary btn-sm mx-1" disabled>Trước</button>
+											<div id="page-numbers" class="d-flex mx-2"></div>
+											<button id="next-page" class="btn btn-secondary btn-sm mx-1">Tiếp</button>
+										</div>
 									<?php else: ?>
 										<p class="text-muted">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
 									<?php endif; ?>
@@ -362,9 +367,8 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="text-center">
-				<h3 class="mb-12"> Sản phẩm liên quan</h3>
+				<h3 class="mb-12" style="margin: 30px;"> Sản phẩm liên quan</h3>
 			</div>
 
 			<div class="slick-slider" data-slick-options="{&#34;arrows&#34;:true,&#34;centerMode&#34;:true,&#34;centerPadding&#34;:&#34;calc((100% - 1440px) / 2)&#34;,&#34;dots&#34;:true,&#34;infinite&#34;:true,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1200,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:3}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:576,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:false,&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:4}">
@@ -1916,6 +1920,108 @@
 			mainImage.src = largeImageSrc;
 		});
 	});
+</script>
+<!-- JSON dữ liệu bình luận -->
+<script>
+	const comments = <?= json_encode($listBinhLuan) ?>; // Dữ liệu PHP -> JS
+	const commentsPerPage = 5; // Số bình luận trên mỗi trang
+	let currentPage = 1;
+
+	// Hàm hiển thị bình luận theo trang
+	function displayComments(page) {
+		const start = (page - 1) * commentsPerPage;
+		const end = page * commentsPerPage;
+		const pageComments = comments.slice(start, end);
+
+		// Xóa nội dung cũ
+		const container = document.getElementById('comments-container');
+		container.innerHTML = '';
+
+		// Hiển thị bình luận mới
+		pageComments.forEach(comment => {
+			const commentBox = document.createElement('div');
+			commentBox.className = 'review-box p-3 border rounded mb-3';
+			commentBox.innerHTML = `
+                                            <div class="d-flex justify-content-between">
+                                                <strong>${comment.ho_ten}</strong>
+                                                <small class="text-muted">${new Date(comment.ngay_dang).toLocaleDateString('vi-VN')}</small>
+                                            </div>
+                                            <p class="mt-2">${comment.noi_dung}</p>
+                                        `;
+			container.appendChild(commentBox);
+		});
+
+		// Cập nhật nút phân trang
+		updatePagination();
+	}
+
+	// Hàm cập nhật số trang và trạng thái nút
+	function updatePagination() {
+		const totalPages = Math.ceil(comments.length / commentsPerPage);
+
+		// Xóa số trang cũ
+		const pageNumbers = document.getElementById('page-numbers');
+		pageNumbers.innerHTML = '';
+
+		// Tạo số trang mới
+		const visiblePages = 3; // Số trang tối đa hiển thị (bao gồm dấu ... nếu cần)
+		let startPage = Math.max(currentPage - Math.floor(visiblePages / 2), 1);
+		let endPage = Math.min(currentPage + Math.floor(visiblePages / 2), totalPages);
+
+		// Hiển thị trang đầu tiên và dấu ...
+		if (startPage > 2) {
+			pageNumbers.appendChild(createPageButton(1)); // Trang đầu
+			pageNumbers.appendChild(createPageButton('...')); // Dấu ...
+		}
+
+		// Hiển thị số trang
+		for (let i = startPage; i <= endPage; i++) {
+			pageNumbers.appendChild(createPageButton(i));
+		}
+
+		// Hiển thị dấu ... và trang cuối cùng nếu cần
+		if (endPage < totalPages - 1) {
+			pageNumbers.appendChild(createPageButton('...')); // Dấu ...
+			pageNumbers.appendChild(createPageButton(totalPages)); // Trang cuối
+		}
+
+		// Cập nhật trạng thái nút "Trước" và "Tiếp"
+		document.getElementById('prev-page').disabled = currentPage === 1;
+		document.getElementById('next-page').disabled = currentPage === totalPages;
+	}
+
+	// Tạo nút trang
+	function createPageButton(page) {
+		const pageButton = document.createElement('button');
+		pageButton.className = `btn btn-sm mx-1 ${page === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
+		pageButton.textContent = page;
+		pageButton.addEventListener('click', () => {
+			if (page !== '...') {
+				currentPage = page;
+				displayComments(currentPage);
+			}
+		});
+		return pageButton;
+	}
+
+	// Lắng nghe sự kiện nút "Trước" và "Tiếp"
+	document.getElementById('prev-page').addEventListener('click', () => {
+		if (currentPage > 1) {
+			currentPage--;
+			displayComments(currentPage);
+		}
+	});
+
+	document.getElementById('next-page').addEventListener('click', () => {
+		const totalPages = Math.ceil(comments.length / commentsPerPage);
+		if (currentPage < totalPages) {
+			currentPage++;
+			displayComments(currentPage);
+		}
+	});
+
+	// Hiển thị trang đầu tiên khi tải trang
+	displayComments(currentPage);
 </script>
 
 </html>

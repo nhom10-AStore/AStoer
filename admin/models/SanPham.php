@@ -26,11 +26,22 @@ class SanPham
     }
 
     public function insertSanPham(
-        $ma_san_pham, $ten_san_pham, $luot_xem, $gia_nhap, $gia_ban, 
-        $gia_khuyen_mai, $so_luong, $thong_so, $ngay_nhap, $danh_muc_id, 
-        $trang_thai, $mo_ta, $mo_ta_chi_tiet, $anh_san_pham
-    )
-    {
+        $ma_san_pham,
+        $ten_san_pham,
+        $luot_xem,
+        $gia_nhap,
+        $gia_ban,
+        $gia_khuyen_mai,
+        $so_luong,
+        $so_luong_ton_kho,
+        $thong_so,
+        $ngay_nhap,
+        $danh_muc_id,
+        $trang_thai,
+        $mo_ta,
+        $mo_ta_chi_tiet,
+        $anh_san_pham
+    ) {
         try {
             // Kiểm tra nếu danh mục có tồn tại hay không (nếu không dùng khóa ngoại)
             $sql_check = 'SELECT COUNT(*) FROM danh_mucs WHERE id = :danh_muc_id';
@@ -44,10 +55,10 @@ class SanPham
 
             // Nếu kiểm tra danh mục hợp lệ, thực hiện chèn dữ liệu
             $sql = 'INSERT INTO san_phams (ma_san_pham, ten_san_pham, luot_xem, gia_nhap, gia_ban, 
-            gia_khuyen_mai, so_luong, thong_so, ngay_nhap, danh_muc_id, 
+            gia_khuyen_mai, so_luong, so_luong_ton_kho, thong_so, ngay_nhap, danh_muc_id, 
             trang_thai, mo_ta, mo_ta_chi_tiet, anh_san_pham)
 VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen_mai, 
-:so_luong, :thong_so, :ngay_nhap, :danh_muc_id, :trang_thai, :mo_ta, 
+:so_luong, :so_luong_ton_kho, :thong_so, :ngay_nhap, :danh_muc_id, :trang_thai, :mo_ta, 
 :mo_ta_chi_tiet, :anh_san_pham)';
             $stmt = $this->conn->prepare($sql);
 
@@ -59,6 +70,7 @@ VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen
             $stmt->bindParam(':gia_ban', $gia_ban);
             $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
             $stmt->bindParam(':so_luong', $so_luong);
+            $stmt->bindParam(':so_luong_ton_kho', $so_luong_ton_kho);
             $stmt->bindParam(':thong_so', $thong_so);
             $stmt->bindParam(':ngay_nhap', $ngay_nhap);
             $stmt->bindParam(':danh_muc_id', $danh_muc_id);
@@ -108,9 +120,21 @@ VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen
     }
 
     public function updateSanPham(
-        $san_pham_id, $ma_san_pham, $ten_san_pham, $gia_nhap, $gia_ban, 
-        $gia_khuyen_mai, $so_luong, $thong_so, $ngay_nhap, $danh_muc_id, 
-        $trang_thai, $mo_ta, $mo_ta_chi_tiet, $anh_san_pham
+        $san_pham_id,
+        $ma_san_pham,
+        $ten_san_pham,
+        $gia_nhap,
+        $gia_ban,
+        $gia_khuyen_mai,
+        $so_luong,
+        $so_luong_ton_kho,
+        $thong_so,
+        $ngay_nhap,
+        $danh_muc_id,
+        $trang_thai,
+        $mo_ta,
+        $mo_ta_chi_tiet,
+        $anh_san_pham
     ) {
         try {
             // Nếu không cập nhật ảnh, bỏ qua trường anh_san_pham
@@ -121,22 +145,23 @@ VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen
                     gia_ban = :gia_ban, 
                     gia_khuyen_mai = :gia_khuyen_mai, 
                     so_luong = :so_luong, 
+                    so_luong_ton_kho = :so_luong_ton_kho, 
                     thong_so = :thong_so, 
                     ngay_nhap = :ngay_nhap, 
                     danh_muc_id = :danh_muc_id, 
                     trang_thai = :trang_thai, 
                     mo_ta = :mo_ta, 
                     mo_ta_chi_tiet = :mo_ta_chi_tiet';
-    
+
             // Thêm trường ảnh nếu có
             if (!empty($anh_san_pham)) {
                 $sql .= ', anh_san_pham = :anh_san_pham';
             }
-    
+
             $sql .= ' WHERE id = :id';
-    
+
             $stmt = $this->conn->prepare($sql);
-    
+
             // Gán giá trị cho các tham số
             $stmt->bindParam(':id', $san_pham_id);
             $stmt->bindParam(':ma_san_pham', $ma_san_pham);
@@ -145,76 +170,85 @@ VALUES (:ma_san_pham, :ten_san_pham, :luot_xem, :gia_nhap, :gia_ban, :gia_khuyen
             $stmt->bindParam(':gia_ban', $gia_ban);
             $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
             $stmt->bindParam(':so_luong', $so_luong);
+            $stmt->bindParam(':so_luong_ton_kho', $so_luong_ton_kho);
             $stmt->bindParam(':thong_so', $thong_so);
             $stmt->bindParam(':ngay_nhap', $ngay_nhap);
             $stmt->bindParam(':danh_muc_id', $danh_muc_id);
             $stmt->bindParam(':trang_thai', $trang_thai);
             $stmt->bindParam(':mo_ta', $mo_ta);
             $stmt->bindParam(':mo_ta_chi_tiet', $mo_ta_chi_tiet);
-    
+
             // Gán tham số ảnh nếu có
             if (!empty($anh_san_pham)) {
                 $stmt->bindParam(':anh_san_pham', $anh_san_pham);
             }
-    
+
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
             echo 'Lỗi: ' . $e->getMessage();
         }
     }
-    
+
     public function updateAnhSanPham($id, $new_file)
     {
         try {
             $sql = "UPDATE hinh_anh_san_phams SET link_hinh_anh = :new_file WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute(
-                [
-                    ':new_file' => $new_file,
-                    ':id' => $id
-                ]
+                [':new_file' => $new_file, ':id' => $id]
             );
-            return true;
+
+            // Kiểm tra số dòng bị ảnh hưởng
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                echo "Không có thay đổi nào trong cơ sở dữ liệu.";
+                return false;
+            }
         } catch (Exception $e) {
-            echo 'Lỗi' . $e->getMessage();
+            echo 'Lỗi: ' . $e->getMessage();
         }
     }
+
     public function insertAlbumAnhSanPham($san_pham_id, $link_hinh_anh)
     {
         try {
             $sql = 'INSERT INTO hinh_anh_san_phams (san_pham_id, link_hinh_anh)
-                        VALUES ( :san_pham_id, :link_hinh_anh)';
+                    VALUES (:san_pham_id, :link_hinh_anh)';
 
             $stmt = $this->conn->prepare($sql);
-
             $stmt->execute([
                 ':san_pham_id' => $san_pham_id,
                 ':link_hinh_anh' => $link_hinh_anh,
             ]);
 
-            // lấy id sản phẩm vừa thêm
-            return true;
+            // Kiểm tra lỗi nếu có
+            if ($stmt->errorCode() != '00000') {
+                $errorInfo = $stmt->errorInfo();
+                echo 'Lỗi SQL: ' . $errorInfo[2];
+            }
+
+            return $this->conn->lastInsertId();
         } catch (Exception $e) {
-            echo "Lỗi" . $e->getMessage();
+            echo "Lỗi: " . $e->getMessage();
         }
     }
+
+
+
 
     public function getDetailAnhSanPham($id)
     {
         try {
-            $sql = 'SELECT * FROM hinh_anh_san_phams WHERE id = :id ';
-
+            $sql = "SELECT * FROM hinh_anh_san_phams WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
-
             $stmt->execute([':id' => $id]);
-
             return $stmt->fetch();
         } catch (Exception $e) {
-            echo "Lỗi" . $e->getMessage();
+            echo 'Lỗi' . $e->getMessage();
         }
     }
-
 
     public function destroyAnhSanPham($id)
     {

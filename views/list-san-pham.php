@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -114,7 +114,7 @@
         .product-name {
             font-size: 15px;
             font-weight: 500;
-            color: #222;
+            /* color: #222; */
             margin-bottom: 3px;
             line-height: 1.4;
             height: 40px;
@@ -126,7 +126,7 @@
         }
 
         .product-name a {
-            color: white;
+            /* color: white; */
             text-decoration: none;
             transition: color 0.2s ease;
         }
@@ -146,8 +146,8 @@
 
         .current-price {
             font-size: 18px;
-            font-weight: 600;
-            color: white;
+            font-weight: bold;
+            /* color: black; */
         }
 
         /* Pagination */
@@ -232,7 +232,7 @@
                     <option value="newest">Mới nhất</option>
                 </select>
 
-                <button id="apply-filters" class="filter-button">Áp dụng</button>
+                <button id="apply-filters" class="btn btn-success">Áp dụng</button>
             </div>
 
             <!-- Product Grid -->
@@ -256,6 +256,14 @@
                                 </a>
                             </h3>
                         </div>
+                        <!-- Thay reviews bằng thông báo tồn kho -->
+                        <span class="stock-status ms-16 pt-3 fs-14px">
+                            <?php if ($product['so_luong_ton_kho'] > 0): ?>
+                                <span class="text-success"  style="text-align: center;">Sản phẩm còn hàng</span>
+                            <?php else: ?>
+                                <span class="text-danger"  style="text-align: center;">Sản phẩm hết hàng</span>
+                            <?php endif; ?>
+                        </span>
                     </div>
                 <?php endforeach; ?>
             </div>

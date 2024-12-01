@@ -18,6 +18,116 @@
     ?>
 
 </head>
+<style>
+    .card-info {
+        border: 1px solid #17a2b8;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #17a2b8;
+        color: #fff;
+        padding: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .card-tools .btn-tool {
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .table-responsive {
+        margin-top: 10px;
+    }
+
+    .table-hover {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .table-hover th,
+    .table-hover td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table-hover th {
+        background-color: #f1f1f1;
+        font-weight: bold;
+    }
+
+
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .table-hover img {
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .badge-success,
+    .badge-danger {
+        border: none;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .badge-success:hover {
+        background-color: #218838;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .badge-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+</style>
 
 <body>
 
@@ -43,7 +153,7 @@
             <div class="page-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
                                 <h4 class="mb-sm-0"></h4>
 
@@ -59,18 +169,18 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-8">
 
                             <div class="h-100">
                                 <div class="card">
                                     <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Sửa thông tin sản phẩm: <?= $SanPham['ten_san_pham'] ?></h4>
+                                        <h4 class="card-title mb-0 flex-grow-1" style="color: white;">Sửa thông tin sản phẩm: <?= $SanPham['ten_san_pham'] ?></h4>
 
                                     </div><!-- end card header -->
 
                                     <div class="card-body">
                                         <div class="live-preview">
-                                            <form action="<?=BASE_URL_ADMIN?>?act=sua-san-pham" method="POST" enctype="multipart/form-data">
+                                            <form action="<?= BASE_URL_ADMIN ?>?act=sua-san-pham" method="POST" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
@@ -101,7 +211,7 @@
                                                         <div class="mb-3">
                                                             <label for="emailidInput" class="form-label">Hình ảnh sản phẩm</label>
                                                             <input type="file" class="form-control" name="anh_san_pham">
-                                                            <br> <img " src="<?= BASE_URL . $SanPham['anh_san_pham'] ?>" style=" width: 120px;
+                                                            <br> <img " src=" <?= BASE_URL . $SanPham['anh_san_pham'] ?>" style=" width: 120px;
                                                                                                                                                     margin-left: 40%; 
                                                                                                                                                     height: 120px;" alt="">
 
@@ -168,6 +278,18 @@
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
+                                                            <label for="emailidInput" class="form-label">Số lượng ton kho</label>
+                                                            <input type="number" class="form-control" name="so_luong_ton_kho" value="<?= $SanPham['so_luong_ton_kho'] ?>">
+                                                            <span class="text-danger">
+                                                                <?= !empty($_SESSION['errors']['so_luong_ton_kho']) ? $_SESSION['errors']['so_luong_ton_kho'] : '' ?>
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
                                                             <label for="emailidInput" class="form-label">Thông số</label>
                                                             <input type="text" class="form-control" name="thong_so" value="<?= $SanPham['thong_so'] ?>">
                                                             <span class="text-danger">
@@ -197,7 +319,7 @@
                                                     <div class="form-group col-12">
                                                         <div class="mb-3">
                                                             <label for="emailidInput" class="form-label">Mô tả</label>
-                                                            <input type="text" class="form-control" name="mo_ta" value="<?= $SanPham['mo_ta'] ?>">
+                                                            <textarea id="mo_ta" name="mo_ta" class="form-control" rows="4"><?= $SanPham['mo_ta'] ?></textarea>
                                                             <span class="text-danger">
                                                                 <?= !empty($_SESSION['errors']['mo_ta']) ? $_SESSION['errors']['mo_ta'] : '' ?>
 
@@ -244,48 +366,7 @@
                                             </form>
                                         </div>
                                         <br>
-                                        <div class="col-md-2">
-                                            <!-- /.card -->
-                                            <div class="card card-info">
-                                                <div class="card-header">
-                                                    <h3 class="card-title text-center">Album ảnh sản phẩm</h3>
 
-                                                    <div class="card-tools">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <div class="table-responsive">
-                                                        <form action="<?= BASE_URL_ADMIN . '?act=sua-album-anh-san-pham' ?>" method="post"
-                                                            enctype="multipart/form-data">
-                                                            <table id="faqs" class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Ảnh</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <input type="hidden" name="san_pham_id" value="<?= $sanPham['id'] ?>">
-                                                                    <input type="hidden" id="img_delete" name="img_delete">
-                                                                    <?php foreach ($listAnhSanPham as $key => $value): ?>
-                                                                        <tr id="faqs-row-<?= $key ?>">
-                                                                            <input type="hidden" name="current_img_ids[]" value="<?= $value['id'] ?>">
-                                                                            <td><img src="<?= BASE_URL . $value['link_hinh_anh'] ?>" style="width: 100px; height: 100px" alt="">
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php endforeach; ?>
-                                                                </tbody>
-                                                            </table>
-                                                    </div>
-                                                </div>
-
-                                                </form>
-                                            </div>
-                                            <!-- /.card -->
-                                        </div>
 
                                         <!--end col-->
 
@@ -297,32 +378,85 @@
 
                             </div>
                         </div>
-                    </div> <!-- end col -->
-                </div>
+                        <div class="col-md-4">
+                            <!-- /.card -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="color: white; ">Album ảnh sản phẩm</h3>
 
-            </div>
-            <!-- container-fluid -->
-        </div>
-        <!-- End Page-content -->
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> © Velzon.
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <div class="table-responsive">
+                                        <form action="<?= BASE_URL_ADMIN . '?act=sua-album-anh-san-pham' ?>" method="post" enctype="multipart/form-data">
+                                         
+                                            <table id="faqs" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ảnh</th>
+                                                        <th>File</th>
+                                                        <th>
+                                                            <div class="text-center"><button onclick="addfaqs();" type="button"
+                                                                    class="badge badge-success"><i class="fa fa-plus"></i> Thêm</button></div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <input type="hidden" name="san_pham_id" value="<?= $SanPham['id'] ?>">
+                                                    <input type="hidden" id="img_delete" name="img_delete">
+                                                    <?php foreach ($listAnhSanPham as $key => $value): ?>
+                                                        <tr id="faqs-row-<?= $key ?>">
+                                                            <input type="hidden" name="current_img_ids[]" value="<?= $value['id'] ?>">
+                                                            <td><img src="<?= BASE_URL . $value['link_hinh_anh'] ?>" style="width: 50px; height: 50px" alt="">
+                                                            </td>
+                                                            <td><input type="file" name="img_array[]" class="form-control"></td>
+                                                            <td class="mt-10"><button class="badge badge-danger" type="button"
+                                                                    onclick="removeRow(<?= $key ?>, <?= $value['id'] ?>);"><i class="fa fa-trash"></i>
+                                                                    Delete</button></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer text-center">
+                                    <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+                                </div>
+                                </form>
+                            </div>
+                            <!-- /.card -->
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end d-none d-sm-block">
-                            Design & Develop by Themesbrand
+
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script> © Velzon.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Design & Develop by Themesbrand
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-    </div>
-    <!-- end main content-->
+            </footer>
+        </div>
+        <!-- end main content-->
 
     </div>
     <!-- END layout-wrapper -->
@@ -356,6 +490,29 @@
     ?>
 
 </body>
+<script>
+    var faqs_row = <?= count($listAnhSanPham) ?>;
 
+    function addfaqs() {
+        html = '<tr id="faqs-row-' + faqs_row + '">';
+        html += '<td><img src="https://via.placeholder.com/100" style="width: 50px; height: 50px" alt=""></td>';
+        html += '<td><input type="file" name="img_array[]" class="form-control"></td>';
+        html += '<td class="mt-10"><button type="button" class="badge badge-danger" onclick="removeRow(' + faqs_row + ', null);"><i class="fa fa-trash"></i> Delete</button></td>';
+        html += '</tr>';
+
+        $('#faqs tbody').append(html);
+
+        faqs_row++;
+    }
+
+    function removeRow(rowId, imgId) {
+        $('#faqs-row-' + rowId).remove();
+        if (imgId !== null) {
+            var imgDeleteInput = document.getElementById('img_delete');
+            var currentValue = imgDeleteInput.value;
+            imgDeleteInput.value = currentValue ? currentValue + ',' + imgId : imgId;
+        }
+    }
+</script>
 
 </html>

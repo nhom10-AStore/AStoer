@@ -14,7 +14,6 @@
 		</div>
 </section>
 
-
 <section id="feature_products_1" class="container container-xxl pt-lg-18 pt-14 pb-lg-21 pb-15">
     <h2 class="text-center mb-10 pb-3" data-animate="fadeInUp">Sản phẩm mới nhất</h2>
     <div class="tab-content">
@@ -41,13 +40,19 @@
                                     <div class="d-flex align-items-center fs-12px justify-content-center">
                                         <div class="rating">
                                             <div class="filled-stars" style="width: <?= $sanPham['danh_gia_tb'] * 20 ?>%">
-                                                <!-- Tính toán % dựa trên đánh giá -->
                                                 <span class="star">
                                                     <svg class="icon star text-primary"><use xlink:href="#star"></use></svg>
                                                 </span>
                                             </div>
                                         </div>
-                                        <span class="reviews ms-4 pt-3 fs-14px"><?= $sanPham['luot_xem'] ?> reviews</span>
+                                        <!-- Thay reviews bằng thông báo tồn kho -->
+                                        <span class="stock-status ms-4 pt-3 fs-14px">
+                                            <?php if ($sanPham['so_luong_ton_kho'] > 0): ?>
+                                                <span class="text-success">Sản phẩm còn hàng</span>
+                                            <?php else: ?>
+                                                <span class="text-danger">Sản phẩm hết hàng</span>
+                                            <?php endif; ?>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +65,7 @@
         </div>
     </div>
 </section>
+
 
 
 	<section class="pt-lg-19 pt-14 pb-lg-18 pb-15">

@@ -73,10 +73,7 @@
         }
 
         /* Sửa các lớp bảng */
-        .table th {
-            background-color: #007bff;
-            color: white;
-        }
+     
 
         .table td {
             background-color: #fff;
@@ -166,10 +163,10 @@
                         <div class="card-header">
                             <h5 class="mb-0">Danh Sách Sản Phẩm</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" >
                             <table class="table table-bordered table-striped table-hover" >
-                                <thead>
-                                    <tr>
+                                <thead >
+                                    <tr > 
                                         <th>STT</th>
                                         <th >Sản Phẩm</th>
                                         <th>Đơn Giá</th>

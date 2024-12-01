@@ -1,4 +1,4 @@
-<footer class="pt-14 pt-lg-19 pb-16 footer bg-image" data-bg-src="assets/images/background/bg-footer-01.jpg">
+<footer class="pt-14 pt-lg-19 pb-16 footer bg-image" data-bg-src="assets/images/background/bg-footer-01.jpg" >
     <div class="container container-xxl pt-4">
         <div class="row">
             <div class="col-lg-5 col-12 mb-13 mb-lg-0">

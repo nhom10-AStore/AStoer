@@ -111,6 +111,7 @@
                                     <h5 class="mt-3">Giá tiền: <small><?= $SanPham['gia_nhap'] ?><u>đ</u></small></h5>
                                     <h5 class="mt-3">Giá khuyến mãi: <small><?= $SanPham['gia_khuyen_mai'] ?><u>đ</u></small></h5>
                                     <h5 class="mt-3">Số lượng: <small><?= $SanPham['so_luong'] ?></small></h5>
+                                    <h5 class="mt-3">Số lượng ton kho: <small><?= $SanPham['so_luong_ton_kho'] ?></small></h5>
                                     <h5 class="mt-3">Lượt xem: <small><?= $SanPham['luot_xem'] ?></small></h5>
                                     <h5 class="mt-3">Ngày nhập: <small><?= $SanPham['ngay_nhap'] ?></small></h5>
                                     <h5 class="mt-3">Danh mục: <small><?= $SanPham['ten_danh_muc'] ?></small></h5>

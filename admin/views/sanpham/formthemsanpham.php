@@ -186,6 +186,17 @@
                                                         </div>
                                                     </div>
                                                     <!--end col-->
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="emailidInput" class="form-label">Số lượng ton kho</label>
+                                                            <input type="number" class="form-control" name="so_luong_ton_kho">
+                                                            <span class="text-danger">
+                                                                <?= !empty($_SESSION['errors']['so_luong_ton_kho']) ? $_SESSION['errors']['so_luong_ton_kho'] : '' ?>
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
 
 
 

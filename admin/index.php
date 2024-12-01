@@ -90,6 +90,7 @@ match ($act) {
     'sua-san-pham'          => (new SanPhamController())->postEditSanPham(),
     'xoa-san-pham'          => (new SanPhamController())->deleteSanPham(),
     'chi_tiet_san_pham'     => (new SanPhamController())->detailSanPham(),
+    'sua-album-anh-san-pham'=> (new SanPhamController())->postEditAnhSanPham(),
     // Quản lý trạng thái đơn hàng
     'trang-thai-don-hang'   => (new TrangThaiDonHangController())->index(),
     'them-trang-thai'       => (new TrangThaiDonHangController())->create(),

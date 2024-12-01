@@ -61,7 +61,9 @@ public function getAllBinhLuan($san_pham_id)
         $sql = 'SELECT binh_luans.*, tai_khoans.ho_ten FROM binh_luans 
                 INNER JOIN tai_khoans ON binh_luans.nguoi_dung_id = tai_khoans.id 
                 WHERE san_pham_id = :san_pham_id 
-                ORDER BY binh_luans.ngay_dang DESC';  // Sắp xếp theo ngày đăng (mới nhất trước)
+                -- ORDER BY binh_luans.ngay_dang DESC
+                 ORDER BY ngay_dang DESC, binh_luans.id DESC
+                ';  // Sắp xếp theo ngày đăng (mới nhất trước)
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':san_pham_id', $san_pham_id, PDO::PARAM_INT);
@@ -222,6 +224,20 @@ public function addComment($nguoi_dung_id, $san_pham_id, $noi_dung)
                 'total' => 0,
                 'totalPages' => 0
             ];
+        }
+    }
+    public function reduceStock($san_pham_id, $so_luong)
+    {
+        try {
+            // Cập nhật số lượng tồn kho của sản phẩm
+            $sql = "UPDATE san_phams SET so_luong_ton_kho = so_luong_ton_kho - :so_luong WHERE id = :san_pham_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':so_luong' => $so_luong, ':san_pham_id' => $san_pham_id]);
+
+            return true;
+        } catch (Exception $e) {
+            error_log('Lỗi cập nhật tồn kho: ' . $e->getMessage());
+            return false;
         }
     }
 }

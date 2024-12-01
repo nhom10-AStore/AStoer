@@ -70,6 +70,9 @@ match ($act) {
     // quan li dong hang
     'quan_li_don_hang' => (new DonHangController())->quanLiDonHang(),
     'chi-tiet-don-hang'         => (new DonHangController())->detailDonHang(),
+    'huy-don-hang'         => (new DonHangController())->huyDonHang(),
+    'mua-lai'         => (new DonHangController())->muaLaiDonHang(),
+    'xac-nhan-don-hang'         => (new DonHangController())->xacNhanDonHang(),
     //Thanh toan
     'thanh-toan' => (new HomeController())->thanhToan(),
     'xu-ly-thanh-toan' => (new HomeController())->postThanhToan(),

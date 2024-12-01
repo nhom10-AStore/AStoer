@@ -228,7 +228,7 @@ class HomeController
     public function postThanhToan()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // var_dump($_POST);die;
+            // Lấy thông tin người dùng
             $user = $this->modelTaiKhoan->getDetailTaiKhoan($_SESSION['user']['id']);
             $nguoi_dung_id = $user['id'];
             $ten_nguoi_nhan = $_POST['ten_nguoi_nhan'];
@@ -240,10 +240,12 @@ class HomeController
             $phuong_thuc_thanh_toan = $_POST['phuong_thuc_thanh_toan'];
             $trang_thai_thanh_toan = 2;
             $ngay_dat = date('Y-m-d');
-            // var_dump($ngay_dat);
             $trang_thai_id = 1;
-
+    
+            // Tạo mã đơn hàng ngẫu nhiên
             $ma_don_hang = 'DH' . rand(1000, 99999);
+    
+            // Thêm đơn hàng vào cơ sở dữ liệu
             $donHang = $this->modelDonhang->addDonHang(
                 $ma_don_hang,
                 $ten_nguoi_nhan,
@@ -256,25 +258,35 @@ class HomeController
                 $thanh_toan,
                 $trang_thai_id,
                 $ghi_chu,
-                $nguoi_dung_id,
-
+                $nguoi_dung_id
             );
+    
+            // Lấy chi tiết giỏ hàng
             $gioHang = $this->modelGioHang->getGioHangFromUser($user['id']);
             $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-            // var_dump($chiTietGioHang);
-            // die;
+    
+            // Duyệt qua từng sản phẩm trong giỏ hàng và thêm vào chi tiết đơn hàng
             foreach ($chiTietGioHang as $item) {
+                // Thêm sản phẩm vào chi tiết đơn hàng
                 $this->modelDonhang->addChiTietDonhang(
                     $donHang,
                     $item['san_pham_id'],
                     $item['so_luong'],
                     $phi_van_chuyen = 15000
                 );
+    
+                // Giảm số lượng tồn kho của sản phẩm
+                $this->modelSanPham->reduceStock($item['san_pham_id'], $item['so_luong']);
             }
+    
+            // Xóa giỏ hàng sau khi đơn hàng được tạo thành công
             $this->modelGioHang->xoaGioHang($gioHang['id']);
+    
+            // Hiển thị trang thành công
             require_once './views/thanhToanThanhCong.php';
         }
     }
+    
     public function deleteFromCart()
     {
         header('Content-Type: application/json');
@@ -341,7 +353,7 @@ class HomeController
                     exit();
                 } else {
                     // Redirect back to cart with error message
-                    $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật số lượng!';
+                    $_SESSION['error_message'] = 'Số lượng sản phẩm không đủ trong kho.';
                     header("Location: " . BASE_URL . '?act=gio-hang');
                     exit();
                 }
@@ -352,4 +364,5 @@ class HomeController
         header("Location: " . BASE_URL . '?act=login');
         exit();
     }
+    
 }

@@ -45,6 +45,7 @@ class SanPhamController
             $gia_ban = $_POST['gia_ban'] ?? '';
             $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? '';
             $so_luong = $_POST['so_luong'] ?? '';
+            $so_luong_ton_kho = $_POST['so_luong_ton_kho'] ?? '';
             $thong_so = $_POST['thong_so'] ?? '';
             $ngay_nhap = $_POST['ngay_nhap'] ?? '';
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
@@ -87,6 +88,9 @@ class SanPhamController
             if (empty($so_luong)) {
                 $errors['so_luong'] = 'Số lượng sản phẩm không được để trống';
             }
+            if (empty($so_luong_ton_kho)) {
+                $errors['so_luong_ton_kho'] = 'Số lượng sản phẩm không được để trống';
+            }
             if (empty($thong_so)) {
                 $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
             }
@@ -122,6 +126,7 @@ class SanPhamController
                     $gia_ban,
                     $gia_khuyen_mai,
                     $so_luong,
+                    $so_luong_ton_kho,
                     $thong_so,
                     $ngay_nhap,
                     $danh_muc_id,
@@ -195,6 +200,7 @@ class SanPhamController
             $gia_ban = $_POST['gia_ban'] ?? '';
             $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? '';
             $so_luong = $_POST['so_luong'] ?? '';
+            $so_luong_ton_kho = $_POST['so_luong_ton_kho'] ?? '';
             $thong_so = $_POST['thong_so'] ?? '';
             $ngay_nhap = $_POST['ngay_nhap'] ?? '';
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
@@ -226,6 +232,9 @@ class SanPhamController
 
             if (empty($so_luong)) {
                 $errors['so_luong'] = 'Số lượng sản phẩm không được để trống';
+            }
+            if (empty($so_luong_ton_kho)) {
+                $errors['so_luong_ton_kho'] = 'Số lượng sản phẩm không được để trống';
             }
             if (empty($thong_so)) {
                 $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
@@ -274,6 +283,7 @@ class SanPhamController
                     $gia_ban,
                     $gia_khuyen_mai,
                     $so_luong,
+                    $so_luong_ton_kho,
                     $thong_so,
                     $ngay_nhap,
                     $danh_muc_id,
@@ -284,7 +294,7 @@ class SanPhamController
                 );
 
 
-                header('location: ?act=san_phams');
+                header("Location: " . BASE_URL_ADMIN . '?act=san_phams');
                 exit();
             } else {
                 //Trả về form và lỗi 
@@ -304,11 +314,11 @@ class SanPhamController
             $img_array = $_FILES['img_array'];
             $img_delete = isset($_POST['img_delete']) ? explode(',', $_POST['img_delete']) : [];
             $current_img_ids = $_POST['current_img_ids'] ?? [];
-
+    
             $upload_file = [];
             foreach ($img_array['name'] as $key => $value) {
                 if ($img_array['error'][$key] == UPLOAD_ERR_OK) {
-                    $new_file = uploadFileAlbum($img_array, './admin/uploads/', $key);
+                    $new_file = uploadFileAlbum($img_array, './uploads/', $key);
                     if ($new_file) {
                         $upload_file[] = [
                             'id' => $current_img_ids[$key] ?? null,
@@ -317,6 +327,7 @@ class SanPhamController
                     }
                 }
             }
+    
             foreach ($upload_file as $file_info) {
                 if ($file_info['id']) {
                     $old_file = $this->modelSanPham->getDetailAnhSanPham($file_info['id'])['link_hinh_anh'];
@@ -326,6 +337,7 @@ class SanPhamController
                     $this->modelSanPham->insertAlbumAnhSanPham($san_pham_id, $file_info['file']);
                 }
             }
+    
             foreach ($listAnhSanPhamCurrent as $anhSP) {
                 $anh_id = $anhSP['id'];
                 if (in_array($anh_id, $img_delete)) {
@@ -333,11 +345,14 @@ class SanPhamController
                     deleteFile($anhSP['link_hinh_anh']);
                 }
             }
-            header('location: ?act=form-sua-san-pham&id_san_pham=' . $san_pham_id);
+            // var_dump( $anhSP);die;
+            header("Location:". BASE_URL_ADMIN.'?act=form-sua-san-pham&id_san_pham='.$san_pham_id);
+            // require_once './views/sanpham/listsanpham.php';
             exit();
         }
     }
-
+    
+    
 
     public function deleteSanPham()
     {

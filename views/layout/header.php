@@ -123,7 +123,7 @@
 							</a>
 						<?php endif; ?>
 					</div>
-					<div class="color-modes position-relative ps-5">
+					<!-- <div class="color-modes position-relative ps-5">
 						<a class="bd-theme btn btn-link nav-link dropdown-toggle d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle" href="#" aria-expanded="true" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
 							<svg class="bi my-1 theme-icon-active">
 								<use href="#sun-fill"></use>
@@ -164,7 +164,7 @@
 								</button>
 							</li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

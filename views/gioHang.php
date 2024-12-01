@@ -179,7 +179,7 @@
                 handleQuantityChange: (row, change) => {
                     const input = row.querySelector('.quantity-input');
                     let value = parseInt(input.value) + change;
-                    value = Math.max(1, Math.min(99, value));
+                    value = Math.max(1, Math.min(100, value));
                     input.value = value;
                     cart.updateItemTotal(row);
                 },
@@ -252,7 +252,7 @@
                             cart.handleQuantityChange(row, 1));
 
                         quantityInput.addEventListener('change', () => {
-                            quantityInput.value = Math.max(1, Math.min(99, parseInt(quantityInput.value) || 1));
+                            quantityInput.value = Math.max(1, Math.min(100, parseInt(quantityInput.value) || 1));
                             cart.updateItemTotal(row);
                         });
                     });
@@ -300,5 +300,46 @@
         })();
     </script>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    cart.calculateTotals();  // Đảm bảo tính lại tổng tiền khi giỏ hàng được tải lại.
 
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sanPhamId = btn.closest('.cart-item').dataset.id;
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+                cart.deleteItem(sanPhamId);
+            }
+        });
+    });
+
+    // Thêm sự kiện cho việc cập nhật giỏ hàng
+    document.getElementById('updateQuantityBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#cartForm').action = '<?= BASE_URL . '?act=cap-nhat-gio-hang' ?>';
+        document.querySelector('#cartForm').submit();
+    });
+
+    // Sự kiện thanh toán
+    document.getElementById('checkoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Kiểm tra giỏ hàng có sản phẩm không
+        const cartItems = document.querySelectorAll('.cart-item');
+        if (cartItems.length === 0) {
+            alert('Giỏ hàng của bạn hiện tại trống. Vui lòng thêm sản phẩm vào giỏ hàng để thanh toán.');
+            return; // Dừng nếu giỏ hàng trống
+        }
+
+        if (confirm('Bạn có muốn tiến hành thanh toán?')) {
+            // Điều hướng tới trang thanh toán
+            window.location.href = '<?= BASE_URL . '?act=thanh-toan' ?>';
+        }
+    });
+
+    cart.initializeEventListeners();
+    cart.calculateTotals();  // Đảm bảo tổng tiền được tính chính xác khi trang được tải
+});
+
+</script>
 </html>
