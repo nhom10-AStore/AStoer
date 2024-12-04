@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="en" data-bs-theme="light">
+
 <head>
-	
+
 	<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Trang chủ</title>
-<link rel="icon" href="./assets/images/others/favicon.ico">
-<?php
-require_once 'layout/libs_css.php';
-?>
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Trang chủ</title>
+	<link rel="icon" href="./assets/images/others/favicon.ico">
+	<?php
+	require_once 'layout/libs_css.php';
+	?>
 </head>
 
 <body>
@@ -22,7 +23,7 @@ require_once 'layout/libs_css.php';
 	require_once "layout/footer.php";
 	?>
 
-	
+
 	<!-- JAVASCRIPT -->
 	<?php
 	require_once "layout/libs_js.php";
@@ -753,18 +754,23 @@ require_once 'layout/libs_css.php';
 					</a>
 				</div>
 				<div class="col-xl-6 d-flex justify-content-center">
-					<form class="w-xl-100 w-sm-75 w-100 mt-6 mt-xl-0 px-6 px-xl-0">
+					<form action="?act=search" method="GET" class="w-xl-100 w-sm-75 w-100 mt-6 mt-xl-0 px-6 px-xl-0">
 						<div class="input-group mx-auto">
-							<input type="text" class="form-control form-control bg-transparent border-primary" placeholder="Search product">
+							<input
+								type="text"
+								name="keyword"
+								class="form-control form-control bg-transparent border-primary"
+								placeholder="Search product"
+								required>
 							<div class="form-control-append position-absolute end-0 top-0 bottom-0 d-flex align-items-center">
 								<button class="input-group-text bg-transparent border-0 px-0 me-6" type="submit">
 									<i class="far fa-search fs-5"></i>
 								</button>
 							</div>
 						</div>
-						
 					</form>
 				</div>
+
 				<div class="icons-actions col-xl-3 d-flex justify-content-end fs-28px text-body-emphasis">
 					<div class="px-5 d-none d-xl-inline-block">
 						<a href="<?= BASE_URL . '?act=quan_li_don_hang' ?>">
@@ -772,7 +778,7 @@ require_once 'layout/libs_css.php';
 								<path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
 								<path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
 							</svg>
-							
+
 						</a>
 					</div>
 					<div class="px-5 d-none d-xl-inline-block">
@@ -781,10 +787,10 @@ require_once 'layout/libs_css.php';
 								<path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
 								<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
 							</svg>
-							
+
 						</a>
 					</div>
-				
+
 					<div class="px-5 d-none d-xl-inline-block">
 						<?php if (!isset($_SESSION['user'])): ?>
 							<a class="lh-1 color-inherit text-decoration-none" href="<?= BASE_URL_ADMIN . '?act=login-admin' ?>">
@@ -803,7 +809,7 @@ require_once 'layout/libs_css.php';
 									<path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
 								</svg>
 							</a>
-							<?php endif; ?>
+						<?php endif; ?>
 					</div>
 					<div class="color-modes position-relative ps-5">
 						<a class="bd-theme btn btn-link nav-link dropdown-toggle d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle" href="#" aria-expanded="true" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
@@ -851,7 +857,7 @@ require_once 'layout/libs_css.php';
 			</nav>
 		</div>
 	</div>
-<!--  -->
+	<!--  -->
 	<div id="shoppingCart" data-bs-scroll="false" class="offcanvas offcanvas-end">
 		<div class="offcanvas-header fs-4">
 			<h4 class="offcanvas-title fw-semibold">Giỏ hàng</h4>
@@ -904,8 +910,8 @@ require_once 'layout/libs_css.php';
 				<span class="text-body-emphasis">Total price:</span>
 				<span class="cart-total fw-bold text-body-emphasis">$106.00</span>
 			</div>
-		<a href="<?=BASE_URL.'?act=gio-hang'?>" class="btn btn-dark w-100 mb-7" title="Xem giỏ hàng">Xem giỏ hàng</a>
-		<a href="#" class="btn btn-outline-dark w-100" title="Thanh toán">Thanh toán</a>
+			<a href="<?= BASE_URL . '?act=gio-hang' ?>" class="btn btn-dark w-100 mb-7" title="Xem giỏ hàng">Xem giỏ hàng</a>
+			<a href="#" class="btn btn-outline-dark w-100" title="Thanh toán">Thanh toán</a>
 		</div>
 	</div>
 
@@ -1742,19 +1748,18 @@ require_once 'layout/libs_css.php';
 	</div>
 </body>
 <script>
-	$(document).ready(function(){
-  $('.slick-slider').slick({
-    arrows: false,
-    autoplay: true,
-    cssEase: 'ease-in-out',
-    dots: false,
-    fade: true,
-    infinite: true,
-    slidesToShow: 1,
-    speed: 600
-  });
-});
-
+	$(document).ready(function() {
+		$('.slick-slider').slick({
+			arrows: false,
+			autoplay: true,
+			cssEase: 'ease-in-out',
+			dots: false,
+			fade: true,
+			infinite: true,
+			slidesToShow: 1,
+			speed: 600
+		});
+	});
 </script>
 <!-- <script>
     $(document).ready(function () {

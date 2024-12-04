@@ -74,15 +74,24 @@
 					</ul>
 				</div>
 				<div class="icons-actions d-flex justify-content-end w-xl-50 fs-28px text-body-emphasis">
-					<div class="px-xl-5 d-inline-block">
-						<a class="lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="offcanvas"
-							data-bs-target="#searchModal"
-							aria-controls="searchModal"
-							aria-expanded="false">
-							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-							</svg>
-						</a>
+					<div class="px-xl-4 d-inline-block">
+						<form action="<?= BASE_URL ?>" method="GET" class="mb-2" id="searchForm">
+							<input type="hidden" name="act" value="search">
+							<div class="input-group input-group-lg">
+								<input
+									type="text"
+									name="keyword"
+									class="form-control border-2"
+									placeholder="Tìm kiếm sản phẩm..."
+									aria-label="Search products"
+									autocomplete="off">
+								<button class="btn btn-primary" type="submit">
+									<i class="far fa-search"></i>
+								</button>
+							</div>
+						
+						</form>
+
 					</div>
 					<div class="px-5 d-none d-xl-inline-block">
 						<a href="<?= BASE_URL . '?act=quan_li_don_hang' ?>">
@@ -164,9 +173,26 @@
 								</button>
 							</li>
 						</ul>
-					</div> -->
+					</div>
+				</div> -->
 				</div>
 			</div>
 		</div>
-	</div>
 </header>
+<style>
+	.input-group-lg .form-control {
+    border-radius: 0.3rem;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.search-results {
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+    padding: 10px;
+    background-color: #fff;
+}
+
+
+</style>

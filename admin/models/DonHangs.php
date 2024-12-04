@@ -32,7 +32,8 @@ class DonHang
                 INNER JOIN tai_khoans ON don_hangs.nguoi_dung_id = tai_khoans.id
                 LEFT JOIN khuyen_mais ON don_hangs.khuyen_mai_id = khuyen_mais.id
                 LEFT JOIN phuong_thuc_thanh_toans ON don_hangs.phuong_thuc_thanh_toan = phuong_thuc_thanh_toans.id
-                LEFT JOIN trang_thai_don_hang ON don_hangs.trang_thai_id = trang_thai_don_hang.id';
+                LEFT JOIN trang_thai_don_hang ON don_hangs.trang_thai_id = trang_thai_don_hang.id
+                 ORDER BY ngay_dat DESC, don_hangs.id DESC';
 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
@@ -48,7 +49,8 @@ class DonHang
             $sql = 'SELECT don_hangs.*, trang_thai_don_hang.ten_trang_thai 
                 FROM don_hangs 
                 JOIN trang_thai_don_hang ON don_hangs.trang_thai_id = trang_thai_don_hang.id
-                WHERE don_hangs.id = :id';
+                WHERE don_hangs.id = :id
+                ';
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -145,5 +147,24 @@ class DonHang
     public function __destruct()
     {
         $this->conn = null;
+    }   
+
+    // 2-12-2024
+public function updateOrderStatus($don_hang_id, $trang_thai_id)
+{
+    try {
+        $sql = "UPDATE don_hangs SET trang_thai_id = :trang_thai_id WHERE id = :don_hang_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':trang_thai_id' => $trang_thai_id,
+            ':don_hang_id' => $don_hang_id
+        ]);
+        return true;
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
+        return false;
     }
+}
+
+
 }

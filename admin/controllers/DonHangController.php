@@ -30,50 +30,98 @@ class DonHangController
         require_once './views/donhang/edit_don_hang.php';
     }
 
+    // public function update()
+    // {
+    //     // Kiểm tra nếu yêu cầu là POST
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $id = $_POST['id'];
+    //         $statusId = $_POST['trang_thai_id'];
+
+    //         // Khởi tạo mảng lỗi
+    //         $errors = [];
+
+    //         // Lấy thông tin trạng thái trước đó từ cơ sở dữ liệu (giả sử bạn đã có hàm getDetailData)
+    //         $donHang = $this->modelDonHang->getDetailData($id);
+    //         $previousStatusId = $donHang['trang_thai_id'];
+
+    //         // Kiểm tra trạng thái mới có giống trạng thái cũ hay không
+    //         if ($statusId <= $previousStatusId) {
+    //             $errors['trang_thai_id'] = 'Trạng thái không thể giống trạng thái trước đó';
+    //         }
+
+    //         // Nếu không có lỗi thì cập nhật trạng thái đơn hàng
+    //         if (empty($errors)) {
+    //             // Cập nhật trạng thái đơn hàng vào cơ sở dữ liệu
+    //             $isUpdated = $this->modelDonHang->updateStatus($id, $statusId);
+
+    //             // Xử lý kết quả cập nhật
+    //             if ($isUpdated) {
+    //                 // Nếu cập nhật thành công
+    //                 $_SESSION['success'] = 'Cập nhật trạng thái đơn hàng thành công.';
+    //                 header('Location: ?act=don-hangs');
+    //                 exit();
+    //             } else {
+    //                 // Nếu cập nhật thất bại
+    //                 $_SESSION['error'] = 'Cập nhật trạng thái đơn hàng thất bại.';
+    //                 header('Location: ?act=form-sua-don-hang&id=' . $id);
+    //                 exit();
+    //             }
+    //         } else {
+    //             // Nếu có lỗi, lưu lỗi vào session và chuyển hướng về form sửa
+    //             $_SESSION['errors'] = $errors;
+    //             header('Location: ?act=form-sua-don-hang&id=' . $id);
+    //             exit();
+    //         }
+    //     }
+    // }
     public function update()
-    {
-        // Kiểm tra nếu yêu cầu là POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $id = $_POST['id'];
-            $statusId = $_POST['trang_thai_id'];
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id = $_POST['id'];
+        $statusId = $_POST['trang_thai_id'];
 
-            // Khởi tạo mảng lỗi
-            $errors = [];
+        // Khởi tạo mảng lỗi
+        $errors = [];
 
-            // Lấy thông tin trạng thái trước đó từ cơ sở dữ liệu (giả sử bạn đã có hàm getDetailData)
-            $donHang = $this->modelDonHang->getDetailData($id);
-            $previousStatusId = $donHang['trang_thai_id'];
+        // Lấy thông tin trạng thái trước đó từ cơ sở dữ liệu
+        $donHang = $this->modelDonHang->getDetailData($id);
+        $previousStatusId = $donHang['trang_thai_id'];
 
-            // Kiểm tra trạng thái mới có giống trạng thái cũ hay không
-            if ($statusId <= $previousStatusId) {
-                $errors['trang_thai_id'] = 'Trạng thái không thể giống trạng thái trước đó';
-            }
+        // Kiểm tra trạng thái mới có giống trạng thái cũ hay không
+        if ($statusId <= $previousStatusId) {
+            $errors['trang_thai_id'] = 'Trạng thái không thể giống trạng thái trước đó';
+        }
+   
 
-            // Nếu không có lỗi thì cập nhật trạng thái đơn hàng
-            if (empty($errors)) {
-                // Cập nhật trạng thái đơn hàng vào cơ sở dữ liệu
-                $isUpdated = $this->modelDonHang->updateStatus($id, $statusId);
+        // Nếu không có lỗi thì cập nhật trạng thái đơn hàng
+        if (empty($errors)) {
+            // Cập nhật trạng thái đơn hàng vào cơ sở dữ liệu
+            $isUpdated = $this->modelDonHang->updateStatus($id, $statusId);
 
-                // Xử lý kết quả cập nhật
-                if ($isUpdated) {
-                    // Nếu cập nhật thành công
-                    $_SESSION['success'] = 'Cập nhật trạng thái đơn hàng thành công.';
-                    header('Location: ?act=don-hangs');
-                    exit();
-                } else {
-                    // Nếu cập nhật thất bại
-                    $_SESSION['error'] = 'Cập nhật trạng thái đơn hàng thất bại.';
-                    header('Location: ?act=form-sua-don-hang&id=' . $id);
-                    exit();
-                }
+            // Xử lý kết quả cập nhật
+            if ($isUpdated) {
+                // Lưu trạng thái đã cập nhật vào session
+                $_SESSION['order_status'][$id] = $statusId;
+
+                // Nếu cập nhật thành công
+                $_SESSION['success'] = 'Cập nhật trạng thái đơn hàng thành công.';
+                header('Location: ?act=don-hangs');
+                exit();
             } else {
-                // Nếu có lỗi, lưu lỗi vào session và chuyển hướng về form sửa
-                $_SESSION['errors'] = $errors;
+                // Nếu cập nhật thất bại
+                $_SESSION['error'] = 'Cập nhật trạng thái đơn hàng thất bại.';
                 header('Location: ?act=form-sua-don-hang&id=' . $id);
                 exit();
             }
+        } else {
+            // Nếu có lỗi, lưu lỗi vào session và chuyển hướng về form sửa
+            $_SESSION['errors'] = $errors;
+            header('Location: ?act=form-sua-don-hang&id=' . $id);
+            exit();
         }
     }
+}
+
     public function detailDonHang()
     {
         $don_hang_id = $_GET['id_don_hang'];
@@ -94,4 +142,5 @@ class DonHangController
             exit();
         }
     }
+    
 }

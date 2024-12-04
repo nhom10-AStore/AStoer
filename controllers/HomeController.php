@@ -20,16 +20,26 @@ class HomeController
         $this->modelDonhang = new DonHang();
     }
     public function index()
-    {
-        //    require_once './client/home-15.php';
-        $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
-        $listSanPham = $this->modelSanPham->getAllSanPham();
-        $banners = $this->modelBanner->getAll();
-        $listDanhGia = $this->modelSanPham->getAllDanhGia();
-        require_once './views/home.php';
-    }
+{
+    // Lấy danh sách danh mục
+    $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
+    
+    // Lấy danh sách sản phẩm mới nhất, đã được sắp xếp từ CSDL
+    $listSanPhamHienThi = $this->modelSanPham->getSanPhamMoiNhat(8); // Lấy tối đa 8 sản phẩm
+    
+    // Lấy dữ liệu khác
+    $banners = $this->modelBanner->getAll();
+    $listDanhGia = $this->modelSanPham->getAllDanhGia();
+
+    // Tải view
+    require_once './views/home.php';
+}
+
+    
+    
     public function getDetailSanPham()
     {
+        
         $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
         require_once 'views/detailSanPham.php';
     }
@@ -71,16 +81,12 @@ class HomeController
     }
     public function search()
     {
-        $keyword = $_GET['keyword'] ?? '';
-        $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+        $keyword = trim($_GET['keyword'] ?? '');
+        $page = 1; // Default page is 1
         $limit = 8;
-
-        // New filter parameters
-        $priceFilter = $_GET['price_filter'] ?? '';
-        $sortBy = $_GET['sort_by'] ?? '';
-
+    
         if (!empty($keyword)) {
-            $searchResult = $this->modelSanPham->searchSanPham($keyword, $page, $limit, $priceFilter, $sortBy);
+            $searchResult = $this->modelSanPham->searchSanPham($keyword, $page, $limit);
             $searchResults = $searchResult['products'];
             $totalPages = $searchResult['totalPages'];
             $totalProducts = $searchResult['total'];
@@ -89,27 +95,52 @@ class HomeController
             $totalPages = 0;
             $totalProducts = 0;
         }
-
-        // Return JSON for AJAX requests
-        if (isset($_GET['ajax'])) {
-            header('Content-Type: application/json');
-            echo json_encode($searchResults);
-            exit;
-        }
-
-        // Load view for non-AJAX requests
+    
         $pageTitle = "Kết quả tìm kiếm: " . htmlspecialchars($keyword);
-        require_once './views/search-results.php';
+        require_once 'views/search-results.php';
     }
-
+    
+    
     public function chiTietSanPham()
     {
+        // session_start(); // Khởi tạo session nếu chưa được bắt đầu
+    
         $listDanhMuc = $this->modelDanhMuc->danhSachDanhMuc();
+    
+        // Lấy ID sản phẩm từ URL
         $id = $_GET['id_san_pham'];
+    
+        // Lấy danh sách sản phẩm đã xem từ session (nếu có)
+        if (!isset($_SESSION['id_san_pham'])) {
+            $_SESSION['id_san_pham'] = []; // Tạo mảng nếu chưa tồn tại
+        }
+    
+        $current_time = time(); // Lấy thời gian hiện tại
+        $shouldIncreaseView = true;
+    
+        // Kiểm tra nếu sản phẩm đã từng được xem
+        if (isset($_SESSION['id_san_pham'][$id])) {
+            $lastViewedTime = $_SESSION['id_san_pham'][$id];
+            // Kiểm tra nếu thời gian click lại đủ lâu (ví dụ: 5 phút)
+            if ($current_time - $lastViewedTime < 100) { // 100 giây = 5 phút
+                $shouldIncreaseView = false;
+            }
+        }
+    
+        // Nếu cần tăng lượt xem
+        if ($shouldIncreaseView) {
+            $this->modelSanPham->tangluotxem($id); // Tăng lượt xem
+            $_SESSION['id_san_pham'][$id] = $current_time; // Cập nhật thời gian xem sản phẩm
+        }
+    
+        // Lấy chi tiết sản phẩm
         $sanPham = $this->modelSanPham->getDetailSanPham($id);
+    
+        // Các thông tin khác
         $listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
         $listBinhLuan = $this->modelSanPham->getAllBinhLuan($id);
         $listSanPhamCungDanhMuc = $this->modelSanPham->getListSanPhamCungDanhMuc($sanPham['danh_muc_id']);
+    
         if ($sanPham) {
             require_once './views/detailSanPham.php';
         } else {
@@ -117,6 +148,11 @@ class HomeController
             exit();
         }
     }
+    
+    
+
+    
+
     public function addComment()
     {
         // Kiểm tra người dùng đã đăng nhập chưa
@@ -167,43 +203,65 @@ class HomeController
     {
         require_once './views/logout.php';
     }
-    public function addGioHang()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_SESSION['user'])) {
-                $userId = $_SESSION['user']['id'];
-                // var_dump($userId);die;
-                $gioHang = $this->modelGioHang->getGioHangFromUser($userId);
-                if (!$gioHang) {
-                    $gioHangId = $this->modelGioHang->addGioHang($userId);
-                    $gioHang = ['id' => $gioHangId];
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-                } else {
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+   public function addGioHang()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_SESSION['user'])) {
+            $userId = $_SESSION['user']['id'];
+            $gioHang = $this->modelGioHang->getGioHangFromUser($userId);
+            if (!$gioHang) {
+                $gioHangId = $this->modelGioHang->addGioHang($userId);
+                $gioHang = ['id' => $gioHangId];
+            }
+            $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+
+            $san_pham_id = $_POST['id_san_pham'];
+            $so_luong = $_POST['so_luong'];
+
+            // Lấy thông tin tồn kho từ model sản phẩm
+            $sanPham = $this->modelSanPham->getDetailSanPham($san_pham_id);
+            $soLuongTonKho = $sanPham['so_luong_ton_kho'];
+
+            // Tính tổng số lượng sản phẩm trong giỏ
+            $tongSoLuongTrongGio = 0;
+            foreach ($chiTietGioHang as $detail) {
+                if ($detail['san_pham_id'] == $san_pham_id) {
+                    $tongSoLuongTrongGio = $detail['so_luong'];
+                    break;
                 }
-                $san_pham_id = $_POST['id_san_pham'];
-                $so_luong = $_POST['so_luong'];
-                $checkSanPham = false;
-                foreach ($chiTietGioHang as $detail) {
-                    if ($detail['san_pham_id'] == $san_pham_id) {
-                        $newSoLuong = $detail['so_luong'] + $so_luong;
-                        $this->modelGioHang->updateSoLuong($gioHang['id'], $san_pham_id, $newSoLuong);
-                        $checkSanPham = true;
-                        break;
-                    }
-                }
-                if (!$checkSanPham) {
-                    $this->modelGioHang->addDetailGioHang($gioHang['id'], $san_pham_id, $so_luong);
-                }
-                header("Location: " . BASE_URL . '?act=gio-hang');
-                // var_dump('Thêm giỏ hàng thành công');die;
-            } else {
-                // Xử lý khi chưa đăng nhập
-                header("Location: " . BASE_URL . "?act=login");
+            }
+
+            // Kiểm tra nếu thêm vượt quá tồn kho
+            if (($tongSoLuongTrongGio + $so_luong) > $soLuongTonKho) {
+                $_SESSION['error'] = "Đã quá số lượng tồn kho!";
+                header("Location: " . BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' .$san_pham_id);
                 exit();
             }
+
+            // Thêm hoặc cập nhật số lượng sản phẩm trong giỏ hàng
+            $checkSanPham = false;
+            foreach ($chiTietGioHang as $detail) {
+                if ($detail['san_pham_id'] == $san_pham_id) {
+                    $newSoLuong = $detail['so_luong'] + $so_luong;
+                    $this->modelGioHang->updateSoLuong($gioHang['id'], $san_pham_id, $newSoLuong);
+                    $checkSanPham = true;
+                    break;
+                }
+            }
+            if (!$checkSanPham) {
+                $this->modelGioHang->addDetailGioHang($gioHang['id'], $san_pham_id, $so_luong);
+            }
+
+            header("Location: " . BASE_URL . '?act=gio-hang');
+            exit();
+        } else {
+            // Xử lý khi chưa đăng nhập
+            header("Location: " . BASE_URL . "?act=login");
+            exit();
         }
     }
+}
+
     public function gioHang()
     {
         if (isset($_SESSION['user'])) {
@@ -347,13 +405,13 @@ class HomeController
                 $result = $this->modelGioHang->updateCartItemQuantities($gioHang['id'], $quantities);
 
                 if ($result) {
-                    // Redirect back to cart with success message
+                    // Nếu số lượng tồn kho còn thì sẽ  hiển thị cập nhật thành công
                     $_SESSION['success_message'] = 'Cập nhật số lượng thành công!';
                     header("Location: " . BASE_URL . '?act=gio-hang');
                     exit();
                 } else {
-                    // Redirect back to cart with error message
-                    $_SESSION['error_message'] = 'Số lượng sản phẩm không đủ trong kho.';
+                    // Nếu số lượng tồn kho hết thì sẽ thì sẽ cập nhật không thành công
+                    $_SESSION['error_message'] = 'Đã vượt quá số lượng   trong kho.';
                     header("Location: " . BASE_URL . '?act=gio-hang');
                     exit();
                 }

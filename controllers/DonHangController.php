@@ -60,7 +60,7 @@ class DonHangController
             header("Location: quanLiDonHang.php");
             exit();
         }
-
+        
         $don_hang_id = $_GET['id_don_hang'];
 
         // Hủy đơn hàng và cập nhật số lượng tồn kho
@@ -83,7 +83,8 @@ class DonHangController
     $nguoi_dung_id = $_SESSION['user']['id']; // ID người dùng đăng nhập
          // Hủy đơn hàng và cập nhật số lượng tồn kho
          $this->modelDonHang->truSoLuong($don_hang_id);
-
+       // Cập nhật trạng thái thanh toán của đơn hàng thành 'Chưa Thanh Toán' (giả sử 'trang_thai_thanh_toan = 0')
+    $this->modelDonHang->capNhatThanhToan($don_hang_id, 2);
     // Cập nhật trạng thái đơn hàng
     $this->modelDonHang->updateOrderStatus($don_hang_id, 1); // Ví dụ, 1 là ID của trạng thái "Chờ xác nhận"
     // Cập nhật trạng thái đơn hàng thành 'Chờ xác nhận'

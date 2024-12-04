@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -220,8 +220,66 @@
                 gap: 3px;
             }
         }
+
+        /* Mặc định màu chữ sẽ là đen */
+        body {
+            color: black;
+        }
+
+        /* Khi trang ở chế độ dark mode, màu chữ sẽ là trắng */
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: white;
+            }
+
+            /* Cập nhật màu chữ trong các phần cụ thể */
+            .search-title,
+            .search-count,
+            .product-name {
+                color: white;
+            }
+
+            .filter-button {
+                color: white;
+                /* Chỉnh màu chữ của các nút lọc */
+                background: #222;
+            }
+
+            .price-block .current-price {
+                color: white;
+            }
+
+            /* Các phần khác có thể cập nhật màu tương tự như vậy */
+        }
+
+        /* Khi trang ở chế độ light mode, màu chữ sẽ là đen */
+        @media (prefers-color-scheme: light) {
+            body {
+                color: black;
+            }
+
+            .search-title,
+            .search-count,
+            .product-name {
+                color: black;
+            }
+
+            .filter-button {
+                color: black;
+                /* Chỉnh màu chữ của các nút lọc */
+                background: white;
+            }
+
+            .price-block .current-price {
+                color: black;
+            }
+
+            /* Các phần khác có thể cập nhật màu tương tự như vậy */
+        }
     </style>
 </head>
+
+<!-- views/search-results.php -->
 
 <body>
     <?php require_once "layout/header.php"; ?>
@@ -266,42 +324,40 @@
                     <button id="apply-filters" class="filter-button">Áp dụng</button>
                 </div>
 
-
-
                 <div class="product-grid">
                     <?php foreach ($searchResults as $product): ?>
                         <div class="product-card">
-                            <div class="product-image">
-                                <!-- <?php if ($product['gia_khuyen_mai'] > 0): ?>
-                                <span class="product-status">-<?= ceil((($product['gia_ban'] - $product['gia_khuyen_mai']) / $product['gia_ban']) * 100) ?>%</span>
-                            <?php endif; ?> -->
-                                <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $product['id'] ?>">
-                                    <img src="<?= BASE_URL . $product['anh_san_pham'] ?>"
-                                        alt="<?= htmlspecialchars($product['ten_san_pham']) ?>"
-                                        onerror="this.src='<?= BASE_URL ?>assets/images/no-image.jpg'">\
-                                </a>
-                            </div>
-
-                            <div class="product-info">
-                                <!-- <div class="product-category">
-                                <?= htmlspecialchars($product['danh_muc'] ?? 'Sản phẩm') ?>
-                            </div> -->
-                                <div class="price-block">
-                                    <span class="current-price"><?= number_format($product['gia_khuyen_mai'], 0, ',', '.') ?>₫</span>
-                                </div>
-                                <h3 class="product-name">
-                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $product['id'] ?>">
-                                        <?= htmlspecialchars($product['ten_san_pham']) ?>
-                                    </a>
-                                </h3>
-
-
-
-                            </div>
+                        <div class="product-image">
+                            <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $product['id'] ?>">
+                                <img src="<?= BASE_URL . $product['anh_san_pham'] ?>"
+                                     alt="<?= htmlspecialchars($product['ten_san_pham']) ?>"
+                                     onerror="this.src='<?= BASE_URL ?>assets/images/no-image.jpg'">
+                            </a>
                         </div>
+                        <div class="product-info">
+                            <div class="price-block">
+                                <span class="current-price" style="color: red;"><?= number_format($product['gia_ban'], 0, ',', '.') ?>₫</span>
+                            </div>
+                            <h3 class="product-name">
+                                <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['id'] ?>">
+                                    <?= htmlspecialchars($product['ten_san_pham']) ?>
+                                </a>
+                            </h3>
+                        </div>
+                        <!-- Thay reviews bằng thông báo tồn kho -->
+                        <span class="stock-status ms-16 pt-3 fs-14px">
+                            <?php if ($product['so_luong_ton_kho'] > 0): ?>
+                                <span class="text-success"  style="text-align: center;">Sản phẩm còn hàng</span>
+                            <?php else: ?>
+                                <span class="text-danger"  style="text-align: center;">Sản phẩm hết hàng</span>
+                            <?php endif; ?>
+                        </span>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+
+            <!-- Pagination -->
             <?php if ($totalPages > 1): ?>
                 <div class="pagination-container">
                     <ul class="pagination justify-content-center">
@@ -356,6 +412,7 @@
 
     <?php require_once "layout/footer.php"; ?>
     <?php require_once "layout/libs_js.php"; ?>
+
     <script>
         document.getElementById('apply-filters').addEventListener('click', function() {
             const keyword = new URLSearchParams(window.location.search).get('keyword') || '';
@@ -383,5 +440,6 @@
         });
     </script>
 </body>
+
 
 </html>

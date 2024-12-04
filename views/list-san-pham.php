@@ -87,8 +87,8 @@
             position: relative;
             margin: 0 auto 15px;
             overflow: hidden;
-            width: 200px;
-            height: 312px;
+            /* width: 200px;
+            height: 312px; */
             aspect-ratio: 1;
         }
 
@@ -114,7 +114,6 @@
         .product-name {
             font-size: 15px;
             font-weight: 500;
-            /* color: #222; */
             margin-bottom: 3px;
             line-height: 1.4;
             height: 40px;
@@ -123,16 +122,6 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             width: 100%;
-        }
-
-        .product-name a {
-            /* color: white; */
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .product-name a:hover {
-            color: #666;
         }
 
         .price-block {
@@ -147,7 +136,6 @@
         .current-price {
             font-size: 18px;
             font-weight: bold;
-            /* color: black; */
         }
 
         /* Pagination */
@@ -200,7 +188,7 @@
 <body>
     <?php require_once "layout/header.php"; ?>
 
-    <main style="min-height: 350px;">
+    <main style="min-height: 500px;">
         <div class="container-custom">
             <!-- Categories List -->
             <div class="category-list">
@@ -242,8 +230,8 @@
                         <div class="product-image">
                             <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $product['id'] ?>">
                                 <img src="<?= BASE_URL . $product['anh_san_pham'] ?>"
-                                    alt="<?= htmlspecialchars($product['ten_san_pham']) ?>"
-                                    onerror="this.src='<?= BASE_URL ?>assets/images/no-image.jpg'">
+                                     alt="<?= htmlspecialchars($product['ten_san_pham']) ?>"
+                                     onerror="this.src='<?= BASE_URL ?>assets/images/no-image.jpg'">
                             </a>
                         </div>
                         <div class="product-info">
@@ -274,30 +262,23 @@
                     <ul class="pagination justify-content-center">
                         <?php if ($page > 1): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?act=list-san-pham&page=<?= ($page - 1) ?>">
+                                <a class="page-link" href="?act=list-san-pham&page=<?= ($page - 1) ?>&category_id=<?= $categoryId ?>&price_filter=<?= isset($_GET['price_filter']) ? $_GET['price_filter'] : '' ?>&sort_by=<?= isset($_GET['sort_by']) ? $_GET['sort_by'] : '' ?>">
                                     <i class="fas fa-chevron-left"></i>
                                 </a>
                             </li>
                         <?php endif; ?>
 
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <!-- <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                            <a class="page-link" href="?act=list-san-pham&page=<?= $i ?>">
-                                <?= $i ?>
-                            </a>
-                        </li> -->
-                            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                                <a class="page-link"
-                                    href="?act=list-san-pham&page=<?= $i ?>&price_filter=<?= isset($_GET['price_filter']) ? $_GET['price_filter'] : '' ?>&sort_by=<?= isset($_GET['sort_by']) ? $_GET['sort_by'] : '' ?>">
+                            <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?act=list-san-pham&page=<?= $i ?>&category_id=<?= $categoryId ?>&price_filter=<?= isset($_GET['price_filter']) ? $_GET['price_filter'] : '' ?>&sort_by=<?= isset($_GET['sort_by']) ? $_GET['sort_by'] : '' ?>">
                                     <?= $i ?>
                                 </a>
                             </li>
-
                         <?php endfor; ?>
 
                         <?php if ($page < $totalPages): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?act=list-san-pham&page=<?= ($page + 1) ?>">
+                                <a class="page-link" href="?act=list-san-pham&page=<?= ($page + 1) ?>&category_id=<?= $categoryId ?>&price_filter=<?= isset($_GET['price_filter']) ? $_GET['price_filter'] : '' ?>&sort_by=<?= isset($_GET['sort_by']) ? $_GET['sort_by'] : '' ?>">
                                     <i class="fas fa-chevron-right"></i>
                                 </a>
                             </li>

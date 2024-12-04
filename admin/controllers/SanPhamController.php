@@ -92,7 +92,7 @@ class SanPhamController
                 $errors['so_luong_ton_kho'] = 'Số lượng sản phẩm không được để trống';
             }
             if (empty($thong_so)) {
-                $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
+                $errors['thong_so'] = 'Thông số sản phẩm không được để trống';
             }
             if (empty($ngay_nhap)) {
                 $errors['ngay_nhap'] = 'Ngày nhập sản phẩm không được để trống';
@@ -237,7 +237,7 @@ class SanPhamController
                 $errors['so_luong_ton_kho'] = 'Số lượng sản phẩm không được để trống';
             }
             if (empty($thong_so)) {
-                $errors['thong_so'] = 'Số lượng sản phẩm không được để trống';
+                $errors['thong_so'] = 'Thông số sản phẩm không được để trống';
             }
             if (empty($ngay_nhap)) {
                 $errors['ngay_nhap'] = 'Ngày nhập sản phẩm không được để trống';

@@ -1,86 +1,98 @@
 <?php
 class ListSanPham {
     public $conn;
-    private $items_per_page = 16;
- 
+    private $items_per_page = 8; // Số lượng sản phẩm mỗi trang
+
     public function __construct() {
-        $this->conn = connectDB();
+        $this->conn = connectDB(); // Giả sử bạn đã định nghĩa hàm connectDB() để kết nối cơ sở dữ liệu
     }
 
     public function getProductsByCategory($categoryId = null, $page = 1, $priceRange = null, $sortOrder = null) {
         try {
-            // Calculate offset for pagination
-            $offset = ($page - 1) * $this->items_per_page;
+            // Kiểm tra nếu là "Tất cả" (categoryId là null), sẽ hiển thị 8 sản phẩm trên mỗi trang, ngược lại 4 sản phẩm trên mỗi trang
+            $items_per_page = ($categoryId === null) ? 8 : 4;
+            $offset = ($page - 1) * $items_per_page;
             
-            // Base SQL query with prepared statements
-            $sql = "SELECT sp.*, dm.ten_danh_muc 
+            // Câu truy vấn SQL cơ bản
+            $sql = 'SELECT sp.*, dm.ten_danh_muc 
                     FROM san_phams sp 
                     INNER JOIN danh_mucs dm ON sp.danh_muc_id = dm.id 
-                    WHERE sp.trang_thai = 1";
+                    WHERE sp.trang_thai = 1';
             
             $params = [];
             
-            // Add category filter if categoryId is provided and valid
+            // Thêm bộ lọc danh mục nếu có categoryId hợp lệ
             if ($categoryId !== null && $categoryId > 0) {
                 $sql .= " AND sp.danh_muc_id = :category_id";
                 $params[':category_id'] = $categoryId;
             }
-
-            // Add price range filter
+    
+            // Thêm bộ lọc giá
             if ($priceRange) {
-                switch($priceRange) {
-                    case 'under-1m':
-                        $sql .= " AND sp.gia_ban <= 1000000";
+                $this->applyPriceRange($priceRange, $sql, $params);
+            }
+    
+            // Thêm bộ lọc sắp xếp nếu có
+            if ($sortOrder) {
+                switch ($sortOrder) {
+                    case 'price-asc':
+                        $sql .= " ORDER BY sp.gia_ban ASC";
                         break;
-                    case '1m-5m':
-                        $sql .= " AND sp.gia_ban > 1000000 AND sp.gia_ban <= 5000000";
+                    case 'price-desc':
+                        $sql .= " ORDER BY sp.gia_ban DESC";
                         break;
-                    case '5m-10m':
-                        $sql .= " AND sp.gia_ban > 5000000 AND sp.gia_ban <= 10000000";
+                    case 'newest':
+                        $sql .= " ORDER BY sp.ngay_nhap DESC";
                         break;
-                    case 'over-10m':
-                        $sql .= " AND sp.gia_ban > 10000000";
+                    default:
+                        // Giữ sắp xếp mặc định
+                        $sql .= " ORDER BY sp.ngay_nhap DESC, sp.id DESC";
                         break;
                 }
-            }
-
-            // Add sorting
-            if ($sortOrder) {
-                $sql .= match($sortOrder) {
-                    'price-asc' => " ORDER BY sp.gia_ban ASC",
-                    'price-desc' => " ORDER BY sp.gia_ban DESC",
-                    'newest' => " ORDER BY sp.ngay_nhap DESC",
-                    default => " ORDER BY sp.ngay_nhap DESC"
-                };
             } else {
-                $sql .= " ORDER BY sp.ngay_nhap DESC";
+                // Giữ sắp xếp mặc định khi không có sắp xếp cụ thể
+                $sql .= " ORDER BY sp.ngay_nhap DESC, sp.id DESC";
             }
-
-            // Add pagination
+    
+            // Thêm phần giới hạn và offset cho phân trang
             $sql .= " LIMIT :limit OFFSET :offset";
-            $params[':limit'] = $this->items_per_page;
+            $params[':limit'] = $items_per_page;
             $params[':offset'] = $offset;
-            
-            // Prepare and execute statement
+    
+            // Thực thi câu truy vấn với các tham số đã chuẩn bị
             $stmt = $this->conn->prepare($sql);
-            foreach ($params as $key => $value) {
-                $stmt->bindValue($key, $value, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $items_per_page, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            if (isset($params[':category_id'])) {
+                $stmt->bindValue(':category_id', $params[':category_id'], PDO::PARAM_INT);
             }
             $stmt->execute();
-            
-            $products = $stmt->fetchAll();
-            
-            // Debug logging
-            if (defined('DEBUG')) {
-                error_log("SQL Query: " . $sql);
-                error_log("Parameters: " . print_r($params, true));
-                error_log("Results found: " . count($products));
-            }
-            
+    
+            // Lấy kết quả sản phẩm
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
             return $products;
-        } catch (PDOException $e) {
-            error_log("Error fetching products: " . $e->getMessage());
-            return [];
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu có
+            throw new Exception("Error in fetching products: " . $e->getMessage());
+        }
+    }
+    
+
+    private function applyPriceRange($priceRange, &$sql, &$params) {
+        switch($priceRange) {
+            case 'under-1m':
+                $sql .= " AND sp.gia_ban <= 1000000";
+                break;
+            case '1m-5m':
+                $sql .= " AND sp.gia_ban > 1000000 AND sp.gia_ban <= 5000000";
+                break;
+            case '5m-10m':
+                $sql .= " AND sp.gia_ban > 5000000 AND sp.gia_ban <= 10000000";
+                break;
+            case 'over-10m':
+                $sql .= " AND sp.gia_ban > 10000000";
+                break;
         }
     }
 
@@ -93,28 +105,16 @@ class ListSanPham {
                 $sql .= " AND sp.danh_muc_id = :category_id";
                 $params[':category_id'] = $categoryId;
             }
-
+    
             // Add price range filter
             if ($priceRange) {
-                switch($priceRange) {
-                    case '0-5m':
-                        $sql .= " AND sp.gia_ban <= 5000000";
-                        break;
-                    case '5m-10m':
-                        $sql .= " AND sp.gia_ban > 5000000 AND sp.gia_ban <= 10000000";
-                        break;
-                    case '10m-20m':
-                        $sql .= " AND sp.gia_ban > 10000000 AND sp.gia_ban <= 20000000";
-                        break;
-                    case '20m+':
-                        $sql .= " AND sp.gia_ban > 20000000";
-                        break;
-                }
+                $this->applyPriceRange($priceRange, $sql, $params);
             }
-
+    
+            // Thực thi câu truy vấn với các tham số
             $stmt = $this->conn->prepare($sql);
-            if ($categoryId !== null && $categoryId > 0) {
-                $stmt->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+            if (isset($params[':category_id'])) {
+                $stmt->bindValue(':category_id', $params[':category_id'], PDO::PARAM_INT);
             }
             $stmt->execute();
             $result = $stmt->fetch();
@@ -124,6 +124,7 @@ class ListSanPham {
             return 0;
         }
     }
+    
 
     public function getCategories() {
         try {

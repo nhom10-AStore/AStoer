@@ -51,15 +51,30 @@ class DonHangQL
    public function cancelOrder($don_hang_id)
    {
        try {
-           // Lấy thông tin chi tiết đơn hàng
-           $sql = "SELECT chi_tiet_don_hangs.san_pham_id, chi_tiet_don_hangs.so_luong 
-                   FROM chi_tiet_don_hangs
-                   WHERE chi_tiet_don_hangs.don_hang_id = :don_hang_id";
+           // Lấy trạng thái hiện tại của đơn hàng từ CSDL
+           $sql = "SELECT don_hangs.trang_thai_id, trang_thai_don_hang.ten_trang_thai
+                   FROM don_hangs 
+                   INNER JOIN trang_thai_don_hang ON don_hangs.trang_thai_id = trang_thai_don_hang.id
+                   WHERE don_hangs.id = :don_hang_id";
            $stmt = $this->conn->prepare($sql);
            $stmt->execute([':don_hang_id' => $don_hang_id]);
-           $orderDetails = $stmt->fetchAll();
-
-           // Cập nhật lại số lượng tồn kho cho các sản phẩm
+           $order = $stmt->fetch(PDO::FETCH_ASSOC);
+   
+           // Kiểm tra trạng thái của đơn hàng
+           if ($order['ten_trang_thai'] !== 'Chờ xác nhận') {
+               // Nếu trạng thái không phải "Chờ xác nhận", không cho phép hủy
+               return false; // Trả về false để người dùng biết rằng không thể hủy đơn hàng
+           }
+   
+           // Lấy thông tin chi tiết đơn hàng
+           $sqlDetails = "SELECT chi_tiet_don_hangs.san_pham_id, chi_tiet_don_hangs.so_luong 
+                          FROM chi_tiet_don_hangs 
+                          WHERE chi_tiet_don_hangs.don_hang_id = :don_hang_id";
+           $stmtDetails = $this->conn->prepare($sqlDetails);
+           $stmtDetails->execute([':don_hang_id' => $don_hang_id]);
+           $orderDetails = $stmtDetails->fetchAll();
+   
+           // Cập nhật lại số lượng tồn kho cho các sản phẩm trong đơn hàng
            foreach ($orderDetails as $detail) {
                $sqlUpdate = "UPDATE san_phams 
                              SET so_luong_ton_kho = so_luong_ton_kho + :so_luong
@@ -70,20 +85,21 @@ class DonHangQL
                    ':so_luong' => $detail['so_luong']
                ]);
            }
-
+   
            // Cập nhật trạng thái đơn hàng thành "Đã hủy"
            $sqlStatusUpdate = "UPDATE don_hangs 
                                SET trang_thai_id = (SELECT id FROM trang_thai_don_hang WHERE ten_trang_thai = 'Đã hủy') 
                                WHERE id = :don_hang_id";
            $stmtStatusUpdate = $this->conn->prepare($sqlStatusUpdate);
            $stmtStatusUpdate->execute([':don_hang_id' => $don_hang_id]);
-
+   
            return true;
        } catch (Exception $e) {
            echo 'Lỗi: ' . $e->getMessage();
            return false;
        }
    }
+   
     // Cập nhật trạng thái đơn hàng khi hủy và cộng lại số lượng tồn kho
     public function truSoLuong($don_hang_id)
     {
@@ -238,7 +254,13 @@ public function xacNhanThanhToan($don_hang_id)
 }
 
 
-    
+    // Phương thức cập nhật trạng thái thanh toán của đơn hàng
+public function capNhatThanhToan($idDonHang, $trangThaiThanhToan) {
+    $sql = "UPDATE don_hangs SET trang_thai_thanh_toan = ? WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$trangThaiThanhToan, $idDonHang]);
+}
+
 
 
 }

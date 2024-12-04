@@ -9,6 +9,17 @@ class SanPham
     {
         $this->conn = connectDB(); // Kết nối đến CSDL thông qua hàm connectDB()
     }
+    public function getSanPhamMoiNhat($limit = 8)
+    {
+        $sql = "SELECT * FROM san_phams ORDER BY ngay_nhap DESC, san_phams.id DESC LIMIT :limit";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
     // Lấy tất cả sản phẩm cùng danh mục
     public function getAllSanPham()
@@ -23,15 +34,29 @@ class SanPham
             echo 'Lỗi: ' . $e->getMessage();
         }
     }
+    public function tangluotxem($id)
+    {
+        try {
+            $sql = "UPDATE san_phams SET luot_xem = luot_xem + 1 WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+        } catch (PDOException $e) {
+            error_log("Lỗi tăng lượt xem: " . $e->getMessage());
+        }
+    }
+    
+    
 
     // Lấy chi tiết sản phẩm
     public function getDetailSanPham($id)
     {
         try {
-            $sql = 'SELECT san_phams.*, danh_mucs.ten_danh_muc 
-                    FROM san_phams
-                    INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
-                    WHERE san_phams.id = :id';
+          // Lấy thông tin sản phẩm
+        $sql =
+            'SELECT san_phams.*, danh_mucs.ten_danh_muc 
+        FROM san_phams
+        INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
+        WHERE san_phams.id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([':id' => $id]);
             return $stmt->fetch();
@@ -152,80 +177,89 @@ public function addComment($nguoi_dung_id, $san_pham_id, $noi_dung)
         }
     }
     public function searchSanPham($keyword, $page = 1, $limit = 8, $priceFilter = '', $sortBy = '')
-    {
-        try {
-            $conn = connectDB();
+{
+    try {
+        $conn = connectDB();
 
-            // Tính offset
-            $offset = ($page - 1) * $limit;
+        // Tính offset
+        $offset = ($page - 1) * $limit;
 
-            // Base query for counting and selecting products
-            $baseQuery = "FROM san_phams 
-                          LEFT JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
-                          WHERE san_phams.ten_san_pham LIKE :keyword 
-                          AND san_phams.trang_thai = 1";
+        // Base query for products and count
+        $baseQuery = "
+            FROM san_phams
+            LEFT JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
+            WHERE san_phams.ten_san_pham LIKE :keyword
+            AND san_phams.trang_thai = 1
+        ";
 
-            // Price filter conditions
-            switch ($priceFilter) {
-                case 'under-1m':
-                    $baseQuery .= " AND (COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) < 1000000)";
-                    break;
-                case '1m-5m':
-                    $baseQuery .= " AND (COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) BETWEEN 1000000 AND 5000000)";
-                    break;
-                case '5m-10m':
-                    $baseQuery .= " AND (COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) BETWEEN 5000000 AND 10000000)";
-                    break;
-                case 'over-10m':
-                    $baseQuery .= " AND (COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) > 10000000)";
-                    break;
-            }
-
-            // Sorting logic
-            $orderClause = " ORDER BY ";
-            switch ($sortBy) {
-                case 'price-asc':
-                    $orderClause .= "COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) ASC";
-                    break;
-                case 'price-desc':
-                    $orderClause .= "COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) DESC";
-                    break;
-                default:
-                    $orderClause .= "san_phams.ngay_nhap DESC";
-            }
-
-            // Count total products
-            $countSql = "SELECT COUNT(*) " . $baseQuery;
-            $countStmt = $conn->prepare($countSql);
-            $countStmt->execute(['keyword' => "%$keyword%"]);
-            $totalProducts = $countStmt->fetchColumn();
-
-            // Select products with pagination
-            $sql = "SELECT san_phams.*, danh_mucs.ten_danh_muc " .
-                $baseQuery .
-                $orderClause .
-                " LIMIT :limit OFFSET :offset";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':keyword', "%$keyword%", PDO::PARAM_STR);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return [
-                'products' => $stmt->fetchAll(PDO::FETCH_ASSOC),
-                'total' => $totalProducts,
-                'totalPages' => ceil($totalProducts / $limit)
-            ];
-        } catch (PDOException $e) {
-            error_log("Search error: " . $e->getMessage());
-            return [
-                'products' => [],
-                'total' => 0,
-                'totalPages' => 0
-            ];
+        // Price filter conditions
+        $priceConditions = "";
+        switch ($priceFilter) {
+            case 'under-1m':
+                $priceConditions = " AND COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) < 1000000";
+                break;
+            case '1m-5m':
+                $priceConditions = " AND COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) BETWEEN 1000000 AND 5000000";
+                break;
+            case '5m-10m':
+                $priceConditions = " AND COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) BETWEEN 5000000 AND 10000000";
+                break;
+            case 'over-10m':
+                $priceConditions = " AND COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) > 10000000";
+                break;
         }
+
+        // Append price conditions to the base query
+        $baseQuery .= $priceConditions;
+
+        // Sorting logic
+        $orderClause = " ORDER BY ";
+        switch ($sortBy) {
+            case 'price-asc':
+                $orderClause .= "COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) ASC";
+                break;
+            case 'price-desc':
+                $orderClause .= "COALESCE(san_phams.gia_khuyen_mai, san_phams.gia_ban) DESC";
+                break;
+            default:
+                $orderClause .= "san_phams.ngay_nhap DESC"; // Default sort by newest
+        }
+
+        // Query to count total products
+        $countSql = "SELECT COUNT(*) " . $baseQuery;
+        $countStmt = $conn->prepare($countSql);
+        $countStmt->bindValue(':keyword', "%$keyword%", PDO::PARAM_STR);
+        $countStmt->execute();
+        $totalProducts = $countStmt->fetchColumn();
+
+        // Query to fetch products with pagination
+        $productSql = "
+            SELECT san_phams.*, danh_mucs.ten_danh_muc
+            " . $baseQuery . $orderClause . "
+            LIMIT :limit OFFSET :offset
+        ";
+        $productStmt = $conn->prepare($productSql);
+        $productStmt->bindValue(':keyword', "%$keyword%", PDO::PARAM_STR);
+        $productStmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $productStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $productStmt->execute();
+        $products = $productStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return [
+            'products' => $products,
+            'total' => $totalProducts,
+            'totalPages' => ceil($totalProducts / $limit)
+        ];
+    } catch (PDOException $e) {
+        error_log("Search error: " . $e->getMessage());
+        return [
+            'products' => [],
+            'total' => 0,
+            'totalPages' => 0
+        ];
     }
+}
+
     public function reduceStock($san_pham_id, $so_luong)
     {
         try {

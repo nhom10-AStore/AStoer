@@ -30,3 +30,4 @@
 <link rel="stylesheet" href="./assets/dist/css/adminlte.min.css">
 <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/main.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">

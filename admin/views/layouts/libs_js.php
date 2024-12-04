@@ -46,3 +46,6 @@
 <!-- App js -->
 <script src="assets/js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+

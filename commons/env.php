@@ -8,7 +8,7 @@ define('BASE_URL_ADMIN'       , 'http://localhost/base_du_an_1/admin/');
 
 define('DB_HOST'    , 'localhost');
 define('DB_PORT'    , 3306);
-define('DB_NAME'    , 'duan1');  // Tên database
+define('DB_NAME'    , 'duan_1');  // Tên database
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 

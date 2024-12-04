@@ -86,7 +86,7 @@
                                     <div class="col-12 product-image-thumbs" style="padding: 30px 50px; ">
                                         <!-- Large Image Display -->
                                         <div class="product-image-large mb-2">
-                                            <img style=" padding: 10px; border:1px solid orangered;" id="largeImage" width="400px" height="400px" src="<?= BASE_URL . $listAnhSanPham[0]['link_hinh_anh'] ?>" alt="Large Product Image">
+                                            <img style=" padding: 10px; border:1px solid orangered;" id="largeImage" width="400px" height="400px" src="<?= BASE_URL . $SanPham['anh_san_pham'] ?>" alt="Large Product Image">
                                         </div>
                                         <!-- Thumbnails -->
                                         <div class="d-flex flex-wrap" id="image-container">
@@ -108,8 +108,8 @@
                                 <div class="col-12 col-sm-6" style="padding: 30px 50px;">
                                     <h2 class="my-3" style="color: black;">Tên sản phẩm: <?= $SanPham['ten_san_pham'] ?></h2>
                                     <hr>
-                                    <h5 class="mt-3">Giá tiền: <small><?= $SanPham['gia_nhap'] ?><u>đ</u></small></h5>
-                                    <h5 class="mt-3">Giá khuyến mãi: <small><?= $SanPham['gia_khuyen_mai'] ?><u>đ</u></small></h5>
+                                    <h5 class="mt-4">Giá Nhập: <del style="color: red; font-size: 19px;"><small><?= number_format( $SanPham['gia_nhap']) ?><u> VNĐ</u></small></del></h5>
+                                    <h5 class="mt-3">Giá Bán: <small  style="font-size: 25px;"><?= number_format( $SanPham['gia_ban']) ?><u> VNĐ</u></small></h5>
                                     <h5 class="mt-3">Số lượng: <small><?= $SanPham['so_luong'] ?></small></h5>
                                     <h5 class="mt-3">Số lượng ton kho: <small><?= $SanPham['so_luong_ton_kho'] ?></small></h5>
                                     <h5 class="mt-3">Lượt xem: <small><?= $SanPham['luot_xem'] ?></small></h5>

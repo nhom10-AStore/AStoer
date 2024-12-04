@@ -139,17 +139,7 @@
                                                     </div>
                                                     <!--end col-->
 
-                                                    <div class="col-md-12">
-                                                        <div class="mb-3">
-                                                            <label for="emailidInput" class="form-label">Giá khuyến mãi</label>
-                                                            <input type="number" class="form-control" name="gia_khuyen_mai">
-                                                            <span class="text-danger">
-                                                                <?= !empty($_SESSION['errors']['gia_khuyen_mai']) ? $_SESSION['errors']['gia_khuyen_mai'] : '' ?>
-
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <!--end col-->
+                                                   
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
@@ -165,15 +155,15 @@
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <label for="emailidInput" class="form-label">Thông số</label>
-                                                            <input type="text" class="form-control" name="thong_so">
+                                                            <label for="#" class="form-label">Thông số</label>
+                                                            <textarea type="text" id="#" class="form-control" name="thong_so"></textarea>
                                                             <span class="text-danger">
                                                                 <?= !empty($_SESSION['errors']['thong_so']) ? $_SESSION['errors']['thong_so'] : '' ?>
 
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <!--end col-->
+                                                    <!-- end col -->
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
@@ -188,7 +178,7 @@
                                                     <!--end col-->
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <label for="emailidInput" class="form-label">Số lượng ton kho</label>
+                                                            <label for="emailidInput" class="form-label">Số lượng tồn kho</label>
                                                             <input type="number" class="form-control" name="so_luong_ton_kho">
                                                             <span class="text-danger">
                                                                 <?= !empty($_SESSION['errors']['so_luong_ton_kho']) ? $_SESSION['errors']['so_luong_ton_kho'] : '' ?>
@@ -215,8 +205,8 @@
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <label for="emailidInput" class="form-label">Mô tả chi tiết</label>
-                                                            <input type="text" class="form-control" name="mo_ta_chi_tiet">
+                                                            <label for="editor" class="form-label">Mô tả chi tiết</label>
+                                                            <textarea type="text" id="editor" class="form-control" name="mo_ta_chi_tiet"></textarea>
 
                                                         </div>
                                                     </div>
@@ -338,3 +328,25 @@
 </body>
 
 </html>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+<script>
+    var quill = new Quill('#addtor', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['bold', 'italic', 'underline'],
+                [{ 'align': [] }],
+                ['link', 'image']
+            ]
+        }
+    });
+</script>
+

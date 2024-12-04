@@ -13,7 +13,8 @@ class BinhLuan
         try {
             $sql = 'SELECT binh_luans.*, tai_khoans.ho_ten FROM binh_luans 
                 INNER JOIN tai_khoans ON binh_luans.nguoi_dung_id = tai_khoans.id 
-                WHERE san_pham_id = :san_pham_id';
+                WHERE san_pham_id = :san_pham_id
+                 ORDER BY ngay_dang DESC, binh_luans.id DESC';
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':san_pham_id', $san_pham_id, PDO::PARAM_INT);
             $stmt->execute();

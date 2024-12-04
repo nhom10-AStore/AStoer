@@ -187,7 +187,7 @@
                                         <td><?= $sp['ten_san_pham'] ?></td>
                                         <td><?= number_format($sp['gia_ban'], 0, ',', '.') ?> đ</td>
                                         <td><?= $sp['so_luong'] ?></td>
-                                        <td><?= $sp['gia_tri'] ?>%</td>
+                                        <td><?= isset($sp['gia_tri']) ? $sp['gia_tri'] . '%' : '0%' ?></td>
                                         <td><?= number_format($thanh_tien, 0, ',', '.') ?> đ</td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -224,3 +224,4 @@
 </body>
 
 </html>
+

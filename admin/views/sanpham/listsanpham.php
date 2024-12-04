@@ -87,7 +87,6 @@
                                                             <th scope="col">Tên sản phẩm </th>
                                                             <th scope="col">Ảnh sản phẩm</th>
                                                             <th scope="col">Giá tiền</th>
-                                                            <th scope="col">Giá khuyến mãi</th>
                                                             <th scope="col">Ngày nhập</th>
                                                             <th scope="col">Số lượng</th>
                                                             <th scope="col">Số lượng tồn kho</th>
@@ -110,12 +109,10 @@
                                                                         onerror="this.onerror=null; this.src='https:img.pikbest.com/wp/202345/cat-dog-pet-and-pets-in-real-pictures-wallpapers_9596134.jpg!w700wp'">
                                                                 </td>
                                                                 <td><?= $sanPham['gia_ban'] ?></td>
-                                                                <td><?= $sanPham['gia_khuyen_mai'] ?></td>
                                                                 <td><?= $sanPham['ngay_nhap'] ?></td>
                                                                 <td><?= $sanPham['so_luong'] ?></td>
                                                                 <td><?= $sanPham['so_luong_ton_kho'] ?></td>
-                                                                <td><?= $sanPham['thong_so'] ?></td>
-
+                                                                <td><?= (strlen($sanPham['thong_so']) > 50) ? substr($sanPham['thong_so'], 0, 50) . "..." : $sanPham['thong_so']; ?> </td>
                                                                 <td><?= (strlen($sanPham['mo_ta']) > 50) ? substr($sanPham['mo_ta'], 0, 50) . "..." : $sanPham['mo_ta']; ?> </td>
                                                                 <td><?= $sanPham['ten_danh_muc'] ?></td>
 

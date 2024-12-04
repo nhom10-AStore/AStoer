@@ -162,76 +162,83 @@ require_once "layout/libs_css.php";
     require_once "layout/header.php";
     ?>
 
-    <div class="container py-5">
-        <h2 class="text-center text-danger mb-5">Danh Sách Quản Lý Đơn Hàng</h2>
+    <main style="min-height: 500px;">
+        <div class="container py-5">
+            <h2 class="text-center text-danger mb-5">Danh Sách Quản Lý Đơn Hàng</h2>
 
-        <!-- Search Form -->
-        <div class="custom-search-form">
-            <input
-                type="text"
-                id="search-input"
-                placeholder="Tìm kiếm mã đơn hàng hoặc tên đơn hàng..."
-                class="search-input">
-            <button id="search-button" class="search-button">🔍</button>
-        </div>
+            <!-- Search Form -->
+            <div class="custom-search-form">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Tìm kiếm mã đơn hàng hoặc tên đơn hàng..."
+                    class="search-input">
+                <button id="search-button" class="search-button">🔍</button>
+            </div>
 
-        <!-- Orders Table -->
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover text-center align-middle">
-                <thead class="bg-primary text-white">
-                    <tr class="text-uppercase">
-                        <th scope="col">STT</th>
-                        <th scope="col">Mã Đơn Hàng</th>
-                        <th scope="col">Thanh toán</th>
-                        <th scope="col">Ngày đặt</th>
-                        <th scope="col">Trạng Thái Thanh Toán</th>
-                        <th scope="col">Trạng Thái Đơn Hàng</th>
-                        <th scope="col">Hành Động</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-table-body">
-                    <?php foreach ($quanliDonhang as $key => $donHang): ?>
-                        <tr>
-                            <td><?= $key + 1 ?></td>
-                            <td><?= htmlspecialchars($donHang['ma_don_hang']) ?></td>
-                            <td><?= htmlspecialchars(number_format($donHang['thanh_toan'], 0, ',', ',')) ?> đ</td>
-                            <td><?= $donHang['ngay_dat'] < date('Y-m-d') ? date('Y-m-d') : $donHang['ngay_dat'] ?></td>
-                            <td>
-                                <span class="badge <?= $donHang['trang_thai_thanh_toan'] == 1 ? 'bg-success' : 'bg-danger' ?>">
-                                    <?= $donHang['trang_thai_thanh_toan'] == 1 ? 'Đã Thanh Toán' : 'Chưa Thanh Toán' ?>
-                                </span>
-                            </td>
-                            <td><?= htmlspecialchars($donHang['ten_trang_thai']) ?></td>
-                            <td>
-                                <a href="?act=chi-tiet-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-warning btn-sm">Xem Chi Tiết</a>
-
-                                <?php if ($donHang['ten_trang_thai'] === 'Chờ xác nhận'): ?>
-                                    <a href="?act=huy-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-danger btn-sm">Hủy</a>
-                                <?php elseif ($donHang['ten_trang_thai'] === 'Đã hủy'): ?>
-                                    <a href="?act=mua-lai&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-success btn-sm">Mua Lại</a>
-                                <?php endif; ?>
-
-                                <!-- Hiển thị nút "Xác nhận đơn hàng" nếu thanh toán chưa hoàn thành (trạng thái thanh toán = 0) -->
-                                <?php if ($donHang['trang_thai_thanh_toan'] == 2): ?>
-                                    <a href="?act=xac-nhan-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-info btn-sm">Xác nhận đơn hàng</a>
-                                <?php endif; ?>
-                            </td>
+            <!-- Orders Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="bg-primary text-white">
+                        <tr class="text-uppercase">
+                            <th scope="col">STT</th>
+                            <th scope="col">Mã Đơn Hàng</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Ngày đặt</th>
+                            <th scope="col">Trạng Thái Thanh Toán</th>
+                            <th scope="col">Trạng Thái Đơn Hàng</th>
+                            <th scope="col">Hành Động</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <?php foreach ($quanliDonhang as $key => $donHang): ?>
+                            <tr>
+                                <td><?= $key + 1 ?></td>
+                                <td><?= htmlspecialchars($donHang['ma_don_hang']) ?></td>
+                                <td><?= number_format(htmlspecialchars($donHang['thanh_toan']), 0, ',', '.') . ' ₫' ?></td>
+                                <td><?= $donHang['ngay_dat'] < date('Y-m-d') ? date('Y-m-d') : $donHang['ngay_dat'] ?></td>
+                                <td>
+                                    <span class="badge <?= $donHang['trang_thai_thanh_toan'] == 1 ? 'bg-success' : 'bg-danger' ?>">
+                                        <?= $donHang['trang_thai_thanh_toan'] == 1 ? 'Đã Thanh Toán' : 'Chưa Thanh Toán' ?>
+                                    </span>
+                                </td>
+                                <td><?= htmlspecialchars($donHang['ten_trang_thai']) ?></td>
+                                <td>
+                                    <a href="?act=chi-tiet-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-warning btn-sm">Xem Chi Tiết</a>
+
+                                    <?php if ($donHang['ten_trang_thai'] === 'Chờ xác nhận'): ?>
+                                        <a href="?act=huy-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-danger btn-sm">Hủy</a>
+
+                                        <!-- Nút "Mua Lại" -->
+                                    <?php elseif ($donHang['ten_trang_thai'] === 'Đã hủy' || $donHang['ten_trang_thai'] === 'Đã hoàn thành'): ?>
+                                        <a href="?act=mua-lai&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-success btn-sm">Mua Lại</a>
+                                    <?php endif; ?>
+
+
+                                    <!-- Hiển thị nút "Xác nhận đơn hàng" nếu thanh toán chưa hoàn thành (trạng thái thanh toán = 0) -->
+                                    <?php if ($donHang['trang_thai_thanh_toan'] == 2): ?>
+                                        <a href="?act=xac-nhan-don-hang&id_don_hang=<?= $donHang['id'] ?>" class="btn btn-info btn-sm">Xác nhận đơn hàng</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
 
 
 
 
 
-            </table>
-            <div class="pagination-container text-center mt-4">
-                <button id="prev-btn" class="btn btn-info">Trước</button>
-                <span id="page-info"></span>
-                <button id="next-btn" class="btn btn-info">Tiếp</button>
+
+
+                </table>
+                <div class="pagination-container text-center mt-4">
+                    <button id="prev-btn" class="btn btn-info">Trước</button>
+                    <span id="page-info"></span>
+                    <button id="next-btn" class="btn btn-info">Tiếp</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- JAVASCRIPT -->
     <?php

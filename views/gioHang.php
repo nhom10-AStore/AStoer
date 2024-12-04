@@ -101,11 +101,13 @@
                     <a href="#" class="btn btn-primary w-30" id="updateQuantityBtn">
                         Cập nhật số lượng
                     </a>
+                  
                     <?php
                     if (isset($_SESSION['success_message'])) {
                         echo '<div class="alert alert-success w-30">' . $_SESSION['success_message'] . '</div>';
                         unset($_SESSION['success_message']);
                     }
+                  
                     if (isset($_SESSION['error_message'])) {
                         echo '<div class="alert alert-danger w-30">' . $_SESSION['error_message'] . '</div>';
                         unset($_SESSION['error_message']);
@@ -179,7 +181,7 @@
                 handleQuantityChange: (row, change) => {
                     const input = row.querySelector('.quantity-input');
                     let value = parseInt(input.value) + change;
-                    value = Math.max(1, Math.min(100, value));
+                    value = Math.max(1, Math.min(10000, value));
                     input.value = value;
                     cart.updateItemTotal(row);
                 },
@@ -227,9 +229,7 @@
                         })
                         .then(response => {
                             if (response.ok) {
-                                // If update is successful, proceed to checkout page 
-                                // (you would replace this with your actual checkout route)
-                                // link chuyển trang
+                              
                                 window.location.href = '<?= BASE_URL ?>';
                             } else {
                                 throw new Error('Cập nhật giỏ hàng không thành công');
@@ -252,7 +252,7 @@
                             cart.handleQuantityChange(row, 1));
 
                         quantityInput.addEventListener('change', () => {
-                            quantityInput.value = Math.max(1, Math.min(100, parseInt(quantityInput.value) || 1));
+                            quantityInput.value = Math.max(1, Math.min(10000, parseInt(quantityInput.value) || 1));
                             cart.updateItemTotal(row);
                         });
                     });

@@ -49,6 +49,25 @@
 		width: 100%;
 		height: auto;
 	}
+
+	/* Mặc định màu chữ giá nhập là đen */
+	.price-old {
+		color: black;
+	}
+
+	/* Khi trang ở chế độ dark mode, màu chữ giá nhập sẽ là trắng */
+	@media (prefers-color-scheme: dark) {
+		.price-old {
+			color: white;
+		}
+	}
+
+	/* Khi trang ở chế độ light mode, màu chữ giá nhập sẽ là đen */
+	@media (prefers-color-scheme: light) {
+		.price-old {
+			color: black;
+		}
+	}
 </style>
 
 <body>
@@ -88,9 +107,6 @@
 										<img src="#" data-src="<?= BASE_URL . $anhSanPham['link_hinh_anh'] ?>" width="540" height="720" title="" class="main-image lazy-image" alt="">
 									</a>
 								<?php endforeach ?>
-								<!-- <a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="product-gallery" data-thumb-src="../assets/images/shop/product-gallery-07.jpg">
-	<img src="#" data-src="../assets/images/shop/product-gallery-07.jpg" width="540" height="720" title="" class="h-auto lazy-image" alt="">
-</a> -->
 								<div class="position-relative">
 									<img src="#" data-src="#" width="540" height="720" title="" class="h-auto lazy-image" alt="">
 
@@ -100,37 +116,56 @@
 					</div>
 				</div>
 				<div class="col-md-6 pt-md-0 pt-10">
-					<p class="d-flex align-items-center mb-6">
-						<span class="fs-18px text-body-emphasis ps-1 fw-bold"><?= number_format($sanPham['gia_ban']) ?> VNĐ</span>
-						<span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3"><?= number_format($sanPham['gia_khuyen_mai']) ?>%</span>
+				<p class="d-flex align-items-center mb-6">
+						<span class="fs-13px text-body-emphasis ps-1 fw-bold"><del><?= number_format($sanPham['gia_nhap']) ?> VNĐ</del></span>
+						<span class="fs-20px text-bodys ps-5 fw-bold" style="color: red;"><?= number_format($sanPham['gia_ban']) ?> VNĐ</span>
 					</p>
+
+
 					<h1 class="mb-4 pb-2 fs-4"><?= $sanPham['ten_san_pham'] ?></h1>
 
 					<p class="fs-15px"><?= $sanPham['mo_ta'] ?></p>
+					<!-- Hiển thị thông báo lỗi hoặc thành công -->
+					<?php if (isset($_SESSION['error'])): ?>
+						<div class="alert alert-danger">
+							<?= $_SESSION['error'] ?>
+						</div>
+						<?php unset($_SESSION['error']); ?>
+					<?php endif; ?>
+
+					<?php if (isset($_SESSION['success'])): ?>
+						<div class="alert alert-success">
+							<?= $_SESSION['success'] ?>
+						</div>
+						<?php unset($_SESSION['success']); ?>
+					<?php endif; ?>
 
 					<!-- Kiểm tra số lượng tồn kho -->
 					<?php if ($sanPham['so_luong_ton_kho'] > 0): ?>
-						<!-- <form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
-							<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
-							<input type="hidden" name="so_luong" value="1">
-							<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng</button>
-						</form> -->
-						<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
-							<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
-							<input type="hidden" name="so_luong" value="1"> <!-- Thay đổi số lượng nếu cần -->
-							<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng</button>
-						</form>
-
+						<?php if (isset($_SESSION['gio_hang'][$sanPham['id']]) && $_SESSION['gio_hang'][$sanPham['id']] >= $sanPham['so_luong_ton_kho']): ?>
+							<!-- Thông báo vượt quá tồn kho -->
+							<p class="text-danger fw-bold">Đã quá số lượng tồn kho!</p>
+						<?php else: ?>
+							<!-- Hiển thị nút thêm vào giỏ hàng -->
+							<form action="<?= BASE_URL . '?act=them-gio-hang' ?>" method="post">
+								<input type="hidden" name="id_san_pham" value="<?= $sanPham['id'] ?>">
+								<input type="hidden" name="so_luong" value="1">
+								<button type="submit" class="btn btn-lg btn-dark mb-7 mt-7 w-100 btn-hover-bg-primary btn-hover-border-primary">Thêm vào giỏ hàng</button>
+							</form>
+						<?php endif; ?>
 					<?php else: ?>
 						<!-- Thông báo hết hàng -->
 						<p class="text-danger fw-bold">Sản phẩm đã hết hàng!</p>
 					<?php endif; ?>
+
+
 
 					<ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
 						<li class="d-flex mb-4 pb-2 align-items-center">
 							<span class="text-body-emphasis fw-semibold fs-14px">Số lượng tồn kho:</span>
 							<span class="ps-4"><?= $sanPham['so_luong_ton_kho'] ?></span>
 						</li>
+						<!-- Hiển thị giao diện -->
 						<li class="d-flex mb-4 pb-2 align-items-center">
 							<span class="text-body-emphasis fw-semibold fs-14px">Lượt xem:</span>
 							<span class="ps-4"><?= $sanPham['luot_xem'] ?></span>
@@ -139,7 +174,7 @@
 							<span class="text-body-emphasis fw-semibold fs-14px">Danh mục:</span>
 							<span class="ps-4"><?= $sanPham['ten_danh_muc'] ?></span>
 						</li>
-						<li class="d-flex mb-4 pb-2 align-items-center">
+						<!-- <li class="d-flex mb-4 pb-2 align-items-center">
 							<span class="text-body-emphasis fw-semibold fs-14px">Chia sẻ:</span>
 							<ul class="list-inline d-flex align-items-center mb-0 col-8 col-lg-10 ps-4">
 								<li class="list-inline-item me-7">
@@ -163,7 +198,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -381,31 +416,13 @@
 									<img src="<?= BASE_URL . $sanPham['anh_san_pham'] ?>" class="img-fluid lazy-image w-100" alt="Shield Conditioner" width="330" height="440">
 								</a>
 
-								<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary"><?= $sanPham['gia_khuyen_mai'] ?>%</span></div>
+								<div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-danger"><?= number_format($sanPham['gia_ban'], 0, ',', '.') ?> VNĐ</span></div>
 								<div class="position-absolute d-flex z-index-2 product-actions  vertical">
-									<!-- <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-								href="<?= BASE_URL  . $sanPham['id']; ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Quick View">
-								<span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
-									<svg class="icon icon-eye-light">
-										<use xlink:href="#icon-eye-light"></use>
-									</svg>
-								</span>
-							</a> -->
-									<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Add To Wishlist">
-										<svg class="icon icon-star-light">
-											<use xlink:href="#icon-star-light"></use>
-										</svg>
-									</a>
-									<a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Compare">
-										<svg class="icon icon-arrows-left-right-light">
-											<use xlink:href="#icon-arrows-left-right-light"></use>
-										</svg>
-									</a>
-								</div><a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
+							
+								</div><a href="<?= BASE_URL ?>" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Thêm vào giỏ hàng</a>
 							</figure>
 							<div class="card-body text-center p-0">
 								<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-									<del class=" text-body fw-500 me-4 fs-13px"><?= $sanPham['gia_nhap'] ?></del>
 									<ins class="text-decoration-none"><?= number_format($sanPham['gia_ban'], 0, ',', '.') ?> VNĐ</ins></span>
 								<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPham['id']; ?>"><?= $sanPham['ten_san_pham'] ?></a></h4>
 
